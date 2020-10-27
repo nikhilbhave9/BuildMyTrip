@@ -1,10 +1,13 @@
 import logo from './logo.svg';
 import './App.css';
-import { Button } from '@material-ui/core';
-
+import Header from './templates/Header'; 
 
 function App() {
-  return <Button color="primary">Hello World</Button>;
+	return (
+  		<div className="App">
+			  <Header/> 
+		</div>
+  	);
 }
 
 export default App;
