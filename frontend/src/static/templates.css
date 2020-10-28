@@ -1,0 +1,17 @@
+@import url("https://fonts.googleapis.com/css?family=Satisfy"); 
+
+
+.header__logo{
+    font-family: "Satisfy";  
+    font-size: 200%; 
+    object-fit: contain;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+
+#logo {
+    max-width: 175px; 
+    max-height: 100px;
+    display: block; 
+} 
