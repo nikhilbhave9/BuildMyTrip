@@ -1,12 +1,25 @@
-import logo from './logo.svg';
 import './App.css';
-import Header from './templates/Header'; 
+import Header from './components/Header'; 
+import Homepage from './templates/Homepage'; 
+import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 
+import MainView  from './templates/ViewHotels'; 
+
 
 function App() {
 	return (
-  		<div className="App">
-			  <Header/> 
-		</div>
+		<Router>
+			<div className="App">
+				<Switch>
+					<Route path='/viewHotels/:country' component={MainView}/>
+					<Route path='/viewHotels/' component={MainView}/>
+					<Route path='/'> 
+						<Header/>
+						<Homepage/>
+					</Route>
+
+				</Switch>
+			</div>
+		</Router>
   	);
 }
 

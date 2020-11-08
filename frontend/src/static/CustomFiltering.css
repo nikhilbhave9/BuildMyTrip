@@ -1,0 +1,47 @@
+.input-group>.input-group-prepend {
+    flex: 0 0 25%;
+}
+
+.input-group .input-group-text {
+    width: 70%;
+}
+
+.CustomFiltering{
+    background-color: #2f3232;
+    display: flex;
+    text-align: center;
+    font-size: 0.875rem;
+    color: white; 
+    position: fixed;
+    height: 50px; 
+    z-index: 1;
+    top: 64px;
+    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
+    font-weight: 500;
+    line-height: 1.75;
+    border-radius: 4px;
+    letter-spacing: 0.02857em;
+    text-transform: "uppercase";
+}
+
+#filterBtn {
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 70px;
+    min-width: 70px;
+    left: 120%;
+    top: -95%;   
+}
+
+.radio-inline {
+    align-items: center;
+    margin-left: 20px; 
+    margin-right: 20px; 
+}
+
+#sortBtn {
+    max-height: 50px;
+    min-height: 50px;
+    max-width: 70px;
+    min-width: 70px;
+}

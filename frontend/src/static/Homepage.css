@@ -1,0 +1,89 @@
+@import url("https://fonts.googleapis.com/css?family=Satisfy"); 
+
+
+.header__logo{
+    font-family: "Satisfy";  
+    font-size: 200%; 
+    object-fit: contain;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+#tagline {
+    font-family: "serif"; 
+    font-size: 300%; 
+    object-fit: contain; 
+    color: "white"; 
+
+}
+
+.sheet-sg {
+    object-fit: contain;
+    top: "800px"; 
+    left: "80px"; 
+    height: "120%";
+    width: "100%";  
+    min-width: "150px";
+    min-height: "225px"; 
+    max-width: "400px"; 
+    background-image: url("https://res.cloudinary.com/duzmuxrsw/image/upload/v1604431907/singapore-flag-1_rp7kpm.jpg"); 
+}
+
+.sheet-sg:hover{
+    transition: 0.8s;
+    background: transparent;
+ 
+}
+
+.sheet-sw {
+    object-fit: contain;
+    top: "800px"; 
+    left: "80px"; 
+    height: "120%";
+    width: "100%";  
+    min-width: "150px";
+    min-height: "225px"; 
+    max-width: "400px"; 
+    background-image: url("https://res.cloudinary.com/duzmuxrsw/image/upload/v1604432140/swizz_g5tb9t.jpg"); 
+}
+
+.sheet-sw:hover{
+    transition: 0.8s;
+    background: transparent;
+ 
+}
+
+
+.sheet-nz {
+    object-fit: contain;
+    top: "800px"; 
+    left: "80px"; 
+    height: "120%";
+    width: "100%";  
+    min-width: "150px";
+    min-height: "225px"; 
+    max-width: "400px"; 
+    background-image: url("https://res.cloudinary.com/duzmuxrsw/image/upload/v1604432475/nz_nelvhp.png"); 
+}
+
+.sheet-nz:hover {
+    transition: 0.8s;
+    background: transparent;
+    display: block; 
+}
+
+#page2{
+    background-image: url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1604085834/013373_GG_July-Ad_Spas-of-America_GGR_Pool2_jblvnf.jpg); 
+    min-height: 100vh; 
+}
+
+.infoDisp {
+    display: none; 
+}
+
+a {
+    color: white; 
+    text-decoration: none;
+    font-family: "Satisfy"; 
+    font-size: 275%; 
+}

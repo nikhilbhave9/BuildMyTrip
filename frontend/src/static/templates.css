@@ -1,4 +1,4 @@
-@import url("https://fonts.googleapis.com/css?family=Satisfy"); 
+@import url("https://fonts.googleapis.com/css?family=Noto Sans"); 
 
 
 .header__logo{
@@ -11,7 +11,7 @@
 
 
 #logo {
-    max-width: 175px; 
+    max-width: 175px;
     max-height: 100px;
     display: block; 
 } 

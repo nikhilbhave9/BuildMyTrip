@@ -17,7 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 
-import '../static/templates.css'; 
+import '../static/Homepage.css'; 
 
 const theme = createMuiTheme({
   props: {
@@ -150,7 +150,7 @@ export default function PrimarySearchAppBar() {
     >
       <MenuItem>
         <IconButton aria-label="show 0 new mails" color="inherit">
-          <Badge badgeContent={14} color="secondary">
+          <Badge badgeContent={0} color="secondary">
             <MailIcon />
           </Badge>
         </IconButton>
@@ -158,7 +158,7 @@ export default function PrimarySearchAppBar() {
       </MenuItem>
       <MenuItem>
         <IconButton aria-label="show 0 new notifications" color="inherit">
-          <Badge badgeContent={14} color="secondary">
+          <Badge badgeContent={0} color="secondary">
             <NotificationsIcon />
           </Badge>
         </IconButton>
@@ -180,7 +180,7 @@ export default function PrimarySearchAppBar() {
 
   return (
     <div className={classes.grow}>
-      <AppBar position="static" style={{ backgroundColor: "transparent", color: "#13B6F1"}}>
+      <AppBar position="fixed" style={{ backgroundColor: "transparent", color: "#13B6F1"}}>
         <Toolbar>
           <IconButton
             edge="start"
@@ -209,12 +209,12 @@ export default function PrimarySearchAppBar() {
           <div className={classes.grow} />
           <div className={classes.sectionDesktop}>
             <IconButton aria-label="show 0 new mails" color="inherit">
-              <Badge badgeContent={4} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <MailIcon />
               </Badge>
             </IconButton>
             <IconButton aria-label="show 0 new notifications" color="inherit">
-              <Badge badgeContent={17} color="secondary">
+              <Badge badgeContent={0} color="secondary">
                 <NotificationsIcon />
               </Badge>
             </IconButton>
