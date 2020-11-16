@@ -17,6 +17,7 @@ import MoreIcon from '@material-ui/icons/MoreVert';
 import { createMuiTheme } from '@material-ui/core/styles';
 
 
+
 import '../static/Homepage.css'; 
 
 const theme = createMuiTheme({
@@ -133,7 +134,7 @@ export default function PrimarySearchAppBar() {
       onClose={handleMenuClose}
     >
       <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-      <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+      <MenuItem onClick={handleMenuClose}>M y account</MenuItem>
     </Menu>
   );
 
@@ -188,10 +189,10 @@ export default function PrimarySearchAppBar() {
             color="inherit"
             aria-label="open drawer"
           >
-            <MenuIcon />
+            <MenuIcon/>
           </IconButton>
           <div className="header__logo">
-            Fake<span style={{color:"#8dd151"}}>My</span>Trip
+            Build<span style={{color:"#8dd151"}}>My</span>Trip
           </div>
           <div className={classes.search}>
             <div className={classes.searchIcon}>

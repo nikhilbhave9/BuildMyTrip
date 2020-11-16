@@ -1,90 +1,175 @@
 import React, { Component } from 'react';
-import {makeStyles} from '@material-ui/core/styles';  
-import { CssBaseline } from '@material-ui/core'; 
+import { makeStyles } from '@material-ui/core/styles';
+import { CssBaseline } from '@material-ui/core';
 import '../static/Homepage.css';
-import {Link} from "react-router-dom";
+import { Link } from "react-router-dom";
+import Grid from '@material-ui/core/Grid';
+import 'date-fns';
+import DateFnsUtils from '@date-io/date-fns';
+import {
+    MuiPickersUtilsProvider,
+    KeyboardDatePicker,
+} from '@material-ui/pickers';
 
-import ScrollAnimation from 'react-animate-on-scroll'; 
+import ScrollAnimation from 'react-animate-on-scroll';
+import Button from '@material-ui/core/Button';
+import bgSg from '../static/sg.mp4';
 
-const useStyles = makeStyles((theme) => ({
-    
-    root: {
-        minHeight: '100vh', 
-        backgroundImage: 'url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1604079881/364222_yidan0.jpg)', 
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        "text-align": "center"
-    }, 
 
-    paperHome: {
-        display: "flex",
-        "& > *": {
-            margin: theme.spacing(5),
-            marginTop: theme.spacing(25), 
-            width: theme.spacing(50),
-            height: theme.spacing(28)
+
+
+
+export default function Homepage() {
+    const useStyles = makeStyles((theme) => ({
+
+        root: {
+            minHeight: '100vh',
         },
-        backgroundColor: 'transparent', 
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-    }, 
-
-    tagline: {
-        color: "#ffffff", 
-        "font-family": "Noto Sans",
-        "font-size": "300%",
-        "vertical-align": "middle",
-        display: "inline-block",
-        "margin-top": "5%",
-        "max-width": "60%"
-    },
     
-    page2Text: {
-        color: "#ffffff", 
-        "font-family": "Noto Sans",
-        "font-size": "300%",
-        display: "inline-block",
-        "max-width": "60%"
-    },
-})); 
+        paperHome: {
+            display: "flex",
+            "& > *": {
+                margin: theme.spacing(5),
+                marginTop: theme.spacing(25),
+                width: theme.spacing(50),
+                height: theme.spacing(28)
+            },
+            backgroundColor: 'transparent',
+            backgroundRepeat: 'no-repeat',
+            backgroundSize: 'cover',
+        },
+    
+        tagline: {
+            color: "#ffffff",
+            "font-family": "HelveticaNeue-Light",
+            "font-weight": "300",
+            "font-size": "300%",
+            "vertical-align": "middle",
+            display: "inline-block",
+            "margin-top": "5%",
+            "max-width": "60%"
+        },
+    
+        page2Text: {
+            color: "#ffffff",
+            "font-family": "HelveticaNeue-Light",
+            "font-weight": "300",
+            "font-size": "300%",
+            display: "inline-block",
+            "max-width": "60%"
+        },
+    
+        datePicker: {
+            top: "50%"
+        }
+    
+    }));
+    
+    
+    const [selectedDate, setSelectedDate] = React.useState(new Date());
 
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    };
 
-export default function Homepage() {    
-    const classes = useStyles(); 
-    document.getElementsByClassName("sheet-sg").onmouseover = function() {
+    const classes = useStyles();
+    document.getElementsByClassName("sheet-sg").onmouseover = function () {
         document.getElementsByClassName("infoDisp").style.display = "block";
     }
 
-    document.getElementsByClassName("sheet-sg").onmouseover = function() {
+    document.getElementsByClassName("sheet-sg").onmouseover = function () {
         document.getElementsByClassName("infoDisp").style.display = "none";
     }
-    return(
+    return (
         <div>
-        <div className={classes.root}>
-            <CssBaseline/>
-            <ScrollAnimation
-                animateIn="fadeIn"
-                animateOut="fadeOut"><span className={classes.tagline}>The most comprehensive website out there to alleviate your international stay concerns</span>
-            </ScrollAnimation>
-        </div> 
+            <div className={classes.root}>
+                <video autoPlay loop muted
+                    style={{
+                        position: "absolute",
+                        width: "100%",
+                        left: "50%",
+                        top: "50%",
+                        height: "100%",
+                        objectFit: "cover",
+                        transform: "translate(-50%, -50%)",
+                        zIndex: "-1",
+                    }}>
+                    <source src={bgSg} type="video/mp4" />
+                </video>
+
+                <CssBaseline />
+                <ScrollAnimation
+                    animateIn="fadeIn"
+                    animateOut="fadeOut"><span className={classes.tagline}>The most comprehensive website out there to address your international stay concerns</span>
+                </ScrollAnimation>
+                <Button variant="outlined" size="large" style={{ color: 'white', background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)" }}>
+                    Sign In
+                </Button>
+                <Button variant="outlined" size="large" style={{ color: 'white', background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)" }}>
+                    Register
+                </Button>
+
+
+                <div className="homeFooter">
+                    Created by Akshat, Nikhil, Vibodh
+                </div>
+            </div>
             <div id="page2">
                 <div className={classes.paperHome}>
                     <button className="sheet-sg">
                         <a href="/viewHotels/Singapore"> Singapore </a>
                     </button>
 
-                    <button className="sheet-sw"> 
+                    <button className="sheet-sw">
                         <a href="/viewHotels/Switzerland"> Switzerland </a>
-                    </button> 
+                    </button>
 
                     <button className="sheet-nz">
                         <a href="/viewHotels/NewZealand"> New Zealand </a>
-                    </button> 
-                </div>  
+                    </button>
+                </div>
                 <ScrollAnimation animateIn="fadeIn">
                     <span className={classes.page2Text}>Look for the best stay options in Singapore, Switzerland, and New Zealand</span>
                 </ScrollAnimation>
             </div>
-        </div> 
+            <div id="page3">
+
+                <MuiPickersUtilsProvider class="datePicker" utils={DateFnsUtils}>
+                    <Grid container justify="space-around">
+                        <KeyboardDatePicker
+                            disableToolbar
+                            variant="inline"
+                            format="MM/dd/yyyy"
+                            margin="normal"
+                            id="date-picker-inline"
+                            label="From"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            style={{ top: "250px", backgroundColor: 'rgba(255,255,255,0.75)' }}
+                        />
+                        <KeyboardDatePicker
+                            margin="normal"
+                            id="date-picker-dialog"
+                            label="To"
+                            format="MM/dd/yyyy"
+                            value={selectedDate}
+                            onChange={handleDateChange}
+                            KeyboardButtonProps={{
+                                'aria-label': 'change date',
+                            }}
+                            style={{ top: "250px", backgroundColor: 'rgba(255,255,255,0.65)' }}
+                        />
+                    </Grid>
+
+                </MuiPickersUtilsProvider>
+
+                    <span className={classes.page2Text}>Or explore by tinkering with dates and locations</span>
+                </div>
+
+            </div>
     )
 }
+

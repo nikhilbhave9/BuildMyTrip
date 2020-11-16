@@ -1,0 +1,79 @@
+@import url("https://fonts.googleapis.com/css?family=Satisfy"); 
+
+.navbar {
+    background-color: 'rgba(255, 255, 255, 0.5)'; 
+}
+
+.header__logo{
+    font-family: "Satisfy";  
+    font-size: 200%; 
+    object-fit: contain;
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
+.sidebar-menu {
+    font-family: 'Open Sans'; 
+    background-color: "#000000"; 
+    width: 20%;
+    height: 100vh;
+    display: flex; 
+    justify-content: center;
+    position: fixed; 
+    top: 0; 
+    transition: 650ms;
+    left: -100%;  
+    z-index: 100; 
+}
+
+.sidebar-menu.active {
+    transition: 500ms; 
+    left: -2%;  
+}
+
+.side-items {
+    left: -100%; 
+}
+
+.side-txt {
+    display: flex; 
+    justify-content: start; 
+    padding: 8px 0px 8px 16px; 
+    list-style: none; 
+    height: 60px; 
+    width: 95%; 
+
+}
+
+.side-txt a {  
+    text-decoration: none;
+    color: #f5f5f5; 
+    font-size: 20px; 
+    width: 95%; 
+    height: 100%; 
+    display: flex; 
+    align-items: center; 
+    padding: 0 16px; 
+    border-radius: 4px; 
+}
+
+.side-txt a:hover {
+    background-color: #787d82; 
+}
+
+.sidebar-text-span {
+    margin-left: 16px;
+}
+
+.side-items {
+    width: 100%;
+}
+
+
+search {
+    left: 50%; 
+}
+  
+
+
+

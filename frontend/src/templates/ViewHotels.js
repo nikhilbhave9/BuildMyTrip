@@ -5,7 +5,6 @@ import FormControl from '@material-ui/core/FormControl';
 import Radio from '@material-ui/core/Radio';
 import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
 import { makeStyles } from '@material-ui/core/styles';
 import Button from '@material-ui/core/Button';
 import Select from '@material-ui/core/Select';
@@ -50,7 +49,6 @@ export default function MainView(props) {
 
     return (
         <div>
-            {props.match.params.country}
             <Header />
             <div className="CustomFiltering" style={{ "padding": "15px", "vertical-align": "middle", "width": "100%" }}>
                 SORT BY
@@ -126,21 +124,22 @@ export default function MainView(props) {
                         <MenuItem value={20}>Singapore</MenuItem>
                         <MenuItem value={30}>Switzerland</MenuItem>
                     </Select>
-
-                    <div className={classes.root} style={{top: "-80%", left: "120%"}}>
-                        <Slider style={{top: "-80%", left: "120%"}}
+                </FormControl>
+                <FormControl style={{top: "5%", left: "5%"}}>
+                    <div className={classes.root}>
+                        Price Range
+                        <Slider
                             value={value}
                             onChange={handleSlideChange}
                             valueLabelDisplay="auto"
                             aria-labelledby="range-slider"
                             getAriaValueText={valuetext}
                         />
-                        
                     </div>
-                    <Button id="filterBtn" variant="outlined" color="primary" style={{ top: "-225%", left: "235%"}}>
-                        Filter
-                    </Button>
                 </FormControl>
+                <Button id="filterBtn" variant="outlined" color="primary" style={{ left: "7.5%"}}>
+                    Filter
+                </Button>
             </div>
         </div>
     )

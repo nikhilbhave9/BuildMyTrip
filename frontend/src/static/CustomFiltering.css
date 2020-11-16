@@ -28,9 +28,7 @@
     max-height: 50px;
     min-height: 50px;
     max-width: 70px;
-    min-width: 70px;
-    left: 120%;
-    top: -95%;   
+    min-width: 70px; 
 }
 
 .radio-inline {
@@ -44,4 +42,8 @@
     min-height: 50px;
     max-width: 70px;
     min-width: 70px;
+}
+
+#datePicker {
+    margin-top: 1000px;
 }

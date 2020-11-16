@@ -1,13 +1,7 @@
+
+
 @import url("https://fonts.googleapis.com/css?family=Satisfy"); 
 
-
-.header__logo{
-    font-family: "Satisfy";  
-    font-size: 200%; 
-    object-fit: contain;
-    margin-left: 20px;
-    margin-right: 20px;
-}
 
 #tagline {
     font-family: "serif"; 
@@ -73,8 +67,15 @@
 }
 
 #page2{
-    background-image: url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1604085834/013373_GG_July-Ad_Spas-of-America_GGR_Pool2_jblvnf.jpg); 
+    background-image: url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1604001574/park-hyatt-5-star-hotel-in-Auckland_dzrpwu.jpg); 
     min-height: 100vh; 
+    background-size: cover; 
+}
+
+#page3{
+    background-image: url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1605459747/Kempinski-Grand-Hotel-Des-Bains-St.-Moritz_ifiibs.jpg); 
+    min-height: 100vh; 
+    background-size: cover;
 }
 
 .infoDisp {
@@ -87,3 +88,13 @@ a {
     font-family: "Satisfy"; 
     font-size: 275%; 
 }
+
+
+.homeFooter {
+    position: absolute; 
+    background-color: white; 
+    width: 25%;
+    height: 12.5%; 
+    right: 2.5%;
+    bottom: 0%; 
+}   
