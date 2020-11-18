@@ -23,16 +23,16 @@ export default function PrimarySearchAppBar() {
                 <Link to="#" className="menu-trigger" >
                     <FaIcons.FaBars onClick={showSidebar} style={{ fontSize: "50%", marginLeft: "150%", float: "left" }} />
                 </Link>
-                <div className="header__logo" style={{ color: "#3734eb", float: "left", marginLeft: "5%" }}>
+                <Link to="/" className="header__logo" style={{ color: "#3734eb", float: "left", marginLeft: "5%", textDecoration: "none" }}>
                     Build<span style={{ color: "#eb34b1" }}>My</span>Trip
-                </div>
+                </Link>
                 <div className="quick-links" style={{ position: "absolute", left: "auto", right: "5%", fontSize: "70%" }}>
-                    <Link to="#" className="quick-link" style={{ color: "#3734eb" }}>
+                    <Link to="/login" className="quick-link" style={{ color: "#3734eb" }}>
                         <Button size="large" style={{ color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
                             Sign In
                         </Button>
                     </Link>
-                    <Link to="#" className="quick-link" style={{ color: "#eb34b1" }}>
+                    <Link to="/register" className="quick-link" style={{ color: "#eb34b1" }}>
                         <Button size="large" style={{ marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
                             Register
                         </Button>

@@ -16,18 +16,17 @@ import Button from '@material-ui/core/Button';
 import bgSg from '../static/sg.mp4';
 
 
-
-
-
 export default function Homepage() {
     const useStyles = makeStyles((theme) => ({
 
-        root: {
+        page1: {
             minHeight: '100vh',
+            overflow: 'hidden'
         },
     
         paperHome: {
-            display: "flex",
+            display: "block",
+            overflow: 'hidden',
             "& > *": {
                 margin: theme.spacing(5),
                 marginTop: theme.spacing(25),
@@ -41,7 +40,7 @@ export default function Homepage() {
     
         tagline: {
             color: "#ffffff",
-            "font-family": "HelveticaNeue-Light",
+            "font-family": "Lato",
             "font-weight": "300",
             "font-size": "300%",
             "vertical-align": "middle",
@@ -52,7 +51,7 @@ export default function Homepage() {
     
         page2Text: {
             color: "#ffffff",
-            "font-family": "HelveticaNeue-Light",
+            "font-family": "Lato",
             "font-weight": "300",
             "font-size": "300%",
             display: "inline-block",
@@ -82,10 +81,11 @@ export default function Homepage() {
     }
     return (
         <div>
-            <div className={classes.root}>
+            <div className={classes.page1}>
                 <video autoPlay loop muted
                     style={{
                         position: "absolute",
+                        display: "cover",
                         width: "100%",
                         left: "50%",
                         top: "50%",
@@ -111,21 +111,24 @@ export default function Homepage() {
 
 
                 <div className="homeFooter">
-                    Created by Akshat, Nikhil, Vibodh
+                    Created by <br></br>
+                    <a style={{marginRight: "5px"}} href="https://github.com/Akshat-Singh">Akshat</a>, 
+                    <a style={{marginRight: "5px"}} href="https://github.com/nikhilbhave9">Nikhil</a>, 
+                    <a style={{marginRight: "5px"}} href="https://github.com/vibodhnautiyal">Vibodh</a>
                 </div>
             </div>
             <div id="page2">
                 <div className={classes.paperHome}>
                     <button className="sheet-sg">
-                        <a href="/viewHotels/Singapore"> Singapore </a>
+                        <a class="country-txt" href="/viewHotels/Singapore"> Singapore </a>
                     </button>
 
                     <button className="sheet-sw">
-                        <a href="/viewHotels/Switzerland"> Switzerland </a>
+                        <a class="country-txt" href="/viewHotels/Switzerland"> Switzerland </a>
                     </button>
 
                     <button className="sheet-nz">
-                        <a href="/viewHotels/NewZealand"> New Zealand </a>
+                        <a class="country-txt" href="/viewHotels/NewZealand"> New Zealand </a>
                     </button>
                 </div>
                 <ScrollAnimation animateIn="fadeIn">
