@@ -1,0 +1,76 @@
+.hotel-tile {
+    display: block;
+    margin-left: 20%; 
+}
+
+.hotel-titlebar {
+    display: inline-block;
+    font-family: ubuntu;
+    font-size: 30px; 
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white; 
+    
+}
+
+.hotel-titlebar .left {
+    text-align: left;
+    float: left;  
+    margin-left: 10px; 
+}
+
+.hotel-titlebar .right {
+    text-align: right;
+    float: right; 
+    margin-right: 10px
+}
+
+.hotel_price {
+    font-size: 30px; 
+    margin-right: 200; 
+}
+
+.hotel_rating {
+    font-size: 15px; 
+}
+
+.hotel_location {
+    font-size: 15px; 
+}
+
+.hotel-body {
+    width: 90%;
+    max-height: 300px; 
+}
+
+
+table {
+    border-spacing: 10px;   
+}
+
+.left-column {
+    background-color: rgba(0, 0, 0, 0.8);
+    max-width: 350px; 
+    height: 300px; 
+    color: white; 
+}
+
+.left-column img {
+    max-width: 243px;
+    max-height: 162px;  
+    height: auto; 
+    width: auto; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 5%; 
+}
+
+.right-column {
+    margin-left: 200px; 
+    max-width: 715px;
+    max-height: 300px;
+    width: 750px;
+    height: 300px; 
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white; 
+}

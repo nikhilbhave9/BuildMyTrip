@@ -13,14 +13,15 @@ import {
 
 import ScrollAnimation from 'react-animate-on-scroll';
 import Button from '@material-ui/core/Button';
-import bgSg from '../static/sg.mp4';
+import bgSg from '../static/sg1.mp4';
 
 
 export default function Homepage() {
     const useStyles = makeStyles((theme) => ({
 
         page1: {
-            minHeight: '100vh',
+            minHeight: '94.25vh',
+            height: '100%', 
             overflow: 'hidden'
         },
     
@@ -79,6 +80,8 @@ export default function Homepage() {
     document.getElementsByClassName("sheet-sg").onmouseover = function () {
         document.getElementsByClassName("infoDisp").style.display = "none";
     }
+
+    
     return (
         <div>
             <div className={classes.page1}>

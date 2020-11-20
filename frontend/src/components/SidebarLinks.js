@@ -11,7 +11,7 @@ import React, { useState } from 'react';
 export const SidebarLinks = [
     {
         title: 'My Profile',
-        path: '/user/profile',
+        path: '/userprofile',
         icon: <AiIcons.AiOutlineUser/>,
         className: 'side-txt'
     },
@@ -23,7 +23,7 @@ export const SidebarLinks = [
     },
     {
         title: 'My Bookings',
-        path: '/user/profile/history',
+        path: '/userbookings',
         icon: <AiIcons.AiOutlineHistory/>,
         className: 'side-txt'
     }
