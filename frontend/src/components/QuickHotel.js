@@ -8,7 +8,6 @@ import DateFnsUtils from "@date-io/date-fns";
 import { Link } from 'react-router-dom';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker
 } from "@material-ui/pickers";
 import Select from '@material-ui/core/Select';
@@ -16,10 +15,8 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormGroup from '@material-ui/core/FormGroup';
 import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
-
-
-
-
+import TextField from '@material-ui/core/TextField';
+import FormControl from '@material-ui/core/FormControl';
 
 // components: Name, Price, Rating, Image, Catergory, Number of Reviews, UniqueProductID?
 
@@ -36,7 +33,8 @@ function QuickHotel({ name, costPerNight, id, location }) {
             .catch(err => alert(JSON.stringify(err))); 
     } */
 
-    const [finalCost, setFinalCost] = React.useState(10000); 
+    const baseCost = 10000; 
+    const [finalCost, setFinalCost] = React.useState(10000);
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [checkOutDate, setCheckOutDate] = React.useState(new Date().setDate(selectedDate.getDate() + 1));
     const [roomPreferences, setRoomPreferences] = React.useState(1);
@@ -58,13 +56,22 @@ function QuickHotel({ name, costPerNight, id, location }) {
     };
 
     const getCostEstimate = () => {
-        let newCost = finalCost * Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400) * roomPreferences; 
+        let newCost = baseCost * Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400) * roomPreferences;
 
         newCost = newCost + (Number(document.getElementById('cab-addon').checked) +
-                    Number(document.getElementById('xtrabed-addon').checked) +
-                    Number(document.getElementById('xlbed-addon').checked)) * 2000;
+            Number(document.getElementById('xtrabed-addon').checked) +
+            Number(document.getElementById('xlbed-addon').checked)) * 2000;
 
-        document.getElementById('estimate-invoice').innerText = "Cost: " + newCost; 
+        let invoice = "<tr><td className='price-component'>Room Tier: </td><td>" + roomPreferences + 
+                    "</td></tr><tr><td className='price-component'>Per Night Cost: </td><td>₹" + (baseCost * roomPreferences).toString() + 
+                    "</td></tr><tr><td className='price-component'>Total Room Cost <br>("+Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400)+" Nights): </td><td>₹" + (baseCost * Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400) * roomPreferences).toString() +
+                    "</td></tr><tr><td className='price-component'>Cab: </td><td>₹" + (Number(document.getElementById('cab-addon').checked * 2000)).toString() + 
+                    "</td></tr><tr><td className='price-component'>Extra Bed: </td><td>₹" + (Number(document.getElementById('xtrabed-addon').checked * 2000)).toString() + 
+                    "</td></tr><tr><td className='price-component'>Custom Bed: </td><td>₹" + (Number(document.getElementById('xlbed-addon').checked * 2000)).toString() + 
+                    "</td></tr><tr><td className='price-component'>GST (9%): </td><td>₹" + (0.09 * newCost) + 
+                    "</td></tr><tr><td className='price-component'><strong>Total Cost: </strong></td><td><strong>₹" + (1.09 * newCost) + "</strong>";    
+
+        document.getElementById('estimate-invoice').innerHTML = invoice;
     }
 
     const handleRoomPref = (e) => {
@@ -79,7 +86,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
     }
 
     const handleRoomChoice = (e) => {
-        setFinalCost(finalCost * roomPreferences); 
+        setFinalCost(finalCost * roomPreferences);
     }
 
     return (
@@ -142,7 +149,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
                                     />
                                 </Grid>
                             </MuiPickersUtilsProvider>
-                            
+
                         </td>
                         <td className='center-column' style={{ alignItems: 'center' }}>
                             Your Room Preferences
@@ -205,16 +212,16 @@ function QuickHotel({ name, costPerNight, id, location }) {
 
                             <FormGroup row style={{ backgroundColor: 'rgba(255, 255, 255, 0.4)', width: '75%', marginLeft: '10%' }}>
                                 <FormControlLabel
-                                    control={<Checkbox name="checkedA" id="cab-addon" value={1}/>}
+                                    control={<Checkbox name="checkedA" id="cab-addon" value={1} />}
                                     label="Cab Pickup/Drop "
 
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox name="checkedA" id="xlbed-addon"/>}
+                                    control={<Checkbox name="checkedA" id="xlbed-addon" />}
                                     label="Extra Large Bed"
                                 />
                                 <FormControlLabel
-                                    control={<Checkbox name="checkedA" id="xtrabed-addon"/>}
+                                    control={<Checkbox name="checkedA" id="xtrabed-addon" />}
                                     label="Second Bed"
                                 />
                             </FormGroup>
@@ -234,47 +241,76 @@ function QuickHotel({ name, costPerNight, id, location }) {
                             >
                                 Get Cost Estimate
                             </Button>
-                            <div id="estimate-invoice"></div>
+                            <table id="estimate-invoice" style={{textAlign: 'left'}}>
+
+                            </table>
                         </td>
 
                     </tr>
                 </table>
-                
-                <table>
-                    <tr>
-                        <td>
-                            <Link to="/quickbook/ID">
-                                <Button
-                                    size="large"
-                                    id="submit"
-                                    type="submit"
-                                    style={{
-                                        marginTop: "10%",
-                                        color: 'white',
-                                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                                    }
-                                    }>
-                                    Quick Book
+
+                <div style={{ width: "45%", backgroundColor: 'rgba(255, 255, 255, 0.8)', margin: "auto" }}>
+                    <FormControl style={{ width: "90%" }}>
+                        <TextField
+                            label="Billing Name"
+                            id="outlined-margin-normal"
+                            defaultValue="Default Value"
+                            helperText="Ensure that this name matches the one on your Identity"
+                            margin="normal"
+                            variant="outlined"
+                        />
+
+                        <TextField
+                            label="Billing Email Address"
+                            id="outlined-margin-normal"
+                            defaultValue="Default Value"
+                            helperText="A copy of the bill will be sent to this email"
+                            margin="normal"
+                            variant="outlined"
+                        />
+
+                        <TextField
+                            label="Billing Phone Number"
+                            id="outlined-margin-normal"
+                            defaultValue="Default Value"
+                            helperText="SMS alerts will be prompted to this number"
+                            margin="normal"
+                            variant="outlined"
+                        />
+                    </FormControl>
+                </div>
+                <div style={{ width: "45%", height: '20%', margin: "auto" }}>
+                    <Link to="/quickbook/ID">
+                        <Button
+                            size="large"
+                            id="submit"
+                            type="submit"
+                            style={{
+                                marginTop: "10%",
+                                color: 'white',
+                                background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                            }
+                            }>
+                            Quick Book
                                 </Button>
-                            </Link>
-                            <Link>
-                                <Button
-                                    size="large"
-                                    id="submit"
-                                    type="submit"
-                                    style={{
-                                        marginLeft: "5%",
-                                        marginTop: "10%",
-                                        color: 'white',
-                                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                                    }
-                                    }>
-                                    Add to tracker
-                                </Button>
-                            </Link>
-                        </td>
-                    </tr>
-                </table>
+                    </Link>
+                    <Link>
+                        <Button
+                            size="large"
+                            id="submit"
+                            type="submit"
+                            style={{
+                                marginLeft: "5%",
+                                marginTop: "10%",
+                                color: 'white',
+                                background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                            }
+                            }>
+                            Add to tracker
+                        </Button>
+                    </Link>
+                </div>
+
             </div>
         </div >
     )
