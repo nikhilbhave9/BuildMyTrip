@@ -11,6 +11,7 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
+import { Link } from 'react-router-dom'; 
 import {
     MuiPickersUtilsProvider,
     KeyboardTimePicker,
@@ -123,12 +124,35 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                             <div id="vacancy-display">
                                 Select a date from the picker to see the available rooms on the day
                             </div>
-                            <Button size="large" id="submit" type="submit" style={{ marginTop: "10%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
-                                Quick Book
-                            </Button>
-                            <Button size="large" id="submit" type="submit" style={{ marginLeft: "5%", marginTop: "10%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
-                                Add to tracker
-                            </Button>
+                            <Link to="/quickbook/ID">
+                                <Button 
+                                    size="large" 
+                                    id="submit" 
+                                    type="submit" 
+                                    style={{ 
+                                        marginTop: "10%", 
+                                        color: 'white', 
+                                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" 
+                                    }
+                                }>
+                                    Quick Book
+                                </Button>
+                            </Link>
+                            <Link>
+                                <Button 
+                                    size="large" 
+                                    id="submit" 
+                                    type="submit" 
+                                    style={{ 
+                                        marginLeft: "5%", 
+                                        marginTop: "10%", 
+                                        color: 'white', 
+                                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" 
+                                    }
+                                }>
+                                    Add to tracker
+                                </Button>
+                            </Link> 
                         </td>
                     </tr>
                 </table>

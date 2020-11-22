@@ -7,20 +7,20 @@ import '../static/ViewHotels.css'
 export default class DisplayHotels extends Component{
 
     constructor(props) {
-        super(props); 
+        super(props);
 
         this.state = {
             mdata: [], 
             filter: ""
         }
     };
-    
+
     render() {
         return (
             <div> 
                 <div className="background"></div> 
                 <div className="CustomFiltering" style={{"padding": "15px", "vertical-align": "middle"}}>
-                    Sort By
+                    Sort By 
                     <form>
                         <label class="radio-inline">
                             <input type="radio" name="optradio" value="D" id="cost"/> Prices: High to Low
@@ -41,7 +41,7 @@ export default class DisplayHotels extends Component{
                             <input type="radio" name="optradio" value="A" id="avgRatings"/> Rating: Low to High
                         </label>
                         <button>Sort</button>
-
+                    
                         <select name="Filter" id="Filter" style={{"margin-left": "90px", "margin-right": "20px"}}>
                             <option value="" disbaled>Category</option> 
                             <option value="Processor">Processors</option>
@@ -62,7 +62,7 @@ export default class DisplayHotels extends Component{
                             )
                         }
 
-                        else if (this.state.filter === data.category){
+                        else if (this.state.filter === data.category){  
                             {/* If a filter has been applied, list only the items that pass the filter */}
                             return ( 
                                 <h1>Hotels here</h1>

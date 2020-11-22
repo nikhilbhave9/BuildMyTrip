@@ -1,0 +1,91 @@
+.quick-tile {
+    display: block;
+    margin-left: 5%; 
+}
+
+.quick-titlebar {
+    display: inline-block;
+    font-family: ubuntu;
+    font-size: 30px; 
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white; 
+    
+}
+
+.quick-titlebar .left {
+    text-align: left;
+    float: left;  
+    margin-left: 10px; 
+}
+
+.quick-titlebar .right {
+    text-align: right;
+    float: right; 
+    margin-right: 10px
+}
+
+.quick_price {
+    font-size: 30px; 
+    margin-right: 200; 
+}
+
+.quick_rating {
+    font-size: 15px; 
+}
+
+.quick_location {
+    font-size: 15px; 
+}
+
+.quick-body {
+    width: 90%;
+    max-height: 300px; 
+}
+
+
+table {
+    border-spacing: 10px;   
+}
+
+.left-column {
+    background-color: rgba(0, 0, 0, 0.8);
+    max-width: 200px; 
+    width: 305px; 
+    height: 300px; 
+    color: white; 
+}
+
+.left-column img {
+    max-width: 243px;
+    max-height: 162px;  
+    height: auto; 
+    width: auto; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 5%; 
+}
+
+.center-column {
+    margin-left: 20px; 
+    max-width: 400px;
+    max-height: 300px;
+    width: 700px;
+    height: 300px; 
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white; 
+}
+
+.right-column {
+    margin-left: 200px; 
+    max-width: 715px;
+    max-height: 300px;
+    width: auto;
+    height: 300px; 
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white; 
+}
+
+#estimate-invoice .price-component {
+    width: 65%;
+}
