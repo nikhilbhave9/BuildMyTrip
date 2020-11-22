@@ -8,6 +8,7 @@ import RegisterPage from './templates/RegisterPage';
 import UserProfile from './templates/UserProfile';
 import HotelTile from './components/HotelTile';
 import DisplayHotels from './templates/ViewHotels'
+import QuickBook from './templates/QuickBook'
 
 
 function App() {
@@ -15,6 +16,10 @@ function App() {
 		<Router>
 			<div className="App">
 				<Switch>
+					<Route path='/quickbook/:id'>
+						<Navbar/>
+						<QuickBook/>
+					</Route>
 					<Route path='/login'>
 						<Navbar/>
 						<LoginPage/>
