@@ -9,6 +9,7 @@ import UserProfile from './templates/UserProfile';
 import HotelTile from './components/HotelTile';
 import DisplayHotels from './templates/ViewHotels'
 import QuickBook from './templates/QuickBook'
+import BookingConfirmation from './templates/BookConf'; 
 
 
 function App() {
@@ -16,6 +17,10 @@ function App() {
 		<Router>
 			<div className="App">
 				<Switch>
+					<Route path='/bookingconfirmation'>
+						<Navbar/>
+						<BookingConfirmation/>
+					</Route>
 					<Route path='/quickbook/:id'>
 						<Navbar/>
 						<QuickBook/>
