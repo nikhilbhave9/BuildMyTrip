@@ -5,7 +5,7 @@ import { makeStyles } from '@material-ui/core/styles';
 import * as FaIcons from "react-icons/fa"
 import * as AiIcons from "react-icons/ai"
 import Button from '@material-ui/core/Button';
-import { SidebarLinks } from './SidebarLinks';
+import { SidebarLinksLoggedIn, SidebarLinksLoggedOut } from './SidebarLinks';
 import TextField from '@material-ui/core/TextField';
 
 import '../static/Navbar.css';
@@ -46,7 +46,7 @@ export default function PrimarySearchAppBar() {
                             <AiIcons.AiOutlineClose />
                         </Link>
                     </li>
-                    {SidebarLinks.map((item, index) => {
+                    {SidebarLinksLoggedOut.map((item, index) => {
                         return (
                             <li key={index} className={item.className}>
                                 <Link to={item.path}>
@@ -103,7 +103,7 @@ export default function PrimarySearchAppBar() {
                             <AiIcons.AiOutlineClose />
                         </Link>
                     </li>
-                    {SidebarLinks.map((item, index) => {
+                    {SidebarLinksLoggedIn.map((item, index) => {
                         return (
                             <li key={index} className={item.className}>
                                 <Link to={item.path}>

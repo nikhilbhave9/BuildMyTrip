@@ -1,6 +1,5 @@
 import * as FaIcons from "react-icons/fa";
 import * as AiIcons from "react-icons/ai";
-import * as IoIcons from "react-icons/io";
 import * as MdIcons from "react-icons/md";
 
 
@@ -8,7 +7,7 @@ import * as MdIcons from "react-icons/md";
 import React, { useState } from 'react';
 
 {/* Inspired by https://www.youtube.com/watch?v=CXa0f4-dWi4 */}
-export const SidebarLinks = [
+export const SidebarLinksLoggedIn = [
     {
         title: 'My Profile',
         path: '/userprofile',
@@ -35,3 +34,17 @@ export const SidebarLinks = [
     }
 ]
 
+export const SidebarLinksLoggedOut = [
+    {
+        title: 'Sign In',
+        path: '/login',
+        icon: <FaIcons.FaSignInAlt/>,
+        className: 'side-txt'
+    },
+    {
+        title: 'Register',
+        path: '/register',
+        icon: <FaIcons.FaUserPlus/>,
+        className: 'side-txt'
+    },
+]
