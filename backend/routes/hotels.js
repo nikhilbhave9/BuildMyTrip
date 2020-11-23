@@ -7,7 +7,7 @@ let hotel = require('../models/hotels.model.js');
 
 
 /* Trigger the following when "http//www.website.com/hotels" is called */
-router.route('/hotels').get((req, res) => {
+router.route('/').get((req, res) => {
     /* A GET route that returns the list of all hotels from the MongoDB database */
 
     /* If found in the MongoDB */
@@ -57,23 +57,24 @@ router.route('/:id').delete((req, res) => {
 
 
 // ADMIN ACCESS - UPDATE DETAILS OF HOTELS
-// /* Trigger the following if "" is called */
-// router.route('/update/:id').post((req, res) => {
-//     /* A POST route that updates the details of the product given its ID */
+/* Trigger the following if "" is called */
+router.route('/update/:id').post((req, res) => {
+    /* A POST route that updates the details of the product given its ID */
 
-//     shop.findById(req.params.id)
-//         .then(item => {
-//             /* Extracting details in JSON format */ 
-//             item.itemName = req.body.itemName;
-//             item.description = req.body.description;
-//             item.cost = req.body.cost; 
+    hotel.findById(req.params.id)
+        .then(item => {
+            /* Extracting details in JSON format */ 
+            item.itemName = req.body.itemName;
+            item.location = req.body.location;
+            item.description = req.body.description;
+            item.itemCost = req.body.itemCost; 
 
-//             item.save()
-//                 .then(() => res.json("Item Updated Successfully"))
-//                 .catch(error => res.status(400).json("Error: " + error))
-//         })
-//         .catch(error => res.status(400).json("Error: " + error))
-// });
+            item.save()
+                .then(() => res.json("Item Updated Successfully"))
+                .catch(error => res.status(400).json("Error: " + error))
+        })
+        .catch(error => res.status(400).json("Error: " + error))
+});
 
 
 // =======================================================================
