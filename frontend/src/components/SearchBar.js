@@ -54,9 +54,9 @@ export default class SearchBar extends Component {
         }
         return (
             /* Get an unordered list of suggestions from the item Name array for suggestions */ 
-            <ul >
+            <ul>
                 {
-                    suggestions.map((item, index) => (<li key={index}><a href={this.state.JSONCountries[item]}>{item}</a></li>))
+                    suggestions.map((item, index) => (<li className="list-item" key={index}><a href={this.state.JSONCountries[item]}>{item}</a></li>))
                 }
             </ul>
         );
