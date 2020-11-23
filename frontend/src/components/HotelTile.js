@@ -50,7 +50,7 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
             document.getElementById("vacancy-display").innerText = "Rooms Available: " + vacancies;
             document.getElementById("vacancy-display").style = "color: green"; 
         }
-    };
+    }
 
     return (
         <div className="hotel-tile">

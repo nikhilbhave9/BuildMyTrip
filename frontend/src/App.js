@@ -6,6 +6,7 @@ import Navbar from './components/Navbar.js'
 import LoginPage from './templates/LoginPage'; 
 import RegisterPage from './templates/RegisterPage'; 
 import UserProfile from './templates/UserProfile';
+import UserBookings from './templates/UserBookings';
 import HotelTile from './components/HotelTile';
 import DisplayHotels from './templates/ViewHotels'
 import QuickBook from './templates/QuickBook'
@@ -39,7 +40,7 @@ function App() {
 					</Route>
 					<Route path='/userbookings'>
 						<Navbar/>
-						Hello World
+						<UserBookings/>
 					</Route>
 					<Route path='/viewhotels/'>
 						<Navbar/>

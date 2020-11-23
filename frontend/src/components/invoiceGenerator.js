@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import emailjs from 'emailjs-com';
 
 import jsPDF from 'jspdf';
 import Button from '@material-ui/core/Button';
 import img from '../logo.png'
+import { Link } from 'react-router-dom'; 
 import '../static/invoiceGenerator.css';
 
 export default function invoiceGenerator() {
@@ -43,20 +45,38 @@ export default function invoiceGenerator() {
                     alt="done"
                 />
                 Your Booking had been processed. You can now download the invoice.
-                <Button
-                    size="large"
-                    id="submit"
-                    type="submit"
-                    style={{
-                        margin: 'auto',
-                        marginTop: '2%',  
-                        color: 'white',
-                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                    }}
-                    onClick={generateInvoice}
-                >
-                    Generate Invoice
-                </Button>
+                <Link to='#'> 
+                    <Button
+                        size="large"
+                        id="submit"
+                        type="submit"
+                        style={{
+                            margin: 'auto',
+                            marginTop: '2%',
+                            color: 'white',
+                            background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                        }}
+                        onClick={generateInvoice}
+                    >
+                        Generate Invoice
+                    </Button>
+                </Link> 
+                <Link to='/'>
+                    <Button
+                        size="large"
+                        id="submit"
+                        type="submit"
+                        style={{
+                            margin: 'auto',
+                            marginTop: '2%',
+                            marginLeft: '2%', 
+                            color: 'white',
+                            background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                        }}
+                    >
+                        Go back to the homepage
+                    </Button>
+                </Link>
             </div>
 
         </div>

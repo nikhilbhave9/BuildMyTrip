@@ -315,7 +315,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
                     </FormControl>
                 </div>
                 <div style={{ width: "45%", height: '20%', margin: "auto" }}>
-                    <Link to="/quickbook/ID">
+                    <Link to="/bookingconfirmation">
                         <Button
                             size="large"
                             id="submit"
@@ -345,7 +345,6 @@ function QuickHotel({ name, costPerNight, id, location }) {
                             Add to tracker
                         </Button>
                     </Link>
-                    <InvoiceGenerator />
                 </div>
 
             </div>
