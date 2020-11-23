@@ -12,12 +12,16 @@ import DisplayHotels from './templates/ViewHotels'
 import QuickBook from './templates/QuickBook'
 import BookingConfirmation from './templates/BookConf'; 
 import UserTracker from './templates/UserTracker'; 
+import Signout from './templates/Signout'; 
 
 function App() {
 	return (
 		<Router>
 			<div className="App">
 				<Switch>
+					<Route path='/signout'>
+						<Signout/>	
+					</Route> 
 					<Route path='/bookingconfirmation'>
 						<Navbar/>
 						<BookingConfirmation/>
