@@ -1,3 +1,5 @@
+const bcrypt = require('bcryptjs');
+
 const router = require('express').Router();
 let user = require('../models/user.model');
 
@@ -19,15 +21,20 @@ router.route('/').get((req, res) => {
  router.route('/register').post((req, res) => {
    //  A POST router that registers a new user /*
     const username = req.body.username; 
-    const password = req.body.password; 
+    const password = req.body.password;
 
-    const newUser = new user({username, password});
+    bcrypt.hash(password, 10, function(err, hash) {
+        // Store hash in your password DB.
+        
+       const password = hash; 
+       const newUser = new user({username, password});
+
+       newUser.save()
+        .then(() => res.json("User added successfully!"))
+        .catch(err => res.status(400).json("Error: " + err));
+    });
 
     console.log(req.body);
-
-    newUser.save()
-        .then(() => res.json('User added successfully!!'))
-        .catch(err => res.status(400).json('Error: ' + err));
         
 }); 
 
