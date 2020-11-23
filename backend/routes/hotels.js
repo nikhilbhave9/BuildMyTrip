@@ -3,18 +3,17 @@ const { json } = require('express');
 const mongoose = require('mongoose');
 
 /* Calling the mongoose model we just created */
-let Hotel = require('../models/hotels.model.js'); 
+let hotel = require('../models/hotels.model.js'); 
 
 
-/* Trigger the following when "http//www.website.com/" is called */
+/* Trigger the following when "http//www.website.com/hotels" is called */
 router.route('/hotels').get((req, res) => {
-    /* A GET route that returns the list of all products from the MongoDB database */
-
+    /* A GET route that returns the list of all hotels from the MongoDB database */
 
     /* If found in the MongoDB */
-    Hotel.find()
+    hotel.find()
 
-        /* Return the products you got from the database in JSON format */ 
+        /* Return the hotels you get from the database in JSON format */ 
         .then(items => res.json(items))
 
         /* In case you hit an error */
@@ -24,41 +23,41 @@ router.route('/hotels').get((req, res) => {
 // =======================================================================
 
 // ADD NEW HOTELS - INSOMNIA / POSTMAN 
-// /* Trigger the following if "http//www.website.com/shop/add" is called */ 
-// router.route('/add').post((req, res) => {
+/* Trigger the following if "www.website.com/hotels/add" is called */ 
+router.route('/add').post((req, res) => {
 
-//     /* A POST route that adds a product to the database */
+    /* A POST route that adds a hotel to the database */
 
-//     const newShop = new shop({
-//         itemName: req.body.itemName, 
-//         description: req.body.description, 
-//         cost: Number(req.body.cost), 
-//         totalRatings: 0,
-//         avgRatings: 0,
-//         ratings: new Array(), 
-//         imageLink: req.body.imgLink, 
-//         category: req.body.category
-//     }); 
+    const newHotel = new hotel({
+        itemName: req.body.itemName, 
+        location: req.body.location,
+        description: req.body.description, 
+        itemCost: Number(req.body.itemCost), 
+        averageRating: Number(req.body.itemCost),
+        totalRatings: Number(req.body.totalRatings),
+        ratings: new Array(), 
+        imageLink: req.body.imgLink,
+    }); 
 
-//     newShop.save()
-//         .then(() => res.json("Item Added!"))
-//         .catch(err => res.status(400).json("Error: " + err)); 
-// }); 
+    newHotel.save()
+        .then(() => res.json("Item Added!"))
+        .catch(err => res.status(400).json("Error: " + err)); 
+}); 
 
 
 // ADMIN ACCESS: DELETE A HOTEL
-// /* Trigger the following if "http//www.website.com/shop/{id}" is called */ 
-// router.route('/:id').delete((req, res) => {
-//     /* A GET route that extracts the details of a product by its ID */
+/* Trigger the following if "" is called */ 
+router.route('/:id').delete((req, res) => {
+    /* A GET route that extracts the details of a product by its ID */
 
-//     shop.findByIdAndDelete(req.params.id)
-//         .then(() => res.json("Item Deleted Successfully"))
-//         .catch(error => res.status(400).json("Error: " + error)); 
-// });
+    hotel.findByIdAndDelete(req.params.id)
+        .then(() => res.json("Item Deleted Successfully"))
+        .catch(error => res.status(400).json("Error: " + error)); 
+});
 
 
 // ADMIN ACCESS - UPDATE DETAILS OF HOTELS
-// /* Trigger the following if "http//www.website.com/shop/update/{id}" is called */
+// /* Trigger the following if "" is called */
 // router.route('/update/:id').post((req, res) => {
 //     /* A POST route that updates the details of the product given its ID */
 
@@ -209,4 +208,4 @@ router.route('/hotels').get((req, res) => {
 //     })
 
 
-// module.exports = router;
+module.exports = router;

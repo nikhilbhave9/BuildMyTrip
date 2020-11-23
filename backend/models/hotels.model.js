@@ -9,7 +9,7 @@ const hotelSchema = new Schema({
     itemCost: {type: Number, required: true},
     averageRating: {type: Number, required: true},
     totalRatings: {type: Number, required: true},
-    rating: {type: Array},
+    ratings: {type: Array},
     imagesLink: {type: String},
 }, {
     timpestamps: true
@@ -17,4 +17,4 @@ const hotelSchema = new Schema({
 
 const hotel = mongoose.model('hotel', hotelSchema) // Define/retrieve the model that we made 
 
-module.exports = shop;
+module.exports = hotel;
