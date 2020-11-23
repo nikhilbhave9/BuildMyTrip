@@ -8,11 +8,17 @@
     box-sizing: border-box; 
     background-color: transparent; 
     transition: 0.4s; 
+    color: white; 
+    font-family: Satisfy; 
+    font-size: 15px; 
 }
 
 .search-autocomplete:focus {
     border-color: #eb34b1;
     box-shadow: 0 0 8px #eb34b1; 
-    background-color: rgba(255, 255, 255, 0.2); 
+    background-color: rgba(255, 255, 255, 0.1); 
+}
 
+::placeholder {
+    color: rgb(162, 155, 155);   
 }

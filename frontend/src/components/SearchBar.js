@@ -12,6 +12,7 @@ export default class SearchBar extends Component {
         return (
             <input className='search-autocomplete' 
                 type='text' 
+                placeholder='Search for your favorite hotels right here!'
             />
         )
     }
