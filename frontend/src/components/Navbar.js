@@ -59,10 +59,7 @@ export default function PrimarySearchAppBar() {
                     })}
                 </ul>
             </nav>
-            <search style={{margin: "auto", top: "20%", display: "flex", alignItems:"center", height: "50px", marginLeft: "17.5%"}}>
-                <SearchBar/>
-            </search>
-
+            <SearchBar/>
         </>
     );
 
