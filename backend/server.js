@@ -29,6 +29,9 @@ const hotelsRouter = require('./routes/hotels');
 app.use('/users', usersRouter);
 app.use('/hotels', hotelsRouter);
 
+// ==========================================================================
+// Running on port 5000
+
 app.listen(port, () => {
     console.log(`Server is running on port: ${port}`);
 })
