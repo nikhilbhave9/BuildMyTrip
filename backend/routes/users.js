@@ -15,18 +15,20 @@ router.route('/').get((req, res) => {
         .catch(error => res.status(400).json("Error: " + error)); 
 }); 
 
-/* Trigger the following if "http//www.website.com/users/register" is called */
-router.route('/register').post((req, res) => {
-    /* A POST router that registers a new user */
-    const name = req.body.name; 
-    const email = req.body.email; 
+ // Trigger the following if "http//www.website.com/users/register" is called 
+ router.route('/register').post((req, res) => {
+   //  A POST router that registers a new user /*
+    const username = req.body.username; 
+    const password = req.body.password; 
 
-    const newUser = new user({name, email});
+    const newUser = new user({username, password});
+
+    console.log(req.body);
 
     newUser.save()
         .then(() => res.json('User added successfully!!'))
         .catch(err => res.status(400).json('Error: ' + err));
         
-});
+}); 
 
 module.exports = router;
