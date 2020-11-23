@@ -7,6 +7,7 @@ import * as AiIcons from "react-icons/ai"
 import Button from '@material-ui/core/Button';
 import { SidebarLinksLoggedIn, SidebarLinksLoggedOut } from './SidebarLinks';
 import TextField from '@material-ui/core/TextField';
+import SearchBar from './SearchBar';
 
 import '../static/Navbar.css';
 
@@ -58,19 +59,8 @@ export default function PrimarySearchAppBar() {
                     })}
                 </ul>
             </nav>
-            <search>
-                <TextField
-                    id="outlined-full-width"
-                    label="Label"
-                    style={{left: "20%", color: "#ffffff", height: "20px"}}
-                    placeholder="Placeholder"
-                    helperText="Full width!"
-                    margin="normal"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="outlined"
-                />
+            <search style={{margin: "auto", top: "20%", display: "flex", alignItems:"center", height: "50px", marginLeft: "17.5%"}}>
+                <SearchBar/>
             </search>
 
         </>
@@ -116,18 +106,7 @@ export default function PrimarySearchAppBar() {
                 </ul>
             </nav>
             <search>
-                <TextField
-                    id="outlined-full-width"
-                    label="Label"
-                    style={{left: "20%", color: "#ffffff", height: "20px"}}
-                    placeholder="Placeholder"
-                    helperText="Full width!"
-                    margin="normal"
-                    InputLabelProps={{
-                        shrink: true,
-                    }}
-                    variant="outlined"
-                />
+                <SearchBar/>
             </search>
 
         </>
