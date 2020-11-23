@@ -33,7 +33,7 @@ router.route('/add').post((req, res) => {
         location: req.body.location,
         description: req.body.description, 
         itemCost: Number(req.body.itemCost), 
-        averageRating: Number(req.body.itemCost),
+        averageRating: Number(req.body.averageRating),
         totalRatings: Number(req.body.totalRatings),
         ratings: new Array(), 
         imageLink: req.body.imgLink,
@@ -46,7 +46,7 @@ router.route('/add').post((req, res) => {
 
 
 // ADMIN ACCESS: DELETE A HOTEL
-/* Trigger the following if "" is called */ 
+/* Trigger the following if "www.website.com/hotels/{enter ID}" is called */ 
 router.route('/:id').delete((req, res) => {
     /* A GET route that extracts the details of a product by its ID */
 
@@ -57,7 +57,7 @@ router.route('/:id').delete((req, res) => {
 
 
 // ADMIN ACCESS - UPDATE DETAILS OF HOTELS
-/* Trigger the following if "" is called */
+/* Trigger the following if "www.website.com/hotels/update/{enter ID}" is called */
 router.route('/update/:id').post((req, res) => {
     /* A POST route that updates the details of the product given its ID */
 
@@ -68,6 +68,8 @@ router.route('/update/:id').post((req, res) => {
             item.location = req.body.location;
             item.description = req.body.description;
             item.itemCost = req.body.itemCost; 
+            item.averageRating = req.body.averageRating;
+            item.totalRatings = req.body.totalRatings;
 
             item.save()
                 .then(() => res.json("Item Updated Successfully"))
