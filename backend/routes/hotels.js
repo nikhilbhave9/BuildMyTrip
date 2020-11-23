@@ -3,8 +3,8 @@ const { json } = require('express');
 const mongoose = require('mongoose');
 
 /* Calling the mongoose model we just created */
-let hotel = require('../models/hotels.model.js'); 
-// let userSecondary = require('../models/user_secondary.model');
+let Hotel = require('../models/hotels.model.js'); 
+
 
 /* Trigger the following when "http//www.website.com/" is called */
 router.route('/hotels').get((req, res) => {
@@ -12,7 +12,7 @@ router.route('/hotels').get((req, res) => {
 
 
     /* If found in the MongoDB */
-    hotel.find()
+    Hotel.find()
 
         /* Return the products you got from the database in JSON format */ 
         .then(items => res.json(items))
