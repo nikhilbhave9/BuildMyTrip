@@ -39,7 +39,7 @@ export default function PrimarySearchAppBar() {
                     </Link>
                 </div>
             </div>
-            <nav className={sidebar ? 'sidebar-menu active' : 'sidebar-menu'} style={{ backgroundColor: "#000000" }}>
+            <nav className={sidebar ? 'sidebar-menu active' : 'sidebar-menu'} style={{ backgroundColor: 'rgba(0, 0, 0, 0.9)' }}>
                 <ul className='side-items' onClick={showSidebar}>
                     <li className='side-toggle'>
                         <Link to="#" className="menu-trigger">

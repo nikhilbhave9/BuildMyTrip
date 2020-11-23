@@ -34,7 +34,7 @@ const responseGoogle = response => {
 }*/
 
 
-export default class UserProfile extends Component {
+export default class UserBookings extends Component {
     constructor(props) {
         super(props);
 

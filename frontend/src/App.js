@@ -11,7 +11,7 @@ import HotelTile from './components/HotelTile';
 import DisplayHotels from './templates/ViewHotels'
 import QuickBook from './templates/QuickBook'
 import BookingConfirmation from './templates/BookConf'; 
-
+import UserTracker from './templates/UserTracker'; 
 
 function App() {
 	return (
@@ -21,6 +21,10 @@ function App() {
 					<Route path='/bookingconfirmation'>
 						<Navbar/>
 						<BookingConfirmation/>
+					</Route>
+					<Route path='/usertracker'>
+						<Navbar/>
+						<UserTracker/>
 					</Route>
 					<Route path='/quickbook/:id'>
 						<Navbar/>

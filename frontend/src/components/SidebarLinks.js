@@ -26,6 +26,12 @@ export const SidebarLinks = [
         path: '/userbookings',
         icon: <AiIcons.AiOutlineHistory/>,
         className: 'side-txt'
+    }, 
+    {
+        title: 'My Tracker',
+        path: '/usertracker',
+        icon: <MdIcons.MdPlaylistAddCheck/>, 
+        className: 'side-txt'
     }
 ]
 
