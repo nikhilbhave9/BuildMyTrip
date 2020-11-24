@@ -5,13 +5,49 @@ import { Redirect } from "react-router-dom"
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import { useHistory } from "react-router-dom";
 
 function RegisterPage() {
 
     const [registerUsername, setRegisterUsername] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
+    const [registerConfirmPassword, setregisterConfirmPassword] = useState("");
+
+    let history = useHistory();
+
+    const onRegisterUsername = (e) => {
+
+        setRegisterUsername(e.target.value);
+    }
+
+    const onRegisterPassword = (e) => {
+        setRegisterPassword (e.target.value);
+        
+        if ((e.target.value).length === 0)
+            document.getElementById('password-status').innerText="Your password must contain at least 6 alphanumeric characters";
+        else if ((e.target.value).length <= 6)
+            document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: red'>Very Weak</span> - Not enough characters";
+        else if ((/\d/.test(e.target.value)) === false)
+            document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: orange'>Weak</span> - Not numeric characters";
+        else
+            document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: yellow'>Strong</span> - That seems good enough";
+    }
+
+    const onRegisterConfirmPassword = (e) => {
+        setregisterConfirmPassword (e.target.value);
+
+        if (e.target.value !== registerPassword) 
+            document.getElementById('password-status').innerHTML="<span style='color: red'>Passwords Do Not Match!</span>";
+        else
+            document.getElementById('password-status').innerHTML="<span style='color: yellow'>Passwords Match :) </span>";
+    }
 
     const register = () => {
+
+        if (registerPassword != registerConfirmPassword){
+            alert("Passwords do not match!");
+            return;
+        }
         Axios({
             method: "POST",
             data: {
@@ -22,6 +58,9 @@ function RegisterPage() {
             url: "http://localhost:5000/users/register",
 
         }).then((res) => console.log(res));
+
+        history.push("/");
+
     };
 
     return (
@@ -66,7 +105,7 @@ function RegisterPage() {
                         id="outlined-required"
                         label="Username: Required"
                         variant="outlined"
-                        onChange = {(e) => setRegisterUsername(e.target.value)}
+                        onChange = {onRegisterUsername}
                     />
                     <h2>
                         Password
@@ -77,7 +116,7 @@ function RegisterPage() {
                         type="password"
                         autoComplete="current-password"
                         variant="outlined"
-                        onChange = {(e) => setRegisterPassword(e.target.value)}
+                        onChange = {onRegisterPassword}
                     />
                     <h2>
                             Confirm Password
@@ -88,6 +127,7 @@ function RegisterPage() {
                         type="password"
                         autoComplete="current-password"
                         variant="outlined"
+                        onChange = {onRegisterConfirmPassword}
                     />
                     <h4 id="password-status">
                         Your password must contain at least 6 alphanumeric characters
