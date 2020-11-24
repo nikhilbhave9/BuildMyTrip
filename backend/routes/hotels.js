@@ -31,12 +31,15 @@ router.route('/add').post((req, res) => {
     const newHotel = new hotel({
         itemName: req.body.itemName, 
         location: req.body.location,
-        description: req.body.description, 
-        itemCost: Number(req.body.itemCost), 
-        averageRating: Number(req.body.averageRating),
-        totalRatings: Number(req.body.totalRatings),
-        ratings: new Array(), 
-        imageLink: req.body.imgLink,
+        country: req.body.country,
+        itemCost: Number(req.body.itemCost),
+        // userRating: Number(req.body.userRating),
+        // standardRating: Number(req.body.standardRating),
+        ratings: new Array(),  
+        amenities: new Array(),
+        vacancies: new Array(),
+        tracking: new Array(),        
+        imageLink: new Array()
     }); 
 
     newHotel.save()
@@ -64,12 +67,15 @@ router.route('/update/:id').post((req, res) => {
     hotel.findById(req.params.id)
         .then(item => {
             /* Extracting details in JSON format */ 
-            item.itemName = req.body.itemName;
+            item.itemName = req.body.itemName; 
             item.location = req.body.location;
-            item.description = req.body.description;
-            item.itemCost = req.body.itemCost; 
-            item.averageRating = req.body.averageRating;
-            item.totalRatings = req.body.totalRatings;
+            item.country = req.body.country;
+            item.itemCost = req.body.itemCost;
+            // item.userRating = req.body.userRating;
+            // item.standardRating = req.body.standardRating;
+            item.amenities = req.body.amenities;
+            item.vacancies = req.body.vacancies;
+            item.tracking = req.body.tracking;
 
             item.save()
                 .then(() => res.json("Item Updated Successfully"))
