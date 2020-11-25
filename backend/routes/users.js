@@ -38,4 +38,31 @@ router.route('/').get((req, res) => {
         
 }); 
 
+/* Trigger the following if "http//www.website.com/users/login" is called */
+router.route('/login')
+    .post((req, res) => {
+        /* A POST route that logs-in an existing user */
+
+        /* Extracting values of email and raw password from the JSON object / HTML form */ 
+        const username = req.body.username;
+        const password = req.body.password;
+
+        user.findOne({username: username}, (err, valid_user) => {
+            if (err) throw err;
+            if (!valid_user){
+                return res.json("User Not Found!!!");
+            }
+            bcrypt.compare(password, valid_user.password, (err, result) => {
+                if (err) throw err;
+                if (result === true){
+                    res.json("Passwords match!!");
+                }
+                else{
+                    return res.json("Passwords do not match!!!");
+                }
+            });
+        })
+        
+});
+
 module.exports = router;
