@@ -88,15 +88,15 @@ router.route('/update/:id').post((req, res) => {
 // =======================================================================
 
 // INDIVIDUAL HOTEL PAGE
-// /* Trigger the following if "http//www.website.com/shop/{id}" is called through get*/ 
-// router.route('/products/:id')
-//     .get((req, res) => {
-//     /* A GET route that extracts the details of a product by its ID */
+// /* Trigger the following if "http//www.website.com/hotels/{id}" is called through get*/ 
+router.route('/:id')
+    .get((req, res) => {
+    /* A GET route that extracts the details of a product by its ID */
 
-//         shop.findById(req.params.id)
-//             .then(_item => res.json(_item))
-//             .catch(error => res.status(400).json("Error: " + error)); 
-//     });
+        hotel.findById(req.params.id)
+            .then(_item => res.json(_item))
+            .catch(error => res.status(400).json("Error: " + error)); 
+    });
 
 
 // ================================================================
