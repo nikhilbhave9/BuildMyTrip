@@ -19,7 +19,8 @@ export default class DisplayHotels extends Component {
         this.state = {
             mdata: [],
             filter: "",
-            selectedDate: new Date()
+            selectedDate: new Date(), 
+            amenities: {}
         }
 
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -27,7 +28,19 @@ export default class DisplayHotels extends Component {
 
     handleDateChange = (date) => {
         this.setState({ selectedDate: date });
+         
     };
+
+
+    UNSAFE_componentWillMount() {
+        axios.get('http://localhost:5000/hotels/')
+            .then(res => {
+                /* Get the list of all the products and set the state */
+                console.log(res.data["0"].amenities["0"]); 
+                this.setState({ mdata: res.data });
+            })
+            .catch(err => console.log(err)); 
+    }
 
     render() {
         return (
@@ -103,42 +116,51 @@ export default class DisplayHotels extends Component {
                         Amenities
                         <form>
                             <label class="container">Wifi
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
 
                             <label class="container">Restaraunt
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container">Swimming
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
 
                             <label class="container">Gymnasium
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
                             <label class="container">Free Breakfast
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
-                            
+
                             <label class="container">Free Parking
-                                <input type="checkbox"/>
+                                <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
 
                         </form>
                     </div>
-                    <HotelTile />
                     {this.state.mdata.map((data, index) => {
+                        {console.log(data)}
                         if (this.state.filter.length <= 0) {
                             {/* If no filter has been applied, list all items unconditionally */ }
                             return (
 
-                                <HotelTile />
+                                <HotelTile 
+                                    name = {data.itemName}
+                                    costPerNight = {data.itemCost}
+                                    hotel_rating = {data.standardRating}
+                                    user_rating = {data.userRating}
+                                    image = {data.imagesLink[0]}
+                                    amenities = {data.amenities[0]}
+                                    id = {data._id}
+                                    location = {data.location} 
+                                />
                             )
                         }
 

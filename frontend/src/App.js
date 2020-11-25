@@ -13,12 +13,21 @@ import QuickBook from './templates/QuickBook'
 import BookingConfirmation from './templates/BookConf'; 
 import UserTracker from './templates/UserTracker'; 
 import Signout from './templates/Signout'; 
+import ViewHotel from './components/ViewHotel'
 
 function App() {
 	return (
 		<Router>
 			<div className="App">
 				<Switch>
+					<Route path='/viewhotels/'>
+						<Navbar/>
+						<DisplayHotels/>
+					</Route>
+					<Route path='/viewHotel/:id'>
+						<Navbar/>
+						<ViewHotel/>
+					</Route>
 					<Route path='/signout'>
 						<Signout/>	
 					</Route> 
@@ -50,10 +59,7 @@ function App() {
 						<Navbar/>
 						<UserBookings/>
 					</Route>
-					<Route path='/viewhotels/'>
-						<Navbar/>
-						<DisplayHotels/>
-					</Route>
+					
 					<Route path='/'> 
 						<Navbar/>
 						<Homepage/>
