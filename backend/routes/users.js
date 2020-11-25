@@ -55,7 +55,10 @@ router.route('/login')
             bcrypt.compare(password, valid_user.password, (err, result) => {
                 if (err) throw err;
                 if (result === true){
-                    res.json("Passwords match!!");
+                    req.session.user = valid_user;
+                    console.log(req.session.user);
+                    res.json(req.session.user);
+                    
                 }
                 else{
                     return res.json("Passwords do not match!!!");

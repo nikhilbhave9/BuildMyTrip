@@ -28,15 +28,15 @@ app.use(
     })
 );
 
-app.use(
-    session({
-      secret: "secretcode",
-      resave: true,
-      saveUninitialized: true,
-    })
-  );
-
-app.use(cookieParser("secretcode"));
+/* Session attributes */ 
+app.use(session({
+    secret: 'secretcode',
+    cookie: {
+        path    : '/',
+        httpOnly: false,
+        maxAge  : 24*60*60*1000
+    }
+}));
 
 
 
