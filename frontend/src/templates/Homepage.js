@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import '../static/Homepage.css';
-import { Link } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
