@@ -33,8 +33,8 @@ router.route('/add').post((req, res) => {
         location: req.body.location,
         country: req.body.country,
         itemCost: Number(req.body.itemCost),
-        // userRating: Number(req.body.userRating),
-        // standardRating: Number(req.body.standardRating),
+        userRating: Number(req.body.userRating),
+        standardRating: Number(req.body.standardRating),
         ratings: new Array(),  
         amenities: new Array(),
         vacancies: new Array(),
@@ -71,8 +71,8 @@ router.route('/update/:id').post((req, res) => {
             item.location = req.body.location;
             item.country = req.body.country;
             item.itemCost = req.body.itemCost;
-            // item.userRating = req.body.userRating;
-            // item.standardRating = req.body.standardRating;
+            item.userRating = req.body.userRating;
+            item.standardRating = req.body.standardRating;
             item.amenities = req.body.amenities;
             item.vacancies = req.body.vacancies;
             item.tracking = req.body.tracking;
