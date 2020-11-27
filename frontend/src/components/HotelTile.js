@@ -1,5 +1,4 @@
 import React from "react"
-import axios from "axios";
 import '../static/HotelTile.css'
 import * as BsIcons from "react-icons/bs";
 import * as GrIcons from "react-icons/gr";
@@ -14,7 +13,6 @@ import Chip from '@material-ui/core/Chip';
 import { Link } from 'react-router-dom';
 import {
     MuiPickersUtilsProvider,
-    KeyboardTimePicker,
     KeyboardDatePicker
 } from "@material-ui/pickers";
 
@@ -65,17 +63,18 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
             {/* Hotel Title */}
             <div className="hotel-titlebar" style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
                 <div className='left'>
-                    <p>{name}</p>
-                    <p className="hotel_rating">
-
+                    <span>{name}</span>
+                    <br/>
+                    <span className="hotel_rating">
                         {hotel_rating}<BsIcons.BsStarFill style={{ color: 'blue' }} />/5
-                    </p>
-                    <p className="hotel_location">
+                    </span>
+                    <br/>
+                    <span className="hotel_location">
                         {location}
-                    </p>
+                    </span>
                 </div>
                 <div className="center">
-                    <Link to={'/viewHotel/' + "ID"}>
+                    <Link to={'/hotel/' + id}>
                         <Button size="large" style={{ color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
                             Hotel Page
                         </Button>
@@ -93,7 +92,7 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                 <table className="hotel-body">
                     <tr>
                         <td className='left-column'>
-                            <img src="https://gommts3.mmtcdn.com/htl-imgs/htl-imgs/4190725563799612-20090w000000k89it0142_R_550_412_R5.jpg?&output-quality=75&downsize=910:612&crop=910:612;141,0&output-format=jpg" alt="Hotel" className="hotel_image" />
+                            <img src={image} alt="Hotel" className="hotel_image" />
                             <p className="user_rating">
                                 Average User Rating: {user_rating}<BsIcons.BsStarFill style={{ color: 'blue' }} />/5
                             </p>
@@ -105,7 +104,6 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                             <p className="hotel_amenties" style={{margin: "auto", maxWidth: '85%'}}>
 
                                 Amenities:
-                                {console.log(Object.keys(amenities))}
 
                                 {Object.keys(iconArray).map((key) => {
                                     let chipcolor = (amenities[key]) ? '#eb34b1' : '#aaaaaa';
@@ -136,7 +134,7 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                                 </MuiPickersUtilsProvider>
                                 <div id="vacancy-display">
                                     Select a date from the picker to see the available rooms on the day
-                            </div>
+                                </div>
                                 <Link to="/quickbook/ID">
                                     <Button
                                         size="large"
@@ -170,7 +168,7 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                     </tr>
                 </table>
             </div>
-            </div >
+        </div >
     )
 }
 

@@ -1,4 +1,4 @@
-/*.background {
+.background {
     background: url('https://res.cloudinary.com/duzmuxrsw/image/upload/v1606299992/unnamed_mmlmci.jpg') no-repeat center center fixed;
     position: fixed;
     width: 100%;
@@ -27,52 +27,51 @@
     margin-top: 2.5%; 
 }
 
-.hotel-titlebar {
+.viewhotel-titlebar {
     display: inline-block;
-    font-family: "Roboto", "Helvetica", "Arial", sans-serif;
-    font-size: 48px;
+    font-family: ubuntu;
+    font-size: 30px;
     font-style: normal;
     font-weight: 500;
     letter-spacing: 2px;
     line-height: 40.796875px;
     color: #FFFFFF;    font-size: 30px; 
     width: 90%;
-    height: 175px; 
+    height: 150px;  
     background-color: rgba(0, 0, 0, 0.8); 
-    color: white; 
-    
+    color: white;     
 }
 
-.hotel-titlebar .left {
+.viewhotel-titlebar .left {
     text-align: left;
     float: left;  
     margin-left: 10px; 
 }
 
-.hotel-titlebar .right {
+.viewhotel-titlebar .right {
     text-align: center;
     float: right; 
     margin-right: 10px
 }
 
-.hotel-titlebar .hotel_price {
+.viewhotel-titlebar .viewhotel_price {
     text-align: right;
 }
 
-.hotel_price {
+.viewhotel_price {
     font-size: 30px; 
     margin-right: 200; 
 }
 
-.hotel_rating {
+.viewhotel_rating {
     font-size: 15px; 
 }
 
-.hotel_location {
+.viewhotel_location {
     font-size: 15px; 
 }
 
-.hotel-body {
+.viewhotel-body {
     width: 90%;
     max-height: 300px; 
 }
@@ -82,12 +81,25 @@ table {
     border-spacing: 10px;   
 }
 
-.left-column {
+
+.left-image_slideshow {
     background-color: rgba(0, 0, 0, 0.8);
-    max-width: 350px; 
-    height: 300px; 
-    color: white; 
+    max-width: 250px; 
+    min-width: 250px; 
+    height: 200px; 
+    color: white;
 }
+
+.cost-sheet {
+    background-color: rgba(0, 0, 0, 0.8);
+    max-width: 75px;
+    width: auto;  
+    min-height: 200px;
+    max-height: 200px; 
+    color: white;
+    font-size: 20px;  
+}
+
 
 .left-column img {
     max-width: 243px;
@@ -116,7 +128,63 @@ table {
     position: absolute;   
 }
 
-.center .hotel-amenities {
+.center .viewhotel-amenities {
     font-size: 10px; 
 }
-*/
+
+.table-cell {
+    background-color: rgba(0, 0, 0, 0.8);
+    height: 50px; 
+    font-family: ubuntu; 
+}
+
+#email {
+    width: 20%;
+}
+
+#rating {
+    width: 5%; 
+}
+
+#description {
+    width: 25%; 
+}
+
+#viewhotel-titlebar {
+    display: inline-block;
+    font-family: ubuntu;
+    font-size: 30px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 2px;
+    line-height: 40.796875px;
+    color: #FFFFFF;    font-size: 30px; 
+    width: 90%;
+    height: 70px;  
+    background-color: rgba(0, 0, 0, 0.8); 
+    color: white;
+}
+
+.inp-text {
+    width: 250%; 
+    border-radius: 30px; 
+    border: 5px solid #fff; 
+    outline: none; 
+    padding: 8px 8px 8px 20px; 
+    font-family: ubuntu; 
+    height: 300%; 
+    float: left;
+}
+
+.inp-num {
+    width: 150%; 
+    border-radius: 30px; 
+    border: 5px solid #fff; 
+    outline: none; 
+    padding: 8px 8px 8px 20px; 
+    font-family: ubuntu; 
+    height: 300%;
+    margin-left: 400%; 
+    float: left;  
+}
+

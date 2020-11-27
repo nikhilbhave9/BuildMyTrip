@@ -4,9 +4,9 @@ import * as MdIcons from "react-icons/md";
 
 
 
-import React, { useState } from 'react';
+import React, {  } from 'react';
 
-{/* Inspired by https://www.youtube.com/watch?v=CXa0f4-dWi4 */}
+/* Inspired by https://www.youtube.com/watch?v=CXa0f4-dWi4 */
 export const SidebarLinksLoggedIn = [
     {
         title: 'My Profile',

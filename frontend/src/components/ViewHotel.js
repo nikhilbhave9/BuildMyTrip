@@ -1,6 +1,6 @@
-import React, { useEffect } from "react"
+import React, { Component } from "react"
 import axios from "axios";
-import '../static/HotelTile.css'
+import Navbar from '../components/Navbar';
 import * as BsIcons from "react-icons/bs";
 import * as GrIcons from "react-icons/gr";
 import * as BiIcons from "react-icons/bi";
@@ -11,216 +11,212 @@ import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
 } from "@material-ui/pickers";
 import '../static/ViewHotel.css';
+import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
+import 'pure-react-carousel/dist/react-carousel.es.css';
+import Rating from '@material-ui/lab/Rating';
 
 
 // components: Name, Price, Rating, Image, Catergory, Number of Reviews, UniqueProductID?
 
 
-function ViewHotel({ name, costPerNight, hotel_rating, user_rating, image, amenities, reviews, id, location }) {
-
-    useEffect(() => {
-        alert("Make Axios Request");
-        image = ["https://exp.cdn-hotels.com/hotels/1000000/30000/21700/21677/41f9de28_z.jpg?impolicy=fcrop&w=773&h=530&q=high",
-                "https://exp.cdn-hotels.com/hotels/1000000/30000/21700/21677/d98a4524_z.jpg?impolicy=fcrop&w=773&h=530&q=high", 
-                "https://exp.cdn-hotels.com/hotels/1000000/30000/21700/21677/74f2ce59_z.jpg?impolicy=fcrop&w=773&h=530&q=high",
-                "https://exp.cdn-hotels.com/hotels/1000000/30000/21700/21677/fd4c0c66_z.jpg?impolicy=fcrop&w=773&h=530&q=high"];
-    }, [])
-
-
-    /*
-    function Wishlist(e) {
-        e.preventDefault();
-        axios.post('http://localhost:5000/users/wishlist/add/' + id)  
-            .then(res => {
-                alert(JSON.stringify(res.data));  
-            })
-            .catch(err => alert(JSON.stringify(err))); 
-    } */
-
-
-    const [selectedDate, setSelectedDate] = React.useState(new Date());
-
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-
-        /* Make an axios request to fetch the vacancies on this date */
-        var vacancies = 255;
-        console.log(document.getElementsByClassName("vacancy-display").innerHTML);
-        if (parseInt(vacancies) <= 5) {
-            document.getElementById("vacancy-display").innerText = "Rooms Available: " + vacancies;
-            document.getElementById("vacancy-display").style = "color: red";
+export default class ViewHotel extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            hotelData: null,
+            selectedDate: new Date(),
+            isLoading: true,
+            ratingDistro: {}
         }
-        else {
-            document.getElementById("vacancy-display").innerText = "Rooms Available: " + vacancies;
-            document.getElementById("vacancy-display").style = "color: green";
-        }
+
+        this.handleDateChange = this.handleDateChange.bind(this);
     }
 
-    return (
-        <div className="viewhotel-tile">
-            <div className="background" />
-            {/* Hotel Title */}
-            <div className="hotel-titlebar" style={{ textAlign: 'center', fontFamily: 'ubuntu' }}> {/* Divided into different lines for ease of CSS styling */}
-                <div className='left'>
-                    <p>{name} Four Seasons</p>
-                    <p className="hotel_location">
-                        Marina Bay Sands, Singapore{location}
-                    </p>
-                </div>
-                <div className="center">
-                    <p className="hotel_amenties">
-                        Amenities: <strong>{amenities}</strong>
-                        <Chip avatar={<Avatar><BsIcons.BsWifi style={{ color: 'black' }} /></Avatar>}
-                            label="WiFi" style={{ backgroundColor: '#eb34b1', marginRight: '5px' }} />
-                        <Chip avatar={<Avatar><GrIcons.GrRestaurant style={{ color: 'black' }} /></Avatar>}
-                            label="Multi-Cusine Restaurant" style={{ backgroundColor: '#eb34b1', marginRight: '5px' }} />
-                        <Chip avatar={<Avatar><GrIcons.GrSwim style={{ color: 'black' }} /></Avatar>}
-                            label="Swimming Pool" style={{ backgroundColor: '#eb34b1', marginRight: '5px' }} />
-                        <Chip avatar={<Avatar><BiIcons.BiDumbbell style={{ color: 'black' }} /></Avatar>}
-                            label="Gymnasium" style={{ backgroundColor: '#eb34b1', marginRight: '5px' }} />
-                        <Chip avatar={<Avatar><GiIcons.GiOpenedFoodCan style={{ color: 'black' }} /></Avatar>}
-                            label="Complimentary Breakfast" style={{ backgroundColor: '#eb34b1', marginRight: '5px', marginTop: '5px' }} />
-                        <Chip avatar={<Avatar><BiIcons.BiCar style={{ color: 'black' }} /></Avatar>}
-                            label="Free Parking" style={{ backgroundColor: '#eb34b1', marginRight: '5px', marginTop: '5px' }} />
-                    </p>
-                    <Link to="/quickbook/ID">
-                        <Button
-                            size="large"
-                            id="submit"
-                            type="submit"
-                            style={{
-                                marginTop: "1%",
-                                color: 'white',
-                                background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                            }
-                            }>
-                            Quick Book
+    componentDidMount() {
+        let urlParam = this.props.match.params.id
+        axios.get('http://localhost:5000/hotels/' + urlParam)
+            .then(res => {
+                this.setState({ hotelData: res.data });
+                this.setState({ isLoading: false });
+            })
+            .catch(err => alert(err));
+    }
+
+    handleDateChange(e) {
+        this.setState({ selectedDate: e.target.value });
+    }
+    /* Make an axios request to fetch the vacancies on this date */
+
+    render() {
+        const { isLoading } = this.state;
+        if (isLoading) {
+            return <div> Loading... </div>;
+        }
+
+        const iconArray = {
+            "Wifi": <BsIcons.BsWifi style={{ color: 'black' }} />,
+            "Multi-Cuisine Restaurant": <GrIcons.GrRestaurant style={{ color: 'black' }} />,
+            "Swimming Pool": <GrIcons.GrSwim style={{ color: 'black' }} />,
+            "Gymnasium": <BiIcons.BiDumbbell style={{ color: 'black' }} />,
+            "Free Breakfast": <GiIcons.GiOpenedFoodCan style={{ color: 'black' }} />,
+            "Free Parking": <BiIcons.BiCar style={{ color: 'black' }} />
+        }
+
+        return (
+
+            <>
+                <Navbar />
+                <div className="viewhotel-tile">
+                    <div className="background" />
+                    {/* Hotel Title */}
+                    <div className="hotel-titlebar" style={{ textAlign: 'center', fontFamily: 'ubuntu' }}> {/* Divided into different lines for ease of CSS styling */}
+                        <div className='left'>
+                            <span>{this.state.hotelData.itemName}</span>
+                            <br />
+                            <span className="hotel_location">
+                                {this.state.hotelData.location}
+                            </span>
+                        </div>
+                        <div className="center">
+                            <p className="hotel_amenties">
+                            </p>
+                            <Link to="/quickbook/ID">
+                                <Button
+                                    size="large"
+                                    id="submit"
+                                    type="submit"
+                                    style={{
+                                        marginTop: "1%",
+                                        color: 'white',
+                                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                                    }
+                                    }>
+                                    Quick Book
                         </Button>
-                    </Link>
-                    <Link>
-                        <Button
-                            size="large"
-                            id="submit"
-                            type="submit"
-                            style={{
-                                marginLeft: "5%",
-                                marginTop: "1%",
-                                color: 'white',
-                                 background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                            }
-                            }>
-                            Add to tracker
+                            </Link>
+                            <Link>
+                                <Button
+                                    size="large"
+                                    id="submit"
+                                    type="submit"
+                                    style={{
+                                        marginLeft: "5%",
+                                        marginTop: "1%",
+                                        color: 'white',
+                                        background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                                    }
+                                    }>
+                                    Add to tracker
                         </Button>
-                    </Link>
-                </div>
-                <div className="right">
-                    <p className="hotel_price">
-                        <small>₹</small>
-                        <strong className="hotel_price_tag">10000{costPerNight}</strong>/night
+                            </Link>
+                        </div>
+                        <div className="right">
+                            <p className="hotel_price">
+                                <small>₹</small>
+                                <strong className="hotel_price_tag">{this.state.hotelData.itemCost}</strong>/night
                     </p>
 
+                        </div>
+                    </div>
+
+                    <div style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
+                        <table className="hotel-body" style={{ tableLayout: 'auto' }}>
+                            <tbody>
+                                <tr>
+
+                                </tr>
+                                <tr>
+                                    <td className='left-image_slideshow'>
+                                        <CarouselProvider
+                                            naturalSlideWidth={60}
+                                            naturalSlideHeight={35}
+                                            totalSlides={4}
+                                            style={{ marginTop: '25px' }}
+                                        >
+                                            <Slider>
+                                                {this.state.hotelData.imagesLink.map((item, index) => {
+                                                    return (
+                                                        <Slide index={index}><img src={item} alt={"Slide " + index} /></Slide>)
+                                                })}
+                                            </Slider>
+                                            <ButtonBack>&#60;</ButtonBack>
+                                            <ButtonNext>&#62;</ButtonNext>
+                                        </CarouselProvider>
+
+                                    </td>
+                                    <td className='cost-sheet'
+                                        style={{
+                                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                                        }}>
+                                        Cost Sheet
+                                        <table style={{ width: '95%', fontFamily: 'satisfy' }}>
+                                            <tbody>
+                                                <tr style={{ color: 'turquoise' }}>
+                                                    <td style={{ textAlign: 'left', verticalAlign: 'top' }}>Deluxe Room</td>
+                                                    <td style={{ textAlign: 'right' }}>₹{this.state.hotelData.itemCost}</td>
+                                                </tr>
+                                                <tr style={{ color: 'red' }}>
+                                                    <td style={{ textAlign: 'left' }}>Deluxe King Room</td>
+                                                    <td style={{ textAlign: 'right' }}>₹{2 * this.state.hotelData.itemCost}</td>
+                                                </tr>
+                                                <tr style={{ color: 'gold' }}>
+                                                    <td style={{ textAlign: 'left' }}>Seasons' Emperor Room</td>
+                                                    <td style={{ textAlign: 'right' }}>₹{3 * this.state.hotelData.itemCost}</td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                        <p className="hotel_amenties" style={{ margin: "auto", maxWidth: '85%' }}>
+                                            {Object.keys(iconArray).map((key) => {
+                                                let chipcolor = (this.state.hotelData.amenities[0][key]) ? '#eb34b1' : '#aaaaaa';
+                                                return (
+                                                    <Chip avatar={<Avatar>{iconArray[key]}</Avatar>}
+                                                        label={key} style={{ backgroundColor: chipcolor, marginRight: '5px', marginLeft: '5px', marginTop: '5px' }} />
+                                                )
+                                            })}
+                                        </p>
+                                    </td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div className='viewhotel-titlebar' style={{ color: 'white' }}>
+                        <span style={{ marginTop: "1%" }}>Ratings and Reviews</span><br />
+                        <span style={{ fontSize: '20px' }}>Displaying {this.state.hotelData.ratings.length} ratings</span>
+                    </div>
+                    <div style={{ color: 'white' }}>
+                        <table style={{ width: '65%' }}>
+                            <tbody>
+                                {this.state.hotelData.ratings.map((value, key) => {
+                                    console.log(value);
+                                    return (<tr style={{ width: '50%' }}>
+                                        <td className='table-cell' id='email'>{value['email']}</td>
+                                        <td className='table-cell' id='rating'><strong>{value.rating}/5</strong></td>
+                                        <td className='table-cell' id='description'><em>"{value.description}"</em></td>
+                                    </tr>)
+                                })}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div id='viewhotel-titlebar' style={{ color: 'white' }}>
+                        <span style={{ marginTop: "1%" }}>Your Rating</span><br />
+                    </div>
+                    <table style={{ color: 'white' }}>
+                        <tr>
+                            <td><textarea className="inp-text" type="text" placeholder="Review"/></td>
+                            <td><input className="inp-num" type="number"  min="1" max="5" placeholder="Rating out of 5"/></td>
+                        </tr>
+                    </table>
                 </div>
-            </div>
-
-            <div style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
-                <table className="hotel-body">
-                    <tr>
-                        <td className='left-column'>
-                            <img src="https://gommts3.mmtcdn.com/htl-imgs/htl-imgs/4190725563799612-20090w000000k89it0142_R_550_412_R5.jpg?&output-quality=75&downsize=910:612&crop=910:612;141,0&output-format=jpg" alt="Hotel" className="hotel_image" />
-                            <p className="user_rating">
-                                Average User Rating: 3.8<BsIcons.BsStarFill style={{ color: 'blue' }} />{user_rating}/5
-                                </p>
-                            <p className="hotel_reviews">
-                                From {reviews} customer(s) who have reviewed this hotel
-                            </p>
-                        </td>
-                        <td className="right-column">
-
-
-                            <MuiPickersUtilsProvider class="datePicker" utils={DateFnsUtils}>
-                                <Grid container justify="space-around">
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="MM/dd/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="Check Vacancies"
-                                        value={selectedDate}
-                                        onChange={handleDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                        style={{ backgroundColor: 'white' }}
-                                    />
-                                </Grid>
-                            </MuiPickersUtilsProvider>
-                            <div id="vacancy-display">
-                                 Select a date from the picker to see the available rooms on the day
-                            </div>
-                            <p className="hotel_rating">
-                                4{hotel_rating}<BsIcons.BsStarFill style={{ color: 'blue' }} />/5
-                            </p>
-                        </td>
-                    </tr>
-                </table>
-            </div>
-
-
-            <div style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
-                <table className="hotel-body">
-                    <tr>
-                        <td className='left-column'>
-                            <img src="https://gommts3.mmtcdn.com/htl-imgs/htl-imgs/4190725563799612-20090w000000k89it0142_R_550_412_R5.jpg?&output-quality=75&downsize=910:612&crop=910:612;141,0&output-format=jpg" alt="Hotel" className="hotel_image" />
-                            <p className="user_rating">
-                                Average User Rating: 3.8<BsIcons.BsStarFill style={{ color: 'blue' }} />{user_rating}/5
-                                </p>
-                            <p className="hotel_reviews">
-                                From {reviews} customer(s) who have reviewed this hotel
-                            </p>
-                        </td>
-                        <td className="right-column">
-
-
-                            <MuiPickersUtilsProvider class="datePicker" utils={DateFnsUtils}>
-                                <Grid container justify="space-around">
-                                    <KeyboardDatePicker
-                                        disableToolbar
-                                        variant="inline"
-                                        format="MM/dd/yyyy"
-                                        margin="normal"
-                                        id="date-picker-inline"
-                                        label="Check Vacancies"
-                                        value={selectedDate}
-                                        onChange={handleDateChange}
-                                        KeyboardButtonProps={{
-                                            'aria-label': 'change date',
-                                        }}
-                                        style={{ backgroundColor: 'white' }}
-                                    />
-                                </Grid>
-                            </MuiPickersUtilsProvider>
-                            <div id="vacancy-display">
-                                Select a date from the picker to see the available rooms on the day
-                            </div>
-                            <p className="hotel_rating">
-
-                                4{hotel_rating}<BsIcons.BsStarFill style={{ color: 'blue' }} />/5
-                    </p>
-
-
-                        </td>
-                    </tr>
-                </table>
-            </div>
-        </div >
-    )
+            </>
+        )
+    }
 }
 
-export default ViewHotel; 
