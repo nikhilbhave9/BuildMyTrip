@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import { CssBaseline } from '@material-ui/core';
 import '../static/Homepage.css';
-import { Link } from "react-router-dom";
 import Grid from '@material-ui/core/Grid';
 import 'date-fns';
 import DateFnsUtils from '@date-io/date-fns';
@@ -105,12 +104,6 @@ export default function Homepage() {
                     animateIn="fadeIn"
                     animateOut="fadeOut"><span className={classes.tagline}>The most comprehensive website out there to address your international stay concerns</span>
                 </ScrollAnimation>
-                <Button variant="outlined" size="large" style={{ color: 'white', background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)" }}>
-                    Sign In
-                </Button>
-                <Button variant="outlined" size="large" style={{ color: 'white', background: "linear-gradient(45deg, #FE6B8B 30%, #FF8E53 90%)" }}>
-                    Register
-                </Button>
 
 
                 <div className="homeFooter">

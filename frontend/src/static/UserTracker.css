@@ -1,0 +1,56 @@
+.image_cell {
+    background-color: rgba(50, 50, 100, 0.5);
+    width: 250px; 
+    height: 180px; 
+    color: white;
+ 
+}
+
+.booking_image {
+    max-width: 243px;
+    max-height: 162px;  
+    height: auto; 
+    width: auto; 
+    margin-left: auto; 
+    margin-right: auto;
+    margin-top: 5%;
+}
+
+.hotel-name {
+    text-align: left;
+    font-family: ubuntu; 
+    font-size: 30px; 
+}
+
+.hotel_location {
+    text-align: left;
+    font-family: ubuntu; 
+    font-size: 20px; 
+}
+
+.nameloc_cell {
+    width: 200px; 
+    height: 180px; 
+    color: white; 
+    text-align: left; 
+}
+
+.cost_cell {
+    width: 100px;
+    height: 180px;
+    color: white;
+    font-family: ubuntu;
+    font-size: 30px;
+}
+
+.rebook_cell {
+    width: 200px;
+    height: 180px; 
+    color: white; 
+}
+
+.vacancycheck-cell {
+    width: 200px; 
+    height: 180px;
+    text-align: left; 
+}

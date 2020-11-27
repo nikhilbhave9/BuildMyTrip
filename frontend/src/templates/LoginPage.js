@@ -5,12 +5,15 @@ import { Redirect } from "react-router-dom"
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
+import { useHistory } from "react-router-dom";
 import bgLogin from '../static/login-sunset.gif';
 
 function LoginPage(){
 
     const [loginUsername, setLoginUsername] = useState("");
     const [loginPassword, setLoginPassword] = useState("");
+
+    let history = useHistory();
 
     const onLoginUsername = (e) => {
 
@@ -35,6 +38,8 @@ function LoginPage(){
             url: "http://localhost:5000/users/login",
 
         }).then((res) => console.log(res));
+
+        history.push("/");
 
     }
 

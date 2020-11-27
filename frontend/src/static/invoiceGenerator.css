@@ -1,0 +1,32 @@
+.bookconfirm-main {
+    background-image: url('https://res.cloudinary.com/duzmuxrsw/image/upload/v1604079764/marina-bay-sands-11357-1920x1200_qqqisg.jpg'); 
+    object-fit: cover; 
+    position: absolute;
+    width: 100%; 
+    left: 50%;
+    top: 50%;
+    height: 100%;
+    transform: translate(-50%, -50%);
+    z-index: -1000,
+}
+
+
+.bookconfirm-message {
+    background-color: rgba(0, 0, 0, 0.6);
+    width: 50%;
+    margin: auto;
+    height: 50%; 
+    margin-top: 2%; 
+    align-items: center;
+    color: white;
+    text-align: center; 
+    font-family: ubuntu; 
+    font-size: 22px; 
+}
+
+.bookconfirm-message img {
+    display: block; 
+    margin: auto;
+    height: auto; 
+    width: 30%;  
+}

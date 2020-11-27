@@ -161,8 +161,20 @@ export default class UserProfile extends Component {
                                     display: 'inline-block', 
                                     fontSize: "40px", 
                                     color: '#3734eb'
-                                    }}> 
-                                    Your Profile </Link> Your Bookings
+                                }}> 
+                                    Your Profile 
+                            </Link> 
+                            <Link
+                                to='/userbookings'
+                                style={{ 
+                                    display: 'inline-block', 
+                                    fontSize: "40px", 
+                                    color: '#ffffff', 
+                                    marginLeft: '1%'
+                                }}
+                            >
+                                Your Bookings
+                            </Link>
                         </h1>
 
                         <FormControl onSubmit={this.updateProfile}

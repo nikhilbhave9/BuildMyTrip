@@ -74,3 +74,9 @@ table {
     background-color: rgba(0, 0, 0, 0.8);
     color: white; 
 }
+
+.center {
+    width: 150px;
+    left: 55%;
+    position: absolute;  
+}

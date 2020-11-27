@@ -5,7 +5,7 @@ import Button from '@material-ui/core/Button';
 import 'date-fns';
 import Grid from "@material-ui/core/Grid";
 import DateFnsUtils from "@date-io/date-fns";
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker
@@ -17,9 +17,10 @@ import Checkbox from '@material-ui/core/Checkbox';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
+import InvoiceGenerator from './invoiceGenerator';
+
 
 // components: Name, Price, Rating, Image, Catergory, Number of Reviews, UniqueProductID?
-
 
 function QuickHotel({ name, costPerNight, id, location }) {
 
@@ -33,12 +34,15 @@ function QuickHotel({ name, costPerNight, id, location }) {
             .catch(err => alert(JSON.stringify(err))); 
     } */
 
-    const baseCost = 10000; 
+    const baseCost = 10000;
     const [finalCost, setFinalCost] = React.useState(10000);
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [checkOutDate, setCheckOutDate] = React.useState(new Date().setDate(selectedDate.getDate() + 1));
     const [roomPreferences, setRoomPreferences] = React.useState(1);
     const [roomPrefButtonColor, setRoomPrefButtonColor] = React.useState('rgba(75, 75, 150, 0.4)')
+    const [billName, setName] = React.useState('')
+    const [billEmail, setEmail] = React.useState('')
+
 
     const handleDateChange = (date) => {
         setSelectedDate(date);
@@ -48,6 +52,14 @@ function QuickHotel({ name, costPerNight, id, location }) {
     for (let i = 1; i <= 15; i++) {
         roomArray1[i] = i;
         roomArray2[i + 15] = i + 15;
+    }
+
+    const onChangeName = (e) => {
+        setName(e.target.value);
+    }
+
+    const onChangeEmail = (e) => {
+        setEmail(e.target.value);
     }
 
     const handleDateChanger = (date) => {
@@ -62,16 +74,17 @@ function QuickHotel({ name, costPerNight, id, location }) {
             Number(document.getElementById('xtrabed-addon').checked) +
             Number(document.getElementById('xlbed-addon').checked)) * 2000;
 
-        let invoice = "<tr><td className='price-component'>Room Tier: </td><td>" + roomPreferences + 
-                    "</td></tr><tr><td className='price-component'>Per Night Cost: </td><td>₹" + (baseCost * roomPreferences).toString() + 
-                    "</td></tr><tr><td className='price-component'>Total Room Cost <br>("+Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400)+" Nights): </td><td>₹" + (baseCost * Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400) * roomPreferences).toString() +
-                    "</td></tr><tr><td className='price-component'>Cab: </td><td>₹" + (Number(document.getElementById('cab-addon').checked * 2000)).toString() + 
-                    "</td></tr><tr><td className='price-component'>Extra Bed: </td><td>₹" + (Number(document.getElementById('xtrabed-addon').checked * 2000)).toString() + 
-                    "</td></tr><tr><td className='price-component'>Custom Bed: </td><td>₹" + (Number(document.getElementById('xlbed-addon').checked * 2000)).toString() + 
-                    "</td></tr><tr><td className='price-component'>GST (9%): </td><td>₹" + (0.09 * newCost) + 
-                    "</td></tr><tr><td className='price-component'><strong>Total Cost: </strong></td><td><strong>₹" + (1.09 * newCost) + "</strong>";    
+        let invoice = "<tr><td className='price-component'>Room Tier: </td><td>" + roomPreferences +
+            "</td></tr><tr><td className='price-component'>Per Night Cost: </td><td>₹" + (baseCost * roomPreferences).toString() +
+            "</td></tr><tr><td className='price-component'>Total Room Cost <br>(" + Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400) + " Nights): </td><td>₹" + (baseCost * Math.floor((Math.abs(checkOutDate - selectedDate) / 1000) / 86400) * roomPreferences).toString() +
+            "</td></tr><tr><td className='price-component'>Cab: </td><td>₹" + (Number(document.getElementById('cab-addon').checked * 2000)).toString() +
+            "</td></tr><tr><td className='price-component'>Extra Bed: </td><td>₹" + (Number(document.getElementById('xtrabed-addon').checked * 2000)).toString() +
+            "</td></tr><tr><td className='price-component'>Custom Bed: </td><td>₹" + (Number(document.getElementById('xlbed-addon').checked * 2000)).toString() +
+            "</td></tr><tr><td className='price-component'>GST (9%): </td><td>₹" + (0.09 * newCost) +
+            "</td></tr><tr><td className='price-component'><strong>Total Cost: </strong></td><td><strong>₹" + (1.09 * newCost) + "</strong>";
 
         document.getElementById('estimate-invoice').innerHTML = invoice;
+        setFinalCost(newCost);
     }
 
     const handleRoomPref = (e) => {
@@ -89,10 +102,28 @@ function QuickHotel({ name, costPerNight, id, location }) {
         setFinalCost(finalCost * roomPreferences);
     }
 
+
+    const handleSubmit = () => {
+        alert(billName + ' ' + billEmail);
+        localStorage.setItem('RoomTier', roomPreferences);
+        localStorage.setItem('RoomCost', finalCost);
+        localStorage.setItem('FinalCost', 1.09 * finalCost);
+        localStorage.setItem('BillName', billName);
+        localStorage.setItem('BillEmail', billEmail);
+        localStorage.setItem('HotelName', 'Four Seasons');
+        localStorage.setItem('HotelLocation', 'Marina Bay, Singapore');
+        document.getElementById('alert').style.display = 'block';
+    };
+
+
     return (
-        <div className="quick-tile">
+        <div className="quick-tile" id="quick-tile">
+            <div class="alert" id="alert">
+                <span class="closebtn" onclick="this.parentElement.style.display='none';">&times;</span>
+                <Link to='/bookingconfirmation' style={{fontSize: '20px', fontFamily: 'ubuntu'}}>Booking Successful! Click here to redirect to the confirmation page.</Link>
+            </div>
             {/* quick Title */}
-            <div className="quick-titlebar" style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
+            <div className="quick-titlebar" id='quick-title' style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
                 <div className='left'>
                     <p>{name} You're booking a room at Four Seasons</p>
 
@@ -241,7 +272,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
                             >
                                 Get Cost Estimate
                             </Button>
-                            <table id="estimate-invoice" style={{textAlign: 'left'}}>
+                            <table id="estimate-invoice" style={{ textAlign: 'left' }}>
 
                             </table>
                         </td>
@@ -249,7 +280,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
                     </tr>
                 </table>
 
-                <div style={{ width: "45%", backgroundColor: 'rgba(255, 255, 255, 0.8)', margin: "auto" }}>
+                <div style={{ width: "45%", backgroundColor: 'rgba(255, 255, 255, 0.8)', marginLeft: "25%" }}>
                     <FormControl style={{ width: "90%" }}>
                         <TextField
                             label="Billing Name"
@@ -257,7 +288,9 @@ function QuickHotel({ name, costPerNight, id, location }) {
                             defaultValue="Default Value"
                             helperText="Ensure that this name matches the one on your Identity"
                             margin="normal"
+                            onChange={onChangeName}
                             variant="outlined"
+                            value={billName}
                         />
 
                         <TextField
@@ -266,7 +299,9 @@ function QuickHotel({ name, costPerNight, id, location }) {
                             defaultValue="Default Value"
                             helperText="A copy of the bill will be sent to this email"
                             margin="normal"
+                            onChange={onChangeEmail}
                             variant="outlined"
+                            value={billEmail}
                         />
 
                         <TextField
@@ -280,19 +315,20 @@ function QuickHotel({ name, costPerNight, id, location }) {
                     </FormControl>
                 </div>
                 <div style={{ width: "45%", height: '20%', margin: "auto" }}>
-                    <Link to="/quickbook/ID">
+                    <Link to="/bookingconfirmation">
                         <Button
                             size="large"
                             id="submit"
                             type="submit"
+                            onClick={handleSubmit}
                             style={{
                                 marginTop: "10%",
                                 color: 'white',
                                 background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                            }
-                            }>
+                            }}
+                        >
                             Quick Book
-                                </Button>
+                        </Button>
                     </Link>
                     <Link>
                         <Button
