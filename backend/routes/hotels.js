@@ -5,6 +5,9 @@ const mongoose = require('mongoose');
 /* Calling the mongoose model we just created */
 let hotel = require('../models/hotels.model.js');
 
+/* Calling the mongoose model that V created*/
+let user = require('../models/user.model.js');
+
 
 /* Trigger the following when "http//www.website.com/hotels" is called */
 router.route('/').get((req, res) => {
@@ -215,6 +218,25 @@ router.route('/getHotels')
 //             res.json("User not signed in"); 
 //         }
 //     })
+
+// ========================================================================
+// POST route that appends rating to the ratings array
+router.route('addRatings')
+    .post((req, res) => {
+
+        user.findById(req.session.email)
+            .then(item => {
+                item.rating = req.body.yourRating;
+                item.description = req.body.description;
+
+                item.save()
+                    .then(() => )
+
+            })
+
+
+        
+    });
 
  
 module.exports = router;
