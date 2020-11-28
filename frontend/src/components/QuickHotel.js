@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import '../static/QuickHotel.css'
 import Button from '@material-ui/core/Button';
 import 'date-fns';
@@ -22,8 +22,7 @@ import FormControl from '@material-ui/core/FormControl';
 
 function QuickHotel({ name, costPerNight, id, location }) {
 
-    /*
-    function Wishlist(e) {
+    /*function Wishlist(e) {
         e.preventDefault();
         axios.post('http://localhost:5000/users/wishlist/add/' + id)  
             .then(res => {
@@ -32,8 +31,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
             .catch(err => alert(JSON.stringify(err))); 
     } */
 
-    const baseCost = 10000;
-    const [finalCost, setFinalCost] = React.useState(10000);
+    const [finalCost, setFinalCost] = React.useState(costPerNight);
     const [selectedDate, setSelectedDate] = React.useState(new Date());
     const [checkOutDate, setCheckOutDate] = React.useState(new Date().setDate(selectedDate.getDate() + 1));
     const [roomPreferences, setRoomPreferences] = React.useState(1);
@@ -41,7 +39,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
     const [billName, setName] = React.useState('')
     const [billEmail, setEmail] = React.useState('')
 
-
+    let baseCost = costPerNight
     const handleDateChange = (date) => {
         setSelectedDate(date);
     };
@@ -108,8 +106,8 @@ function QuickHotel({ name, costPerNight, id, location }) {
         localStorage.setItem('FinalCost', 1.09 * finalCost);
         localStorage.setItem('BillName', billName);
         localStorage.setItem('BillEmail', billEmail);
-        localStorage.setItem('HotelName', 'Four Seasons');
-        localStorage.setItem('HotelLocation', 'Marina Bay, Singapore');
+        localStorage.setItem('HotelName', name);
+        localStorage.setItem('HotelLocation', location);
         document.getElementById('alert').style.display = 'block';
     };
 
@@ -123,16 +121,16 @@ function QuickHotel({ name, costPerNight, id, location }) {
             {/* quick Title */}
             <div className="quick-titlebar" id='quick-title' style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
                 <div className='left'>
-                    <p>{name} You're booking a room at Four Seasons</p>
+                    <p>You're booking a room at {name}</p>
 
                     <p className="quick_location">
-                        Marina Bay Sands, Singapore{location}
+                        {location}
                     </p>
                 </div>
                 <div className="right">
                     <p className="quick_price">
                         <small>₹</small>
-                        <strong className="quick_price_tag">10000{costPerNight}</strong>/night
+                        <strong className="quick_price_tag">{costPerNight}</strong>/night
                     </p>
                 </div>
             </div>
@@ -325,7 +323,7 @@ function QuickHotel({ name, costPerNight, id, location }) {
                                 background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
                             }}
                         >
-                            Quick Book
+                            Finalize Booking
                         </Button>
                     </Link>
                     <Link>

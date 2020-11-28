@@ -1,4 +1,4 @@
-import React from "react"
+import React, { useEffect } from "react"
 import axios from "axios";
 import '../static/QuickHotel.css'
 import Button from '@material-ui/core/Button';
@@ -10,18 +10,11 @@ import InvoiceGenerator from '../components/invoiceGenerator';
 
 function BookingConfirmation() {
 
-    /*
-    function Wishlist(e) {
-        e.preventDefault();
-        axios.post('http://localhost:5000/users/wishlist/add/' + id)  
-            .then(res => {
-                alert(JSON.stringify(res.data));  
-            })
-            .catch(err => alert(JSON.stringify(err))); 
-    } */
+    useEffect(() => {
+        alert('Your booking don'); 
+    })
 
     
-    console.log(localStorage); 
     return (
         <div>
             <div>
