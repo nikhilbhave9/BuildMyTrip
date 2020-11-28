@@ -103,71 +103,71 @@ router.route('/:id')
 
 // RATING - V.IMP - USERS IN DATABASE OR NOT? ALLOW USERS TO RATE IF VALID USER VERIFIED USER
 
-/* Trigger the following if "https://www.website.com/shop/products/{id}/rating is called through get*/
-router.route('/:id/rating')
-    //     .get((req, res) => {
+/* Trigger the following if "https://www.website.com/shop/products/{id}/ratings is called through get*/
+router.route('/:id/ratings')
+        .get((req, res) => {
 
-    //         /* A get route that returns an array containing the ratings of the product */
+            /* A get route that returns an array containing the ratings of the product */
 
-    //         shop.findById(req.params.id)
-    //             .then(_item => res.json(_item))
-    //             .catch(err => res.status(400).json("Error: " + err));
-    //     })
+            hotel.findById(req.params.id)
+                .then(_item => res.json(_item))
+                .catch(err => res.status(400).json("Error: " + err));
+        })
 
 
-    //.post((req, res) => {
+    // .post((req, res) => {
         
-        //         /* A post route that allows a user to post a rating for a product */
+    //             /* A post route that allows a user to post a rating for a product */
         
-        //         shop.findById(req.params.id)
-        //             .then(_item => {
-        //                 if (req.session.user){
-        //                     let sessEmail = req.session.user.email;
+    //             hotel.findById(req.params.id)
+    //                 .then(_item => {
+    //                     if (req.session.user){
+    //                         let sessEmail = req.session.user.email;
                             
-        //                     /* If the user has already rated the product */
-        //                     if (_item.ratings.find(_user => {return _user.email == sessEmail}))  
-        //                         res.json("Your Rating already exists")
+    //                         /* If the user has already rated the product */
+    //                         if (_item.ratings.find(_user => {return _user.email == sessEmail}))  
+    //                             res.json("Your Rating already exists")
                             
-        //                     else {
-        //                         /* Get the last digit of the form supplied rating */
-        //                         let rawRating = (req.body.yourRating.toString()).slice(-1); 
+    //                         else {
+    //                             /* Get the last digit of the form supplied rating */
+    //                             let rawRating = (req.body.yourRating.toString()).slice(-1); 
                                 
-        //                         /* Update the average rating */
-        //                         _item.avgRatings = (_item.avgRatings * _item.totalRatings + parseFloat(rawRating)) / (_item.totalRatings + 1); 
-        //                         _item.totalRatings = _item.totalRatings + 1; 
-        //                         _item.ratings.push({"email": req.session.user.email, "rating": req.body.yourRating});
-        //                         _item.save()
-        //                             .then(() => res.json("Your Rating has been recorded"))
-        //                             .catch(err => res.status(500).json("Error: " + error))
-        //                     }
-        //                 }
-        //                 else {
-        //                     res.json("Sign in before rating"); 
-        //                 }
-        //             })
-        //             .catch(err => res.status(500).json("Error: " + error))
-        //     });
+    //                             /* Update the average rating */
+    //                             _item.avgRatings = (_item.avgRatings * _item.totalRatings + parseFloat(rawRating)) / (_item.totalRatings + 1); 
+    //                             _item.totalRatings = _item.totalRatings + 1; 
+    //                             _item.ratings.push({"email": req.session.user.email, "rating": req.body.yourRating});
+    //                             _item.save()
+    //                                 .then(() => res.json("Your Rating has been recorded"))
+    //                                 .catch(err => res.status(500).json("Error: " + error))
+    //                         }
+    //                     }
+    //                     else {
+    //                         res.json("Sign in before rating"); 
+    //                     }
+    //                 })
+    //                 .catch(err => res.status(500).json("Error: " + error))
+    //         });
 
 // ================================================================
 
 // (CART) MIGHT BE USEFUL IN MY BOOKINGS/ WISHLIST
 
-// router.route('/getProducts')
-//     .post((req, res) => {
+router.route('/getHotels')
+    .post((req, res) => {
 
-//         /* A POST route that accepts an array of product IDs and returns an array of JSON objects containing the 
-//            details of each product */ 
+        /* A POST route that accepts an array of product IDs and returns an array of JSON objects containing the 
+           details of each product */ 
 
-//         let list = new Array(); 
-//         for (const param in req.body.data) {
-//             list.push(mongoose.Types.ObjectId(req.body.data[param])); 
-//         }
+        let list = new Array(); 
+        for (const param in req.body.data) {
+            list.push(mongoose.Types.ObjectId(req.body.data[param])); 
+        }
 
-//         shop.find({'_id': { $in: list}})
-//             .then(_item => res.json(_item))
-//             .catch(err => res.json(err));  
+        hotel.find({'_id': { $in: list}})
+            .then(_item => res.json(_item))
+            .catch(err => res.json(err));  
 
-//     })
+    })
 
 // ========================================================================
 
@@ -216,5 +216,5 @@ router.route('/:id/rating')
 //         }
 //     })
 
-
+ 
 module.exports = router;
