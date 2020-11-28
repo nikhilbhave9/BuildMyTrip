@@ -9,12 +9,15 @@ let hotel = require('../models/hotels.model.js');
 /* Trigger the following when "http//www.website.com/hotels" is called */
 router.route('/').get((req, res) => {
     /* A GET route that returns the list of all hotels from the MongoDB database */
-
+    console.log('GET Request Made to /hotels');
     /* If found in the MongoDB */
     hotel.find()
 
         /* Return the hotels you get from the database in JSON format */
-        .then(items => res.json(items))
+        .then(items => {
+            res.json(items)
+            console.log("Data sent back from /hotels"); 
+        })
 
         /* In case you hit an error */
         .catch(error => res.status(400).json("Error: " + error));

@@ -90,6 +90,16 @@ table {
     color: white;
 }
 
+.slide-image {
+    max-width: 500px;
+    max-height: 250px;
+    height: 400px;
+    width: auto;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 5%;
+}
+
 .cost-sheet {
     background-color: rgba(0, 0, 0, 0.8);
     max-width: 75px;
