@@ -11,14 +11,23 @@ import InvoiceGenerator from '../components/invoiceGenerator';
 function BookingConfirmation() {
 
     useEffect(() => {
-        alert('Your booking don'); 
+        const booking = {
+            hotelName: localStorage.getItem('HotelName'),
+            billingName: localStorage.getItem('BillName'),
+            email: localStorage.getItem('BillEmail'),
+            roomTier: localStorage.getItem('RoomTier'),
+            roomCost: localStorage.getItem('RoomCost'),
+        }
+        axios.post('http://localhost:5000/users/confirmbooking', booking)
+            .then()
+            .catch(err => alert(JSON.stringify(err)))
     })
 
-    
+
     return (
         <div>
             <div>
-                <InvoiceGenerator/>
+                <InvoiceGenerator />
             </div>
         </div >
     )

@@ -86,6 +86,7 @@ router.route('/confirmbooking')
             text: 'Hello ' + req.body.billingName+',',
             html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">'+req.body.billingName+'</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">'+ req.body.roomTier+'</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">'+req.body.totalCost+'</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.', 
         }
+        console.log(msg); 
 
         sgMail
             .send(msg)
