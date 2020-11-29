@@ -75,7 +75,7 @@ function LoginPage(){
             withCredentials: false,
             url: "http://localhost:5000/users/login",
 
-        }).then((res) => console.log("Google user logged in successfully"));
+        }).then((res) => console.log(res));
 
         history.push("/");
 
