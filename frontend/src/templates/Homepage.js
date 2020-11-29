@@ -115,17 +115,12 @@ export default function Homepage() {
             </div>
             <div id="page2">
                 <div className={classes.paperHome}>
-                    <button className="sheet-sg">
-                        <a class="country-txt" href="/viewHotels/Singapore"> Singapore </a>
-                    </button>
-
-                    <button className="sheet-sw">
-                        <a class="country-txt" href="/viewHotels/Switzerland"> Switzerland </a>
-                    </button>
-
-                    <button className="sheet-nz">
-                        <a class="country-txt" href="/viewHotels/NewZealand"> New Zealand </a>
-                    </button>
+                    <div 
+                        style={{ 
+                            backgroundImage: 'url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1606673088/kisspng-flag-of-singapore-map-east-jordan-5b1f14dcb4cf61.6161664615287636127406_yf9c3i.jpg)'
+                        }}
+                    >
+                    </div>
                 </div>
                 <ScrollAnimation animateIn="fadeIn">
                     <span className={classes.page2Text}>Look for the best stay options in Singapore, Switzerland, and New Zealand</span>

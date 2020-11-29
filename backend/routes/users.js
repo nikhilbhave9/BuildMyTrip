@@ -61,17 +61,18 @@ router.route('/login')
         user.findOne({ username: username }, (err, valid_user) => {
             if (err) throw err;
             if (!valid_user) {
-                return res.json("User Not Found!!!");
+                return res.status(404).json("User Not Found!!!");
             }
             bcrypt.compare(password, valid_user.password, (err, result) => {
                 if (err) throw err;
                 if (result) {
                     req.session.user = valid_user;
                     console.log(req.session.user);
-                    req.session.save();
+                    res.status(200).json(req.session.user);
+
                 }
                 else {
-                    return res.json("Passwords do not match!!!");
+                    return res.status(400).json("Passwords do not match!!!");
                 }
             });
         })
@@ -95,6 +96,30 @@ router.route('/confirmbooking')
             .send(msg)
             .then(() => res.json('Your invoice has been emailed to the email'))
             .catch((err) => res.json(err))
+
+
+        if (req.session.user){
+
+            user.findOne({_id: req.session.user._id})
+
+                /* If found, update the values */
+                .then((_user) => {
+
+                    _user.bookings.push(req.params);
+                    _user.save();
+                    res.json("Hotel has been successfully added to the database");
+                        
+                })
+                
+                /* And then send a json response with status */ 
+
+                .catch(err => res.status(400).json("Error: " + err)); 
+
+
+            }
+        
+
+        
 
 
     });
