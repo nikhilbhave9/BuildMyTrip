@@ -221,22 +221,22 @@ router.route('/getHotels')
 
 // ========================================================================
 // POST route that appends rating to the ratings array
-router.route('addRatings')
-    .post((req, res) => {
+// router.route('addRatings')
+//     .post((req, res) => {
 
-        user.findById(req.session.email)
-            .then(item => {
-                item.rating = req.body.yourRating;
-                item.description = req.body.description;
+//         user.findById(req.session.email)
+//             .then(item => {
+//                 item.rating = req.body.yourRating;
+//                 item.description = req.body.description;
 
-                item.save()
-                    .then(() => )
+//                 item.save()
+//                     .then(() => )
 
-            })
+//             })
 
 
         
-    });
+//     });
 
  
 module.exports = router;
