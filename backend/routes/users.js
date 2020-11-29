@@ -174,6 +174,56 @@ router.route("/wishlist")
 
     })
 
+/* Trigger the following if "http//www.website.com/users/landing" is called */
+router.route('/profile')
+    
+    /* If the route is reached through a GET request */
+    .get((req, res) => {
+        /* A GET route triggered as the user information page. */
+        if (req.session.user) {
+            res.json(req.session.user); 
+        }
+        else {
+            console.log("Not signed in"); 
+            res.json("Not signed in!"); 
+        }
+    })
+
+    /* If the route is reached through a POST request */ 
+    .post((req, res) => {
+
+        /* Extract the name and email from json object/html form */
+        console.log(req.session.user); 
+
+        /* Hash the newly entered password */ 
+        bcrypt.genSalt(10, (err, salt) => {
+            bcrypt.hash(req.body.password, salt, (err, hash) => {                
+                 
+                /* Find the user id of the currently logged in user */
+                user.findById(req.session.user._id)
+                    
+                    /* If found, update the values */
+                    .then((_user) => {
+                        if (req.body.password === "")
+                            hash = _user.passwordHash;
+                        _user.password = hash; 
+                        _user.username = req.body.username;
+                        console.log(_user.username); 
+                        _user.save() 
+                            .then(() => {
+                                req.session.user = _user; 
+                                res.json("User Updated Successfully")
+                            })
+                            .catch(err => res.json("Error: " + err)); 
+                    })
+                    
+                    /* And then send a json response with status */ 
+
+                    .catch(err => res.status(400).json("Error: " + err)); 
+            }); 
+        });
+    }); 
+
     
 
 module.exports = router;
