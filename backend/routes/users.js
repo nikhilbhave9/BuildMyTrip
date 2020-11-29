@@ -139,39 +139,22 @@ router.route("/wishlist")
             if (err) res.json(err);
 
             else {
-                console.log(req.session); 
-                res.json(valid_user.wishlist);} 
+                res.json(valid_user.wishlist);
+            } 
         })
     })
     .post((req, res) => {
-        const { tokenId } = req.body;
+        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+            if (err) res.json(err);
 
-        client.verifyIdToken({ idToken: tokenId, audience: "741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com" }).then(response => {
-
-            const { email_verified, name, email } = response.payload;
-
-            if (email_verified) {
-                user.findOne({ username: email }, (err, valid_user) => {
-                    if (err) throw err;
-                    if (!valid_user) {
-                        const username = email;
-                        const password = name;
-
-                        const newUser = new user({ username, password });
-
-                        newUser.save()
-                            .then(() => res.json("User added successfully!"))
-                            .catch(err => res.status(400).json("Error: " + err));
-                    }
-                    else {
-                        req.session.user = valid_user;
-                        res.json(req.session.user);
-                    }
-                })
-            }
+            else {
+                valid_user.wishlist.push(req.body.itemID);
+                valid_user.save()
+                    
+                .then(() => res.json(req.body.itemID + " has been added to your wishlist"))
+                .catch((err) => res.json(err)); 
+            } 
         })
-
-
     })
 
 
