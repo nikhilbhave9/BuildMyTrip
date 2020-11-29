@@ -94,7 +94,7 @@ export default class ViewHotel extends Component {
                         <div className="center">
                             <p className="hotel_amenties">
                             </p>
-                            <Link to="/quickbook/ID">
+                            <Link to={"/quickbook/" + this.state.hotelData._id}>
                                 <Button
                                     size="large"
                                     id="submit"
@@ -105,7 +105,7 @@ export default class ViewHotel extends Component {
                                         background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
                                     }
                                     }>
-                                    Quick Book
+                                    Book a room
                         </Button>
                             </Link>
                             <Link>
