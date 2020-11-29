@@ -19,18 +19,20 @@ export default function invoiceGenerator() {
 
         invoice.addImage(img, "png", 20, 20, 160, 40);
 
-        invoice.setFont('courier');
+        invoice.setFont('courier', 'bold');
         invoice.text(225, 100, 'Official Invoice');
 
+        invoice.setFont('courier');
+        invoice.setFontSize(12); 
         invoice.text(50, 150, "Hotel: " + localStorage.getItem('HotelName'));
         invoice.text(50, 175, localStorage.getItem('HotelLocation'));
         invoice.text(50, 200, "Name: " + localStorage.getItem('BillName'))
         invoice.text(300, 200, "Email: " + localStorage.getItem('BillEmail'))
         invoice.text(50, 250, "Room Tier: ");
         invoice.text(300, 250, localStorage.getItem('RoomTier'));
-        invoice.text(50, 275, "Room Cost: ");
+        invoice.text(50, 275, "Room Cost: Rs.");
         invoice.text(300, 275, localStorage.getItem('RoomCost'));
-        invoice.text(50, 300, "Cost with GST: ");
+        invoice.text(50, 300, "Cost with GST: Rs.");
         invoice.text(300, 300, localStorage.getItem('FinalCost'));
 
 

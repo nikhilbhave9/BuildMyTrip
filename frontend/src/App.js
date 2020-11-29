@@ -35,10 +35,7 @@ function App() {
 						<Navbar/>
 						<UserTracker/>
 					</Route>
-					<Route path='/quickbook/:id'>
-						<Navbar/>
-						<QuickBook/>
-					</Route>
+					<Route path='/quickbook/:id' component={QuickBook}/>
 					<Route path='/login'>
 						<Navbar/>
 						<LoginPage/>

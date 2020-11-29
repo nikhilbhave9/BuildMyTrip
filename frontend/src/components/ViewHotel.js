@@ -7,19 +7,12 @@ import * as BiIcons from "react-icons/bi";
 import * as GiIcons from "react-icons/gi";
 import Button from '@material-ui/core/Button';
 import 'date-fns';
-import Grid from "@material-ui/core/Grid";
-import DateFnsUtils from "@date-io/date-fns";
 import Avatar from '@material-ui/core/Avatar';
 import Chip from '@material-ui/core/Chip';
-import { Link, useParams } from 'react-router-dom';
-import {
-    MuiPickersUtilsProvider,
-    KeyboardDatePicker
-} from "@material-ui/pickers";
+import { Link } from 'react-router-dom';
 import '../static/ViewHotel.css';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
-import Rating from '@material-ui/lab/Rating';
 
 
 // components: Name, Price, Rating, Image, Catergory, Number of Reviews, UniqueProductID?
@@ -32,7 +25,7 @@ export default class ViewHotel extends Component {
             hotelData: null,
             selectedDate: new Date(),
             isLoading: true,
-            ratingDistro: {}
+            recommendations: [],
         }
 
         this.handleDateChange = this.handleDateChange.bind(this);
@@ -44,6 +37,21 @@ export default class ViewHotel extends Component {
             .then(res => {
                 this.setState({ hotelData: res.data });
                 this.setState({ isLoading: false });
+            })
+            .catch(err => alert(err));
+
+        axios.get('http://localhost:5000/hotels/')
+            .then(res => {
+                let recoData = [];
+                for (let i = 0; i < res.data.length; i++) {
+                    if (res.data[i]._id === this.state.hotelData._id)
+                        continue;
+
+                    if (res.data[i].location === this.state.hotelData.location)
+                        recoData.push(res.data[i]);
+                }
+                this.setState({ recommendations: recoData });
+                console.log(recoData);
             })
             .catch(err => alert(err));
     }
@@ -137,12 +145,12 @@ export default class ViewHotel extends Component {
                                             naturalSlideWidth={60}
                                             naturalSlideHeight={35}
                                             totalSlides={4}
-                                            style={{ marginTop: '25px' }}
+                                            style={{ marginTop: '25px', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
                                         >
                                             <Slider>
                                                 {this.state.hotelData.imagesLink.map((item, index) => {
                                                     return (
-                                                        <Slide index={index}><img src={item} alt={"Slide " + index} /></Slide>)
+                                                        <Slide index={index}><img className='slide-image' src={item} alt={"Slide " + index} /></Slide>)
                                                 })}
                                             </Slider>
                                             <ButtonBack>&#60;</ButtonBack>
@@ -186,7 +194,7 @@ export default class ViewHotel extends Component {
                         </table>
                     </div>
 
-                    <div className='viewhotel-titlebar' style={{ color: 'white' }}>
+                    <div className='viewhotel-titlebar' style={{ color: 'white', marginTop: '5%', letterSpacing: '1px' }}>
                         <span style={{ marginTop: "1%" }}>Ratings and Reviews</span><br />
                         <span style={{ fontSize: '20px' }}>Displaying {this.state.hotelData.ratings.length} ratings</span>
                     </div>
@@ -205,16 +213,85 @@ export default class ViewHotel extends Component {
                         </table>
                     </div>
 
-                    <div id='viewhotel-titlebar' style={{ color: 'white' }}>
+                    <div id='viewhotel-titlebar' style={{ color: 'white', marginTop: '5%', letterSpacing: '1px' }}>
                         <span style={{ marginTop: "1%" }}>Your Rating</span><br />
                     </div>
                     <table style={{ color: 'white' }}>
                         <tr>
-                            <td><textarea className="inp-text" type="text" placeholder="Review"/></td>
-                            <td><input className="inp-num" type="number"  min="1" max="5" placeholder="Rating out of 5"/></td>
+                            <td><textarea className="inp-text" type="text" placeholder="Review" /></td>
+                            <td><input className="inp-num" type="number" min="1" max="5" placeholder="Rating out of 5" /></td>
                         </tr>
                     </table>
-                </div>
+
+                    <div id='viewhotel-titlebar' style={{ color: 'white', marginTop: '5%', textAlign: 'center', fontColor: 'ubuntu', letterSpacing: '1px' }}>
+                        <span style={{ marginTop: "1%" }}>You Might Also Want to Look At</span><br />
+                    </div>
+                    <div style={{ margin: 'auto' }}>
+                        <div style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
+                            <table className="hotel-body" style={{ tableLayout: 'auto', maxHeight: '200px' }}>
+                                <tbody>
+                                    <tr>
+                                        <td className='left-image_slideshow'>
+                                            <CarouselProvider
+                                                naturalSlideWidth={60}
+                                                naturalSlideHeight={20}
+                                                totalSlides={this.state.recommendations.length}
+                                                style={{ marginTop: '25px' }}
+                                            >
+                                                <Slider>
+                                                    {this.state.recommendations.map((item, index) => {
+                                                        return (
+                                                            <Slide index={index}>
+                                                                <div style={{ fontFamily: 'satisfy', fontSize: '20px' }}>
+                                                                    <Link 
+                                                                        style={{fontSize: '20px'}}
+                                                                        to={'' + item._id}>{item.itemName}</Link>:  
+                                                                    ({item.location}) {item.standardRating}
+                                                                    <BsIcons.BsStarFill style={{ color: 'yellow' }} />/5
+                                                                </div>
+                                                                <img
+                                                                    className='slide-image'
+                                                                    src={item.imagesLink[0]}
+                                                                    alt={"Slide " + index}
+                                                                    style={{
+                                                                        marginTop: '1%'
+                                                                    }}
+                                                                />
+                                                                <div style={{ fontFamily: 'ubuntu' }}>₹{item.itemCost}/night</div>
+                                                                <p className="hotel_amenties" style={{ margin: "auto", maxWidth: '85%', marginTop: '5px' }}>
+                                                                    {Object.keys(iconArray).map((key) => {
+                                                                        let chipcolor = (item.amenities[0][key]) ? '#eb34b1' : '#aaaaaa';
+                                                                        return (
+                                                                            <Chip avatar={<Avatar>{iconArray[key]}</Avatar>}
+                                                                                label={key} style={{ backgroundColor: chipcolor, marginRight: '5px', marginLeft: '5px', marginTop: '5px' }} />
+                                                                        )
+                                                                    })}
+                                                                </p>
+                                                                <div 
+                                                                    style={{ 
+                                                                        fontFamily: 'ubuntu', 
+                                                                        marginTop: '5px' 
+                                                                    }}
+                                                                >
+                                                                    Average User Rating: {item.userRating}<BsIcons.BsStarFill style={{ color: 'yellow' }} />/5
+                                                                    Evaluated from {item.ratings.length + 1} reviews. 
+                                                                </div>
+
+                                                            </Slide>)
+                                                    })}
+                                                </Slider>
+                                                                <ButtonBack>&#60;</ButtonBack>
+                                                                <ButtonNext>&#62;</ButtonNext>
+                                            </CarouselProvider>
+
+                                        </td>
+                                    </tr>
+                                </tbody>
+                            </table>
+
+                        </div>
+                    </div>
+                        </div>
             </>
         )
     }

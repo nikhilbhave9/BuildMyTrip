@@ -135,7 +135,7 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                                 <div id="vacancy-display">
                                     Select a date from the picker to see the available rooms on the day
                                 </div>
-                                <Link to="/quickbook/ID">
+                                <Link to={"/quickbook/" + id}>
                                     <Button
                                         size="large"
                                         id="submit"
