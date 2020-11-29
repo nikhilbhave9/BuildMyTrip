@@ -188,7 +188,7 @@ router.route('/profile')
                     /* If found, update the values */
                     .then((_user) => {
                         if (req.body.password === "")
-                            hash = _user.passwordHash;
+                            hash = _user.password;
                         _user.password = hash; 
                         _user.username = req.body.username;
                         console.log(_user.username); 
