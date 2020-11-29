@@ -134,6 +134,15 @@ router.route("/googlelogin")
 
 
 router.route("/wishlist")
+    .get((req, res) => {
+        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+            if (err) res.json(err);
+
+            else {
+                console.log(req.session); 
+                res.json(valid_user.wishlist);} 
+        })
+    })
     .post((req, res) => {
         const { tokenId } = req.body;
 
