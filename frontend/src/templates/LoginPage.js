@@ -7,6 +7,9 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 import bgLogin from '../static/login-sunset.gif';
+import {GoogleLogin} from "react-google-login";
+import emailjs from "emailjs-com";
+
 
 function LoginPage(){
 
@@ -14,6 +17,30 @@ function LoginPage(){
     const [loginPassword, setLoginPassword] = useState("");
 
     let history = useHistory();
+
+    const responseGoogle = response => {
+
+        console.log(response);
+        var GoogleEmail = response.profileObj.email;
+        var firstname = response.profileObj.givenName;
+
+        console.log(GoogleEmail);
+
+        var templateParams = {
+
+            email: GoogleEmail,
+            name: firstname
+        
+        };
+
+        emailjs.send('BuildMyTrip', 'template_8z6kz0g', templateParams, 'user_OXQPAUgJAaocvkKl7iVMf')
+        .then(function(response) {
+           alert("Your email address [" + GoogleEmail + "] has been successfully linked to your account.");
+        }, function(error) {
+           alert('Ran into an error: ', error);
+        });
+    };
+
 
     const onLoginUsername = (e) => {
 
@@ -100,7 +127,15 @@ function LoginPage(){
                     <Button onClick = {login} size="large" id="submit" type="submit" style={{ marginTop: "10%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
                         Sign in
                     </Button>
+
+                    <GoogleLogin className = "login__google"
+                        clientId = "741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com"
+                        onSuccess = {responseGoogle}
+                        onFailure = {responseGoogle}
+                    />
                 </FormControl>
+
+                
             </div>
         </div >
     )
