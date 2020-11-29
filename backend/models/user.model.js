@@ -6,7 +6,9 @@ const Schema = mongoose.Schema;
 
 const userSchema = new Schema({
     username: {type: String, required: true, unique: false, sparse: true},
-    password: {type: String, required: true, unique: false, sparse: true}
+    password: {type: String, required: true, unique: false, sparse: true},
+    wishlist: {type: Array},
+    bookings: {type: Array}, 
 }, {
     timestamps: true
 });
