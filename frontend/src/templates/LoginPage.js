@@ -77,6 +77,7 @@ function LoginPage(){
 
         }).then((res) => console.log(res));
 
+        localStorage.setItem("Username", loginUsername); 
         history.push("/");
 
     }

@@ -152,7 +152,7 @@ router.route('/:id/ratings')
                 hotel.findById(req.params.id)
                     .then(_item => {
                         if (req.session.user){
-                            let sessEmail = req.session.user.email;
+                            let sessEmail = req.session.user.username;
                             
                             /* If the user has already rated the product */
                             if (_item.ratings.find(_user => {return _user.email == sessEmail}))  
@@ -163,8 +163,8 @@ router.route('/:id/ratings')
                                 let rawRating = (req.body.yourRating.toString()).slice(-1); 
                                 
                                 /* Update the average rating */
-                                _item.userRating = (_item.userRating * ratings.length() + parseFloat(rawRating)) / (ratings.length() + 1); 
-                                _item.ratings.push({"email": req.session.user.email, "rating": req.body.yourRating});
+                                _item.userRating = (_item.userRating * _item.ratings.length + parseFloat(rawRating)) / (_item.ratings.length + 1); 
+                                _item.ratings.push({"email": sessEmail, "rating": req.body.yourRating, "description": req.body.description});
                                 _item.save()
                                     .then(() => res.json("Your Rating has been recorded"))
                                     .catch(err => res.status(500).json("Error: " + error))
@@ -174,7 +174,7 @@ router.route('/:id/ratings')
                             res.json("Sign in before rating"); 
                         }
                     })
-                    .catch(err => res.status(500).json("Error: " + error))
+                    .catch(err => res.status(500).json("Error: " + err))
             });
 
 // ================================================================
