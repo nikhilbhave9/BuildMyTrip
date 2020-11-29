@@ -183,7 +183,7 @@ router.route('/profile')
             bcrypt.hash(req.body.password, salt, (err, hash) => {                
                  
                 /* Find the user id of the currently logged in user */
-                user.findById(req.session.user._id)
+                user.findOne({_id: req.session.user._id})
                     
                     /* If found, update the values */
                     .then((_user) => {
