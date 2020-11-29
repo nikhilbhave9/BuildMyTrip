@@ -7,6 +7,10 @@ let user = require('../models/user.model');
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey('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')
 
+const {OAuth2Client} = require("google-auth-library");
+
+const client = new OAuth2Client("741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com");
+
 
 /* =======================Routes======================= */
 
@@ -94,6 +98,40 @@ router.route('/confirmbooking')
             .catch((err) => res.json(err))
 
         
+});
+
+router.route("/googlelogin")
+    .post((req, res) => {
+        const {tokenId} = req.body;
+
+        client.verifyIdToken({idToken: tokenId, audience: "741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com"}).then(response => {
+            
+            const {email_verified, name, email} = response.payload;
+
+            if (email_verified){
+                user.findOne({username: email}, (err, valid_user) => {
+                    if (err) throw err;
+                    if (!valid_user){
+                        const username = email;
+                        const password = name;
+
+                        const newUser = new user({username, password});
+
+                        newUser.save()
+                        .then(() => res.json("User added successfully!"))
+                        .catch(err => res.status(400).json("Error: " + err));
+                    }
+                    else {
+                        req.session.user = valid_user;
+                        res.json(req.session.user);
+                    }
+                })
+            }
+        })
+
+
     })
+
+
 
 module.exports = router;
