@@ -7,7 +7,7 @@ let user = require('../models/user.model');
 const sgMail = require('@sendgrid/mail')
 sgMail.setApiKey('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')
 
-const {OAuth2Client} = require("google-auth-library");
+const { OAuth2Client } = require("google-auth-library");
 
 const client = new OAuth2Client("741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com");
 
@@ -38,7 +38,7 @@ router.route('/register').post((req, res) => {
         // Store hash in your password DB.
 
         const password = hash;
-        const newUser = new user({ username, password });
+        const newUser = new user({ username: username, password: password, wishlist: new Array(), bookings: new Array() });
 
         newUser.save()
             .then(() => res.json("User added successfully!"))
@@ -82,44 +82,77 @@ router.route('/login')
 router.route('/confirmbooking')
     .post((req, res) => {
 
-        
+
         const msg = {
             to: req.body.email,
             from: 'akshat.singh_ug22@ashoka.edu.in',
             subject: '[BuildMyTrip Invoice] Confirming your hotel booking: ' + req.body.hotelName,
-            text: 'Hello ' + req.body.billingName+',',
-            html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">'+req.body.billingName+'</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">'+ req.body.roomTier+'</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">'+req.body.totalCost+'</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.', 
+            text: 'Hello ' + req.body.billingName + ',',
+            html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">' + req.body.billingName + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">' + req.body.roomTier + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">' + req.body.totalCost + '</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.',
         }
-        console.log(msg); 
+        console.log(msg);
 
         sgMail
             .send(msg)
             .then(() => res.json('Your invoice has been emailed to the email'))
             .catch((err) => res.json(err))
 
-        
-});
+
+    });
 
 router.route("/googlelogin")
     .post((req, res) => {
-        const {tokenId} = req.body;
+        const { tokenId } = req.body;
 
-        client.verifyIdToken({idToken: tokenId, audience: "741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com"}).then(response => {
-            
-            const {email_verified, name, email} = response.payload;
+        client.verifyIdToken({ idToken: tokenId, audience: "741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com" }).then(response => {
 
-            if (email_verified){
-                user.findOne({username: email}, (err, valid_user) => {
+            const { email_verified, name, email } = response.payload;
+
+            if (email_verified) {
+                user.findOne({ username: email }, (err, valid_user) => {
                     if (err) throw err;
-                    if (!valid_user){
+                    if (!valid_user) {
                         const username = email;
                         const password = name;
 
-                        const newUser = new user({username, password});
+                        const newUser = new user({ username, password });
 
                         newUser.save()
-                        .then(() => res.json("User added successfully!"))
-                        .catch(err => res.status(400).json("Error: " + err));
+                            .then(() => res.json("User added successfully!"))
+                            .catch(err => res.status(400).json("Error: " + err));
+                    }
+                    else {
+                        req.session.user = valid_user;
+                        res.json(req.session.user);
+                    }
+                })
+            }
+        })
+
+
+    })
+
+
+router.route("/wishlist")
+    .post((req, res) => {
+        const { tokenId } = req.body;
+
+        client.verifyIdToken({ idToken: tokenId, audience: "741110853489-3h88ghsg0u7qmjsjs6856g132dt9l5nk.apps.googleusercontent.com" }).then(response => {
+
+            const { email_verified, name, email } = response.payload;
+
+            if (email_verified) {
+                user.findOne({ username: email }, (err, valid_user) => {
+                    if (err) throw err;
+                    if (!valid_user) {
+                        const username = email;
+                        const password = name;
+
+                        const newUser = new user({ username, password });
+
+                        newUser.save()
+                            .then(() => res.json("User added successfully!"))
+                            .catch(err => res.status(400).json("Error: " + err));
                     }
                     else {
                         req.session.user = valid_user;
