@@ -20,10 +20,10 @@ export default function Homepage() {
 
         page1: {
             minHeight: '94.25vh',
-            height: '100%', 
+            height: '100%',
             overflow: 'hidden'
         },
-    
+
         paperHome: {
             display: "block",
             overflow: 'hidden',
@@ -37,7 +37,7 @@ export default function Homepage() {
             backgroundRepeat: 'no-repeat',
             backgroundSize: 'cover',
         },
-    
+
         tagline: {
             color: "#ffffff",
             "font-family": "Lato",
@@ -48,7 +48,7 @@ export default function Homepage() {
             "margin-top": "5%",
             "max-width": "60%"
         },
-    
+
         page2Text: {
             color: "#ffffff",
             "font-family": "Lato",
@@ -57,14 +57,14 @@ export default function Homepage() {
             display: "inline-block",
             "max-width": "60%"
         },
-    
+
         datePicker: {
             top: "50%"
         }
-    
+
     }));
-    
-    
+
+
     const [selectedDate, setSelectedDate] = React.useState(new Date());
 
     const handleDateChange = (date) => {
@@ -80,7 +80,7 @@ export default function Homepage() {
         document.getElementsByClassName("infoDisp").style.display = "none";
     }
 
-    
+
     return (
         <div>
             <div className={classes.page1}>
@@ -108,19 +108,26 @@ export default function Homepage() {
 
                 <div className="homeFooter">
                     Created by <br></br>
-                    <a style={{marginRight: "5px"}} href="https://github.com/Akshat-Singh">Akshat</a>, 
-                    <a style={{marginRight: "5px"}} href="https://github.com/nikhilbhave9">Nikhil</a>, 
-                    <a style={{marginRight: "5px"}} href="https://github.com/vibodhnautiyal">Vibodh</a>
+                    <a style={{ marginRight: "5px" }} href="https://github.com/Akshat-Singh">Akshat</a>,
+                    <a style={{ marginRight: "5px" }} href="https://github.com/nikhilbhave9">Nikhil</a>,
+                    <a style={{ marginRight: "5px" }} href="https://github.com/vibodhnautiyal">Vibodh</a>
                 </div>
             </div>
             <div id="page2">
-                <div className={classes.paperHome}>
-                    <div 
+                <div style={{maxWidth: '20%'}}>
+                    <img src='https://res.cloudinary.com/duzmuxrsw/image/upload/v1606678369/sgmap_oaie2g.png' alt="SGMap"
                         style={{ 
-                            backgroundImage: 'url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1606673088/kisspng-flag-of-singapore-map-east-jordan-5b1f14dcb4cf61.6161664615287636127406_yf9c3i.jpg)'
+                            position: "absolute",
+                            display: "cover",
+                            maxWidth: "70%",
+                            left: "50%",
+                            top: "155%",
+                            height: "auto",
+                            objectFit: "cover",
+                            transform: "translate(-50%, -50%)",
+                            zIndex: "2",
                         }}
-                    >
-                    </div>
+                    ></img>
                 </div>
                 <ScrollAnimation animateIn="fadeIn">
                     <span className={classes.page2Text}>Look for the best stay options in Singapore, Switzerland, and New Zealand</span>
@@ -160,10 +167,10 @@ export default function Homepage() {
 
                 </MuiPickersUtilsProvider>
 
-                    <span className={classes.page2Text}>Or explore by tinkering with dates and locations</span>
-                </div>
-
+                <span className={classes.page2Text}>Or explore by tinkering with dates and locations</span>
             </div>
+
+        </div>
     )
 }
 
