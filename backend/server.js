@@ -13,15 +13,18 @@ require('dotenv').config();
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(express.json());
-app.use(
-    cors({
-        origin: "http://localhost:3000", // <-- location of the react app we are connecting to
-        credentials: true,
-    })
-);
+var corsOps = {
+    origin: true, 
+    credentials: true
+}
 
+app.use(cors(corsOps));
 app.options('*', cors());
+app.use(express.json());
+
+// Middleware
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({extended: true}));
 
 
 /* Session attributes */ 
@@ -30,6 +33,7 @@ app.use(session({
     cookie: {
         path    : '/',
         httpOnly: false,
+        secure: false, 
         maxAge  : 24*60*60*1000
     }
 }));

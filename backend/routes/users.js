@@ -65,7 +65,7 @@ router.route('/login')
             }
             bcrypt.compare(password, valid_user.password, (err, result) => {
                 if (err) throw err;
-                if (result === true) {
+                if (result) {
                     req.session.user = valid_user;
                     console.log(req.session.user);
                     req.session.save();
@@ -182,7 +182,7 @@ router.route('/profile')
             bcrypt.hash(req.body.password, salt, (err, hash) => {                
                  
                 /* Find the user id of the currently logged in user */
-                user.findById(req.session.user._id)
+                user.findOne({_id: req.session.user._id})
                     
                     /* If found, update the values */
                     .then((_user) => {

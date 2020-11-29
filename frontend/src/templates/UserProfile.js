@@ -50,22 +50,26 @@ export default class UserProfile extends Component {
             password: '',
             name: '',
             confirm_password: '',
-            redirect: false
+            redirect: false,
+            loading: true,
         }
     }
 
-    componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:5000/users/profile')
             .then(res => {
+                console.log(res.data); 
                 this.setState({ 
-                    email: res.data.username,
+                    username: res.data.username,
                     name: res.data.username
                 }) ;
                 console.log(this.state); 
 
+                this.setState({loading: false}); 
 
             })
             .catch(err => console.log(err)); 
+        
     }
 
     enableAndEdit(e) {
@@ -75,22 +79,21 @@ export default class UserProfile extends Component {
 
     updateProfile(e) {
         e.preventDefault();
+        console.log(this.state); 
 
         if (this.state.password !== this.state.confirm_password)
-            alert("Passwords Do Not Match");
+            alert("Password: " + this.state.password + "\n" + "Confirm password: " + this.state.confirm_password);
         else {
             let updateInfo = {
-                "name": this.state.name,
-                "email": this.state.username,
+                "username": this.state.username,
                 "password": this.state.password
             }
 
             axios.post('http://localhost:5000/users/profile', updateInfo)
                 .then(res => {
                     alert(res.data);
-                    sessionStorage.setItem("username", this.state.name);
-                    this.state.redirect = true;
-
+                    localStorage.setItem("Username", this.state.username);
+                    this.setState({redirect: true});
                 })
                 .catch(err => console.log(err))
         }
@@ -133,6 +136,9 @@ export default class UserProfile extends Component {
     render() {
         if (this.state.redirect)
             return <Redirect to='/users/profile' />
+        
+        if (this.state.loading)
+            return <div>Loading...</div>
 
         return (
             <div>
@@ -196,7 +202,7 @@ export default class UserProfile extends Component {
                                         id="outlined-required"
                                         label="Name"
                                         variant="outlined"
-                                        defaultValue={this.state['name']} 
+                                        defaultValue={this.state.name} 
                                         disabled={(this.state['formFieldsDisabled'])} 
                                         onChange={this.onChangeName}
                                     />
@@ -210,7 +216,7 @@ export default class UserProfile extends Component {
                                         id="outlined-required"
                                         label="Username"
                                         variant="outlined"
-                                        defaultValue={this.state['email']} 
+                                        defaultValue={this.state.username} 
                                         disabled={(this.state['formFieldsDisabled'])} 
                                         onChange={this.onChangeUsername}
                                     />
@@ -258,8 +264,8 @@ export default class UserProfile extends Component {
                             <Button className="login__submit" onClick={this.enableAndEdit}
                             size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}
                             >Edit information</Button>
-                            <Button className="login__submit" type="submit" hidden={this.state['formFieldsDisabled']}
-                            size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
+                            <Button className="login__submit" type="submit" display={this.state['formFieldsDisabled'] ? 'none' : 'block'}
+                            size="large" id="submit" type="submit" onClick={this.updateProfile} style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
                                 Submit Updated Information</Button>
                             </FormControl>
                     </div>
