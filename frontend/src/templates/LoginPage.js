@@ -76,10 +76,16 @@ function LoginPage(){
             withCredentials: true,
             url: "http://localhost:5000/users/login",
 
-        }).then((res) => console.log(res));
+        }).then((res) => {
+            if (res.status === 200) {
+                localStorage.setItem("Username", loginUsername); 
+                history.push("/");
 
-        localStorage.setItem("Username", loginUsername); 
-        history.push("/");
+            }
+            else
+                alert(res.data);
+        });
+
 
     }
 

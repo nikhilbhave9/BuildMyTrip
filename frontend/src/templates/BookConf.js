@@ -17,6 +17,7 @@ function BookingConfirmation() {
             email: localStorage.getItem('BillEmail'),
             roomTier: localStorage.getItem('RoomTier'),
             roomCost: localStorage.getItem('RoomCost'),
+            bookDate: new Date()
         }
         axios.post('http://localhost:5000/users/confirmbooking', booking)
             .then()
