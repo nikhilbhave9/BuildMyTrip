@@ -22,7 +22,7 @@ function LoginPage(){
 
         console.log(response);
         var GoogleEmail = response.profileObj.email;
-        var firstname = response.profileObj.givenName;
+        var firstname = response.profileObj.name;
 
         console.log(GoogleEmail);
 
@@ -39,6 +39,17 @@ function LoginPage(){
         }, function(error) {
            alert('Ran into an error: ', error);
         });
+
+        Axios({
+            method: "POST",
+            data: {
+                tokenId: response.tokenId
+            },
+            withCredentials: false,
+            url: "http://localhost:5000/users/googlelogin",
+        }).then((res) => console.log(res));
+
+        history.push("/");
     };
 
 
@@ -64,7 +75,7 @@ function LoginPage(){
             withCredentials: false,
             url: "http://localhost:5000/users/login",
 
-        }).then((res) => console.log(res));
+        }).then((res) => console.log("Google user logged in successfully"));
 
         history.push("/");
 
