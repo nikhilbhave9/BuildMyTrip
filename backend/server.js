@@ -19,6 +19,7 @@ var corsOps = {
 }
 
 app.use(cors(corsOps));
+app.options('*', cors());
 app.use(express.json());
 
 // Middleware
@@ -26,19 +27,13 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({extended: true}));
 
 
-app.use(
-    cors({
-        origin: "http://localhost:3000", // <-- location of the react app we are connecting to
-        credentials: true,
-    })
-);
-
 /* Session attributes */ 
 app.use(session({
     secret: 'secretcode',
     cookie: {
         path    : '/',
         httpOnly: false,
+        secure: false, 
         maxAge  : 24*60*60*1000
     }
 }));

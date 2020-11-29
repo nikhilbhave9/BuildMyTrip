@@ -45,7 +45,8 @@ function LoginPage(){
             data: {
                 tokenId: response.tokenId
             },
-            withCredentials: false,
+            credentials: 'include',
+            withCredentials: true,
             url: "http://localhost:5000/users/googlelogin",
         }).then((res) => console.log(res));
 
@@ -72,7 +73,7 @@ function LoginPage(){
                 username: loginUsername,
                 password: loginPassword,
             },
-            withCredentials: false,
+            withCredentials: true,
             url: "http://localhost:5000/users/login",
 
         }).then((res) => console.log(res));

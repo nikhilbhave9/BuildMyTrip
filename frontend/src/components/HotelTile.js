@@ -4,6 +4,7 @@ import * as BsIcons from "react-icons/bs";
 import * as GrIcons from "react-icons/gr";
 import * as BiIcons from "react-icons/bi";
 import * as GiIcons from "react-icons/gi";
+import axios from 'axios'; 
 import Button from '@material-ui/core/Button';
 import 'date-fns';
 import Grid from "@material-ui/core/Grid";
@@ -22,15 +23,14 @@ import {
 
 function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, amenities, id, location }) {
 
-    /*
-    function Wishlist(e) {
+    function handleAddWishlist(e) {
         e.preventDefault();
         axios.post('http://localhost:5000/users/wishlist/add/' + id)  
             .then(res => {
                 alert(JSON.stringify(res.data));  
             })
             .catch(err => alert(JSON.stringify(err))); 
-    } */
+    } 
 
     const iconArray = {
         "Wifi": <BsIcons.BsWifi style={{color: 'black'}}/>,
@@ -159,10 +159,11 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                                             marginTop: "10%",
                                             color: 'white',
                                             background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                                        }
-                                        }>
+                                        }}
+                                        onClick={handleAddWishlist}
+                                        >
                                         Add to tracker
-                                </Button>
+                                    </Button>
                                 </Link>
                         </td>
                     </tr>

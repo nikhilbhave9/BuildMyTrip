@@ -54,20 +54,21 @@ export default class UserProfile extends Component {
         }
     }
 
-    /*componentWillMount() {
+    UNSAFE_componentWillMount() {
         axios.get('http://localhost:5000/users/profile')
             .then(res => {
+                console.log(res.data); 
                 this.setState(res.data);
                 this.setState({ 
-                    username: res.data.email,
-                    name: res.data.name
+                    username: res.data.username,
+                    name: res.data.username
                 }) ;
                 console.log(this.state); 
 
 
             })
             .catch(err => console.log(err)); 
-    }*/
+    }
 
     enableAndEdit(e) {
         e.preventDefault();
@@ -211,7 +212,7 @@ export default class UserProfile extends Component {
                                         id="outlined-required"
                                         label="Username"
                                         variant="outlined"
-                                        defaultValue={this.state['email']} 
+                                        defaultValue={this.state['username']} 
                                         disabled={(this.state['formFieldsDisabled'])} 
                                         onChange={this.onChangeUsername}
                                     />
