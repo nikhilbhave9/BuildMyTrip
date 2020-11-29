@@ -145,38 +145,37 @@ router.route('/:id/ratings')
         })
 
 
-    // .post((req, res) => {
+    .post((req, res) => {
         
-    //             /* A post route that allows a user to post a rating for a product */
+                /* A post route that allows a user to post a rating for a product */
         
-    //             hotel.findById(req.params.id)
-    //                 .then(_item => {
-    //                     if (req.session.user){
-    //                         let sessEmail = req.session.user.email;
+                hotel.findById(req.params.id)
+                    .then(_item => {
+                        if (req.session.user){
+                            let sessEmail = req.session.user.email;
                             
-    //                         /* If the user has already rated the product */
-    //                         if (_item.ratings.find(_user => {return _user.email == sessEmail}))  
-    //                             res.json("Your Rating already exists")
+                            /* If the user has already rated the product */
+                            if (_item.ratings.find(_user => {return _user.email == sessEmail}))  
+                                res.json("Your rating already exists")
                             
-    //                         else {
-    //                             /* Get the last digit of the form supplied rating */
-    //                             let rawRating = (req.body.yourRating.toString()).slice(-1); 
+                            else {
+                                /* Get the last digit of the form supplied rating */
+                                let rawRating = (req.body.yourRating.toString()).slice(-1); 
                                 
-    //                             /* Update the average rating */
-    //                             _item.avgRatings = (_item.avgRatings * _item.totalRatings + parseFloat(rawRating)) / (_item.totalRatings + 1); 
-    //                             _item.totalRatings = _item.totalRatings + 1; 
-    //                             _item.ratings.push({"email": req.session.user.email, "rating": req.body.yourRating});
-    //                             _item.save()
-    //                                 .then(() => res.json("Your Rating has been recorded"))
-    //                                 .catch(err => res.status(500).json("Error: " + error))
-    //                         }
-    //                     }
-    //                     else {
-    //                         res.json("Sign in before rating"); 
-    //                     }
-    //                 })
-    //                 .catch(err => res.status(500).json("Error: " + error))
-    //         });
+                                /* Update the average rating */
+                                _item.userRating = (_item.userRating * ratings.length() + parseFloat(rawRating)) / (ratings.length() + 1); 
+                                _item.ratings.push({"email": req.session.user.email, "rating": req.body.yourRating});
+                                _item.save()
+                                    .then(() => res.json("Your Rating has been recorded"))
+                                    .catch(err => res.status(500).json("Error: " + error))
+                            }
+                        }
+                        else {
+                            res.json("Sign in before rating"); 
+                        }
+                    })
+                    .catch(err => res.status(500).json("Error: " + error))
+            });
 
 // ================================================================
 
