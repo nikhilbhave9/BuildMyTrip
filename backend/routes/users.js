@@ -79,50 +79,6 @@ router.route('/login')
 
     });
 
-router.route('/confirmbooking')
-    .post((req, res) => {
-
-
-        const msg = {
-            to: req.body.email,
-            from: 'akshat.singh_ug22@ashoka.edu.in',
-            subject: '[BuildMyTrip Invoice] Confirming your hotel booking: ' + req.body.hotelName,
-            text: 'Hello ' + req.body.billingName + ',',
-            html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">' + req.body.billingName + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">' + req.body.roomTier + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">' + req.body.totalCost + '</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.',
-        }
-        console.log(msg);
-
-        sgMail
-            .send(msg)
-            .then(() => res.json('Your invoice has been emailed to the email'))
-            .catch((err) => res.json(err))
-
-
-        if (req.session.user){
-
-            user.findOne({_id: req.session.user._id})
-
-                /* If found, update the values */
-                .then((_user) => {
-
-                    _user.bookings.push(req.params);
-                    _user.save();
-                    res.json("Hotel has been successfully added to the database");
-                        
-                })
-                
-                /* And then send a json response with status */ 
-
-                .catch(err => res.status(400).json("Error: " + err)); 
-
-
-            }
-        
-
-        
-
-
-    });
 
 router.route("/googlelogin")
     .post((req, res) => {
@@ -186,6 +142,7 @@ router.route('/profile')
     
     /* If the route is reached through a GET request */
     .get((req, res) => {
+
         /* A GET route triggered as the user information page. */
         if (req.session.user) {
             res.json(req.session.user); 
@@ -230,6 +187,35 @@ router.route('/profile')
             }); 
         });
     }); 
+
+router.route('/confirmbooking')
+    .post((req, res) => {
+
+        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+            if (err) res.json(err);
+
+            else {
+                const hotel = req.body;
+                valid_user.bookings.push(hotel);
+                valid_user.save();
+            } 
+        })
+
+        const msg = {
+            to: req.body.email,
+            from: 'akshat.singh_ug22@ashoka.edu.in',
+            subject: '[BuildMyTrip Invoice] Confirming your hotel booking: ' + req.body.hotelName,
+            text: 'Hello ' + req.body.billingName + ',',
+            html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">' + req.body.billingName + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">' + req.body.roomTier + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">' + req.body.totalCost + '</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.',
+        }
+
+        sgMail
+            .send(msg)
+            .then(() => res.json('Your invoice has been emailed to the email'))
+            .catch((err) => res.json(err))
+
+    });
+
 
     
 
