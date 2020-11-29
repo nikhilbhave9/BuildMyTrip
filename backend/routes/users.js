@@ -68,8 +68,7 @@ router.route('/login')
                 if (result === true) {
                     req.session.user = valid_user;
                     console.log(req.session.user);
-                    res.json(req.session.user);
-
+                    req.session.save();
                 }
                 else {
                     return res.json("Passwords do not match!!!");

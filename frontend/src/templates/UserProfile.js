@@ -54,20 +54,19 @@ export default class UserProfile extends Component {
         }
     }
 
-    /*componentWillMount() {
+    componentWillMount() {
         axios.get('http://localhost:5000/users/profile')
             .then(res => {
-                this.setState(res.data);
                 this.setState({ 
-                    username: res.data.email,
-                    name: res.data.name
+                    email: res.data.username,
+                    name: res.data.username
                 }) ;
                 console.log(this.state); 
 
 
             })
             .catch(err => console.log(err)); 
-    }*/
+    }
 
     enableAndEdit(e) {
         e.preventDefault();
