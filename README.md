@@ -20,9 +20,6 @@ Once you search up a particular hotel using the search bar, you can select it an
 The register and sign-in features are based on SHA-256 encryption algorithm. Clicking on the register button navigates you to a page where you can enter your email and password, and then confirm your password. This stores your details in the database. There is an option that tells you how strong your password is. 
 The sign-in button redirects you to a similar page where you have to enter your registered email and password. After a successful login, you are redirected to the home page. Finally, the logout option at the top logs you out. 
 
-- **Shopping Cart and Wishlist:**
-If the "Add to Cart" button on the product tile is clicked, it add that product to the shopping cart. The shopping cart can be accessed via the Navigation Bar. The cart itself is a tabular representation that displays the product image, title, category, price and the "know more" link for each product, along with two buttons that allow you to either delete from cart or move to the wishlist. Similarly, the wishlist has the option to move to cart and delete from wishlist. 
-
 - **My Tracker:**
 My Tracker acts as one-stop for you to compare different hotels together, all at a singular glance. It it similar to a "wishlist". In your tracker, you can "Quick Book" a particular hotel. Or, if you do not wish to consider the hotel anymore, you can delete it from your tracker.
 
