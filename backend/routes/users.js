@@ -226,12 +226,15 @@ router.route('/deletebooking')
             if (err) throw err;
             if (valid_user){
 
-                let index = valid_user.bookings.indexOf(req.body.name);
-                console.log(index);
-                valid_user.bookings.splice(index, 1);
-                valid_user.save();
-                res.json("Item has successfully been removed!");
-                
+                for (i = 0; i < valid_user.bookings.length; i++){
+                    if (valid_user.bookings[i].hotelName === req.body.name){
+                        valid_user.bookings.splice(i, 1);
+                        valid_user.save();
+                        break;
+                    }
+                }
+
+        
             }
         })
     })
