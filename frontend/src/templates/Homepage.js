@@ -9,11 +9,11 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-import * as BiIcons from 'react-icons/bi'; 
+import * as BiIcons from 'react-icons/bi';
 import ScrollAnimation from 'react-animate-on-scroll';
 import Button from '@material-ui/core/Button';
 import bgSg from '../static/sg1.mp4';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 
 
 export default function Homepage() {
@@ -108,9 +108,9 @@ export default function Homepage() {
                 </div>
             </div>
             <div id="page2">
-                <div style={{maxWidth: '20%'}}>
+                <div style={{ maxWidth: '20%' }}>
                     <img src='https://res.cloudinary.com/duzmuxrsw/image/upload/v1606678369/sgmap_oaie2g.png' alt="SGMap"
-                        style={{ 
+                        style={{
                             position: "absolute",
                             display: "cover",
                             maxWidth: "50%",
@@ -123,63 +123,16 @@ export default function Homepage() {
                         }}
                     >
                     </img>
-                    <Link to='/viewHotels/loc=queenstown'><BiIcons.BiCurrentLocation className='marker' id='queenstown'/></Link>
-                    <Link to='/viewHotels/loc=marinabay'><BiIcons.BiCurrentLocation className='marker' id='marinabay' /></Link>
-                    <div className='infobox'>
-                            <table>
-                            <thead id="loc">
-                                Queenstown
-                            </thead>
-                            <tbody>
-                                <tr>
-                                    <td></td>
-                                </tr>
-                            </tbody>
-                        </table> 
-                    </div>
+                    <Link to='/viewHotels/loc=queenstown' className='marker' id='queenstown'><BiIcons.BiCurrentLocation /><span>Queenstown</span></Link>
+                    <Link to='/viewHotels/loc=marinabay' className='marker' id='marinabay'><BiIcons.BiCurrentLocation /><span>Marina Bay</span></Link>
+                    <Link to='/viewHotels/loc=orchardroad' className='marker' id='orchardroad'><BiIcons.BiCurrentLocation /><span>Orchard Road</span></Link>
+                    <Link to='/viewHotels/loc=boonlay' className='marker' id='boonlay'><BiIcons.BiCurrentLocation /><span>Boon Lay</span></Link>
 
                 </div>
                 <ScrollAnimation animateIn="fadeIn">
-                    <span className={classes.page2Text}>Look for the best stay options in Singapore, Switzerland, and New Zealand</span>
+                    <span className={classes.page2Text}>Look for the best stay options in Singapore at the lowest possible costs</span>
                 </ScrollAnimation>
             </div>
-            <div id="page3">
-
-                <MuiPickersUtilsProvider class="datePicker" utils={DateFnsUtils}>
-                    <Grid container justify="space-around">
-                        <KeyboardDatePicker
-                            disableToolbar
-                            variant="inline"
-                            format="MM/dd/yyyy"
-                            margin="normal"
-                            id="date-picker-inline"
-                            label="From"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
-                            style={{ top: "250px", backgroundColor: 'rgba(255,255,255,0.75)' }}
-                        />
-                        <KeyboardDatePicker
-                            margin="normal"
-                            id="date-picker-dialog"
-                            label="To"
-                            format="MM/dd/yyyy"
-                            value={selectedDate}
-                            onChange={handleDateChange}
-                            KeyboardButtonProps={{
-                                'aria-label': 'change date',
-                            }}
-                            style={{ top: "250px", backgroundColor: 'rgba(255,255,255,0.65)' }}
-                        />
-                    </Grid>
-
-                </MuiPickersUtilsProvider>
-
-                <span className={classes.page2Text}>Or explore by tinkering with dates and locations</span>
-            </div>
-
         </div>
     )
 }

@@ -22,7 +22,9 @@ export default class DisplayHotels extends Component {
             selectedDate: new Date(), 
             amenities: {}
         }
-
+        this.sortAsc = this.sortAsc.bind(this);
+        this.sortDsc = this.sortDsc.bind(this);
+        this.sort = this.sort.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
     };
 
@@ -31,12 +33,59 @@ export default class DisplayHotels extends Component {
          
     };
 
+    sort(e) {
+        e.preventDefault(); 
+
+        /* Helper function to sort JSON data by a key */ 
+        let sortType = document.querySelector('input[type="radio"]:checked'); 
+        if (sortType.value === 'A')
+            this.sortAsc(e, sortType.id);
+        else if (sortType.value === 'D')
+            this.sortDsc(e, sortType.id); 
+    }
+
+    sortAsc(e, key) {        
+        /* Function that sorts a JSON object array in ascending on the basis of the key */
+
+        e.preventDefault();
+        /* Referred to: https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects */ 
+
+        let tempData = this.state.mdata; 
+
+        tempData = tempData.sort(function(e1, e2) {
+            var element1 = e1[key];
+            var element2 = e2[key];
+
+            return ((element1 < element2) ? -1: ((element1 > element2) ? 1 : 0)); 
+        });
+
+        this.setState({mdata: tempData}); 
+    }
+
+    sortDsc(e, key) {
+        /* Function that sorts a JSON object array in descending on the basis of the key */ 
+        
+        e.preventDefault();
+        /* Referred to: https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects */ 
+
+        let tempData = this.state.mdata; 
+
+        tempData = tempData.sort(function(e1, e2) {
+            var element1 = e1[key];
+            var element2 = e2[key];
+
+            return ((element1 > element2) ? -1: ((element1 < element2) ? 1 : 0)); 
+        });
+
+        this.setState({mdata: tempData}); 
+    }
+
+
 
     UNSAFE_componentWillMount() {
         axios.get('http://localhost:5000/hotels/')
             .then(res => {
                 /* Get the list of all the products and set the state */
-                console.log(res.data["0"].amenities["0"]); 
                 this.setState({ mdata: res.data });
             })
             .catch(err => console.log(err)); 
@@ -146,7 +195,6 @@ export default class DisplayHotels extends Component {
                         </form>
                     </div>
                     {this.state.mdata.map((data, index) => {
-                        {console.log(data)}
                         if (this.state.filter.length <= 0) {
                             {/* If no filter has been applied, list all items unconditionally */ }
                             return (

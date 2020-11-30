@@ -74,7 +74,10 @@
 #page3{
     background-image: url(https://res.cloudinary.com/duzmuxrsw/image/upload/v1605459747/Kempinski-Grand-Hotel-Des-Bains-St.-Moritz_ifiibs.jpg); 
     min-height: 100vh; 
+    position: fixed; 
     background-size: cover;
+    top: 300%;
+
 }
 
 .infoDisp {
@@ -111,6 +114,10 @@ a {
     transition: 0.3s;  
 }
 
+.marker span {
+    color: rgb(171, 16, 16)
+}
+
 .marker:hover {
     font-size: 30px;
 }
@@ -123,6 +130,16 @@ a {
 #marinabay {
     top: 160%; 
     left: 52%;     
+}
+
+#boonlay {
+    top: 155%; 
+    left: 33%;     
+}
+
+#orchardroad {
+    top: 155%; 
+    left: 50%;     
 }
 
 .infobox {
