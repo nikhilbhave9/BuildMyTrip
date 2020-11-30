@@ -1,3 +1,7 @@
+// The primary JavaScript file that represents the main frontend part of the web application
+// Integrates together the various components of the application: the homepage, the navbar, the login page, the signout page, etc.
+// Makes use of react router to route to different components
+
 import './App.css';
 import Homepage from './templates/Homepage'; 
 import {BrowserRouter as Router, Switch, Route} from "react-router-dom"; 

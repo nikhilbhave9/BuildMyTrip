@@ -60,8 +60,7 @@ export default class UserProfile extends Component {
             .then(res => {
                 console.log(res.data); 
                 this.setState({ 
-                    username: res.data.username,
-                    name: res.data.username
+                    name: res.data.username,
                 }) ;
                 console.log(this.state); 
 
@@ -216,7 +215,7 @@ export default class UserProfile extends Component {
                                         id="outlined-required"
                                         label="Username"
                                         variant="outlined"
-                                        defaultValue={this.state.username} 
+                                        defaultValue={this.state.name} 
                                         disabled={(this.state['formFieldsDisabled'])} 
                                         onChange={this.onChangeUsername}
                                     />

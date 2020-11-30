@@ -1,3 +1,6 @@
+// Main JavaScript entry point that renders App.js
+// Uses an analytics tool- reportWebVitals- to measure app performance
+
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
