@@ -26,6 +26,7 @@ export default class DisplayHotels extends Component {
         this.sortAsc = this.sortAsc.bind(this);
         this.sortDsc = this.sortDsc.bind(this);
         this.sort = this.sort.bind(this);
+        this.filter = this.filter.bind(this);
         this.handleDateChange = this.handleDateChange.bind(this);
     };
 
@@ -82,7 +83,12 @@ export default class DisplayHotels extends Component {
         this.setState({mdata: tempData}); 
     }
 
-
+    filter(e) {
+        /* Helper function to filter products by the category */ 
+        e.preventDefault(); 
+        let value = document.getElementById("Filter").value; 
+        this.setState({filter: value}); 
+    }
 
     componentDidMount() {
         axios.get('http://localhost:5000/hotels/')
@@ -127,11 +133,12 @@ export default class DisplayHotels extends Component {
 
                         <select name="Filter" id="Filter" style={{ "margin-left": "90px", "margin-right": "20px" }}>
                             <option value="" disbaled>Category</option>
-                            <option value="Processor">Processors</option>
-                            <option value="Display">Display</option>
-                            <option value="GPU">GPU</option>
+                            <option value="Marina Bay, Singapore">Marina Bay</option>
+                            <option value="Queenstown, Singapore">Queenstown</option>
+                            <option value="Orchard Road, Singapore">Orchard Road</option>
+                            <option value="Boon Lay, Singapore">Boon Lay</option>
                         </select>
-                        <button>Filter</button>
+                        <button onClick={this.filter}>Filter</button>
                     </form>
                 </div>
 
@@ -220,10 +227,19 @@ export default class DisplayHotels extends Component {
                             )
                         }
 
-                        else if (this.state.filter === data.category) {
+                        else if (this.state.filter === data.location) {
                             {/* If a filter has been applied, list only the items that pass the filter */ }
                             return (
-                                <h1>Hotels here</h1>
+                                <HotelTile 
+                                    name = {data.itemName}
+                                    costPerNight = {data.itemCost}
+                                    hotel_rating = {data.standardRating}
+                                    user_rating = {data.userRating}
+                                    image = {data.imagesLink[0]}
+                                    amenities = {data.amenities[0]}
+                                    id = {data._id}
+                                    location = {data.location} 
+                                />
                             )
                         }
                     })}
