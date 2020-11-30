@@ -115,109 +115,113 @@ router.route("/googlelogin")
 
 router.route("/wishlist")
     .get((req, res) => {
-        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+        user.findOne({ username: req.session.user.username }, (err, valid_user) => {
             if (err) res.json(err);
 
             else {
                 res.json(valid_user.wishlist);
-            } 
+            }
         })
     })
     .post((req, res) => {
-        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+        user.findOne({ username: req.session.user.username }, (err, valid_user) => {
             if (err) res.json(err);
 
             else {
                 const hotelID = req.body;
                 valid_user.wishlist.push(hotelID);
                 valid_user.save()
-                    
-                .then(() => res.json(req.body.itemID + " has been added to your wishlist"))
-                .catch((err) => res.json(err)); 
-            } 
+
+                    .then(() => res.json(req.body.itemID + " has been added to your wishlist"))
+                    .catch((err) => res.json(err));
+            }
         })
     })
 
 /* Trigger the following if "http//www.website.com/users/landing" is called */
 router.route('/profile')
-    
+
     /* If the route is reached through a GET request */
     .get((req, res) => {
 
         /* A GET route triggered as the user information page. */
         if (req.session.user) {
-            res.json(req.session.user); 
+            res.json(req.session.user);
         }
         else {
-            console.log("Not signed in"); 
-            res.json("Not signed in!"); 
+            console.log("Not signed in");
+            res.json("Not signed in!");
         }
     })
 
-    /* If the route is reached through a POST request */ 
+    /* If the route is reached through a POST request */
     .post((req, res) => {
 
         /* Extract the name and email from json object/html form */
-        console.log(req.session.user); 
+        console.log(req.session.user);
 
-        /* Hash the newly entered password */ 
+        /* Hash the newly entered password */
         bcrypt.genSalt(10, (err, salt) => {
-            bcrypt.hash(req.body.password, salt, (err, hash) => {                
-                 
+            bcrypt.hash(req.body.password, salt, (err, hash) => {
+
                 /* Find the user id of the currently logged in user */
-                user.findOne({_id: req.session.user._id})
-                    
+                user.findOne({ _id: req.session.user._id })
+
                     /* If found, update the values */
                     .then((_user) => {
                         if (req.body.password === "")
                             hash = _user.password;
-                        _user.password = hash; 
+                        _user.password = hash;
                         _user.username = req.body.username;
-                        console.log(_user.username); 
-                        _user.save() 
+                        console.log(_user.username);
+                        _user.save()
                             .then(() => {
-                                req.session.user = _user; 
+                                req.session.user = _user;
                                 res.json("User Updated Successfully")
                             })
-                            .catch(err => res.json("Error: " + err)); 
+                            .catch(err => res.json("Error: " + err));
                     })
-                    
-                    /* And then send a json response with status */ 
 
-                    .catch(err => res.status(400).json("Error: " + err)); 
-            }); 
+                    /* And then send a json response with status */
+
+                    .catch(err => res.status(400).json("Error: " + err));
+            });
         });
-    }); 
+    });
 
 router.route('/confirmbooking')
     .post((req, res) => {
-
-        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+        user.findOne({ username: req.session.user.username }, (err, valid_user) => {
             if (err) res.json(err);
 
             else {
                 const hotel = req.body;
                 valid_user.bookings.push(hotel);
                 valid_user.save();
-            } 
+                console.log("Send Email Entered");
+                const msg = {
+                    to: req.body.email,
+                    from: 'akshat.singh_ug22@ashoka.edu.in',
+                    subject: '[BuildMyTrip Invoice] Confirming your hotel booking: ' + req.body.hotelName,
+                    text: 'Hello ' + req.body.billingName + ',',
+                    html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">' + req.body.billingName + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">' + req.body.roomTier + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">' + req.body.roomCost + '</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.',
+                }
+
+                console.log("Message Parsed");
+                sgMail
+                    .send(msg)
+                    .then(() => {
+                        console.log("Mail sent");
+                    })
+                    .catch((err) => res.json(err))
+
+            }
         })
-
-        const msg = {
-            to: req.body.email,
-            from: 'akshat.singh_ug22@ashoka.edu.in',
-            subject: '[BuildMyTrip Invoice] Confirming your hotel booking: ' + req.body.hotelName,
-            text: 'Hello ' + req.body.billingName + ',',
-            html: '<strong>Here is your email invoice for your stay at ' + req.body.hotelName + '</strong><br><br><table style="border: 1px solid black; width: 75%; font-family: ubuntu; font-size: 24px; background-color: grey"><tbody style="border: 1px solid black"><tr style="border: 1px solid black"><td style="border: 1px solid black">Name</td><td style="border: 1px solid black">' + req.body.billingName + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Room Tier</td><td style="border: 1px solid black">' + req.body.roomTier + '</td></tr><tr style="border: 1px solid black"><td style="border: 1px solid black">Total Cost with GST</td><td style="border: 1px solid black">' + req.body.totalCost + '</td></tr></tbody></table>Regards, <br><br>Akshat Singh<br>Team Build My Trip.',
-        }
-
-        sgMail
-            .send(msg)
-            .then(() => res.json('Your invoice has been emailed to the email'))
-            .catch((err) => res.json(err))
+        res.json('Your invoice has been emailed to the email')
 
     });
 
 
-    
+
 
 module.exports = router;
