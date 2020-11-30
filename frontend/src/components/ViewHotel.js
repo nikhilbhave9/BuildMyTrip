@@ -29,6 +29,7 @@ export default class ViewHotel extends Component {
         }
 
         this.handleDateChange = this.handleDateChange.bind(this);
+        this.AddToWishlist = this.AddToWishlist.bind(this);
     }
 
     componentDidMount() {
@@ -59,6 +60,16 @@ export default class ViewHotel extends Component {
     handleDateChange(e) {
         this.setState({ selectedDate: e.target.value });
     }
+
+    AddToWishlist(e) {
+        let hotelID = this.state.hotelData._id;
+
+        axios.post('http://localhost:5000/users/wishlist', hotelID)
+            .then()
+            .catch(err => console.log(err))
+    }
+
+
     /* Make an axios request to fetch the vacancies on this date */
 
     render() {
@@ -108,11 +119,12 @@ export default class ViewHotel extends Component {
                                     Book a room
                         </Button>
                             </Link>
-                            <Link>
+                            <Link to = {"/"}>
                                 <Button
                                     size="large"
                                     id="submit"
                                     type="submit"
+                                    onClick = {this.AddToWishlist}
                                     style={{
                                         marginLeft: "5%",
                                         marginTop: "1%",

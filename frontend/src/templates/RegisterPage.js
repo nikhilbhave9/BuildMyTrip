@@ -98,7 +98,7 @@ function RegisterPage() {
                         color: '#f0f0f0'
                     }}>
                     <h2>
-                        Username
+                        Email
                     </h2>
                     <TextField
                         required
