@@ -218,6 +218,4 @@ router.route('/confirmbooking')
     });
 
 
-    
-
 module.exports = router;
