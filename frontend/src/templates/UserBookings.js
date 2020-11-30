@@ -138,6 +138,8 @@ export default class UserBookings extends Component {
         axios.post('http://localhost:5000/users/deletebooking', hotelName)
             .then()
             .catch(err => console.log(err))
+
+        window.location.reload();
     }
 
     render() {
