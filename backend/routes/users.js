@@ -144,14 +144,13 @@ router.route('/profile')
     /* If the route is reached through a GET request */
     .get((req, res) => {
 
-        /* A GET route triggered as the user information page. */
-        if (req.session.user) {
-            res.json(req.session.user);
-        }
-        else {
-            console.log("Not signed in");
-            res.json("Not signed in!");
-        }
+        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+            if (err) throw err;
+            if (valid_user) {
+                res.json(valid_user);
+            }
+        })
+
     })
 
     /* If the route is reached through a POST request */
