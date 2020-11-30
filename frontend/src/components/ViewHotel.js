@@ -68,7 +68,15 @@ export default class ViewHotel extends Component {
     }
 
     AddToWishlist(e) {
-        let hotelID = this.state.hotelData._id;
+
+        let hotelID = {
+            id: this.state.hotelData._id,
+        };
+
+        axios.post('http://localhost:5000/hotels/addTracker', hotelID)
+            .then()
+            .catch(err => console.log(err))
+
 
         axios.post('http://localhost:5000/users/wishlist', hotelID)
             .then()

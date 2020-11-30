@@ -198,6 +198,23 @@ router.route('/getHotels')
 
     })
 
+
+router.route('/addTracker')
+    .post((req, res) => {
+
+        hotel.findById(req.body.id)
+            .then(_item => {
+                if (req.session.user){
+                    let email = req.session.user.username;
+                    _item.tracking.push(email);
+
+                    _item.save()
+                        .then(() => res.json("Hotel added to your tracking list"))
+                        .catch(err => res.status(500).json("Error: " + error))
+                }
+            })
+    })
+
 // ========================================================================
 
 // VERIFIED USER (2)
