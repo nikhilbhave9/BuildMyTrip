@@ -193,7 +193,7 @@ export default class ViewHotel extends Component {
                                     }
                                     }>
                                     Book a room
-                        </Button>
+                                </Button>
                             </Link>
                             <Link to = {"/"}>
                                 <Button
@@ -209,7 +209,7 @@ export default class ViewHotel extends Component {
                                     }
                                     }>
                                     Add to tracker
-                        </Button>
+                                </Button>
                             </Link>
                         </div>
                         <div className="right">
@@ -331,9 +331,9 @@ export default class ViewHotel extends Component {
                                                         return (
                                                             <Slide index={index}>
                                                                 <div style={{ fontFamily: 'satisfy', fontSize: '20px' }}>
-                                                                    <Link 
-                                                                        style={{fontSize: '20px'}}
-                                                                        to={'' + item._id}>{item.itemName}</Link>:  
+                                                                    <Link
+                                                                        style={{ fontSize: '20px' }}
+                                                                        to={'' + item._id}>{item.itemName}</Link>:
                                                                     ({item.location}) {item.standardRating}
                                                                     <BsIcons.BsStarFill style={{ color: 'yellow' }} />/5
                                                                 </div>
@@ -355,21 +355,21 @@ export default class ViewHotel extends Component {
                                                                         )
                                                                     })}
                                                                 </p>
-                                                                <div 
-                                                                    style={{ 
-                                                                        fontFamily: 'ubuntu', 
-                                                                        marginTop: '5px' 
+                                                                <div
+                                                                    style={{
+                                                                        fontFamily: 'ubuntu',
+                                                                        marginTop: '5px'
                                                                     }}
                                                                 >
                                                                     Average User Rating: {item.userRating}<BsIcons.BsStarFill style={{ color: 'yellow' }} />/5
-                                                                    Evaluated from {item.ratings.length + 1} reviews. 
+                                                                    Evaluated from {item.ratings.length + 1} reviews.
                                                                 </div>
 
                                                             </Slide>)
                                                     })}
                                                 </Slider>
-                                                                <ButtonBack>&#60;</ButtonBack>
-                                                                <ButtonNext>&#62;</ButtonNext>
+                                                <ButtonBack>&#60;</ButtonBack>
+                                                <ButtonNext>&#62;</ButtonNext>
                                             </CarouselProvider>
 
                                         </td>
@@ -379,7 +379,7 @@ export default class ViewHotel extends Component {
 
                         </div>
                     </div>
-                        </div>
+                </div>
             </>
         )
     }

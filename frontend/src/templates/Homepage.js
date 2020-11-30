@@ -9,7 +9,7 @@ import {
     MuiPickersUtilsProvider,
     KeyboardDatePicker,
 } from '@material-ui/pickers';
-
+import * as BiIcons from 'react-icons/bi'; 
 import ScrollAnimation from 'react-animate-on-scroll';
 import Button from '@material-ui/core/Button';
 import bgSg from '../static/sg1.mp4';
@@ -119,7 +119,7 @@ export default function Homepage() {
                         style={{ 
                             position: "absolute",
                             display: "cover",
-                            maxWidth: "70%",
+                            maxWidth: "50%",
                             left: "50%",
                             top: "155%",
                             height: "auto",
@@ -127,7 +127,23 @@ export default function Homepage() {
                             transform: "translate(-50%, -50%)",
                             zIndex: "2",
                         }}
-                    ></img>
+                    >
+                    </img>
+                    <BiIcons.BiCurrentLocation className='marker' id='queenstown'/>
+                    <BiIcons.BiCurrentLocation className='marker' id='marinabay' onClick={alert("HOVER")}/>
+                    <div className='infobox'>
+                            <table>
+                            <thead>
+                                Queenstown
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td></td>
+                                </tr>
+                            </tbody>
+                        </table> 
+                    </div>
+
                 </div>
                 <ScrollAnimation animateIn="fadeIn">
                     <span className={classes.page2Text}>Look for the best stay options in Singapore, Switzerland, and New Zealand</span>
