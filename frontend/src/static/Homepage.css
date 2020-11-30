@@ -102,3 +102,35 @@ a {
     font-size: "300px";
     text-decoration: none;
 }   
+
+.marker {
+    color: rgb(217, 0, 255); 
+    z-index: 10; 
+    font-size: 20px; 
+    position: absolute;
+    transition: 0.3s;  
+}
+
+.marker:hover {
+    font-size: 30px;
+}
+
+#queenstown {
+    top: 160%; 
+    left: 43%;     
+}
+
+#marinabay {
+    top: 160%; 
+    left: 52%;     
+}
+
+.infobox {
+    background-color: rgba(0, 0, 0, 0.6);
+    z-index: 20; 
+    width: 60%; 
+    color: white;  
+    text-align: center; 
+    font-family: satisfy; 
+    font-size: 20px; 
+}
