@@ -129,8 +129,6 @@ export default class UserBookings extends Component {
         this.consolelog(e)
     }
 
-
-
     render() {
         if (this.state.redirect)
             return <Redirect to='/users/profile' />
@@ -144,7 +142,7 @@ export default class UserBookings extends Component {
                     {/* Logo */}
                     <img
                         style={{
-                            position: "absolute",
+                            position: "fixed",
                             width: "100%",
                             left: "50%",
                             top: "50%",
@@ -199,7 +197,7 @@ export default class UserBookings extends Component {
 
                                         <td className="rebook_cell">
                                             <Button size="large" style={{ marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
-                                                Rebook
+                                                Delete booking
                                             </Button>
                                             <Button size="large" style={{ marginTop: "10px", marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
                                                 Add to Tracker
