@@ -20,7 +20,8 @@ export default class DisplayHotels extends Component {
             mdata: [],
             filter: "",
             selectedDate: new Date(), 
-            amenities: {}
+            amenities: {}, 
+            loading: true
         }
         this.sortAsc = this.sortAsc.bind(this);
         this.sortDsc = this.sortDsc.bind(this);
@@ -38,7 +39,8 @@ export default class DisplayHotels extends Component {
 
         /* Helper function to sort JSON data by a key */ 
         let sortType = document.querySelector('input[type="radio"]:checked'); 
-        if (sortType.value === 'A')
+
+        if (sortType.value === 'A') 
             this.sortAsc(e, sortType.id);
         else if (sortType.value === 'D')
             this.sortDsc(e, sortType.id); 
@@ -82,16 +84,21 @@ export default class DisplayHotels extends Component {
 
 
 
-    UNSAFE_componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:5000/hotels/')
             .then(res => {
                 /* Get the list of all the products and set the state */
                 this.setState({ mdata: res.data });
+                this.setState({loading: false}); 
             })
             .catch(err => console.log(err)); 
     }
 
     render() {
+
+        if (this.state.loading)
+            return (<div>Loading...</div>)
+
         return (
             <div>
                 <div className="background"></div>
@@ -99,10 +106,10 @@ export default class DisplayHotels extends Component {
                     Sort By
                     <form>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="D" id="cost" /> Prices: High to Low
+                            <input type="radio" name="optradio" value="D" id="itemCost" /> Prices: High to Low
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="A" id="cost" /> Prices: Low to High
+                            <input type="radio" name="optradio" value="A" id="itemCost" /> Prices: Low to High
                         </label>
                         <label class="radio-inline">
                             <input type="radio" name="optradio" value="A" id="itemName" /> Name: A to Z
@@ -111,12 +118,12 @@ export default class DisplayHotels extends Component {
                             <input type="radio" name="optradio" value="D" id="itemName" /> Name: Z to A
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="D" id="avgRatings" /> Rating: High to Low
+                            <input type="radio" name="optradio" value="D" id="standardRating" /> Rating: High to Low
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="A" id="avgRatings" /> Rating: Low to High
+                            <input type="radio" name="optradio" value="A" id="standardRating" /> Rating: Low to High
                         </label>
-                        <button>Sort</button>
+                        <button onClick={this.sort}>Sort</button>
 
                         <select name="Filter" id="Filter" style={{ "margin-left": "90px", "margin-right": "20px" }}>
                             <option value="" disbaled>Category</option>
@@ -195,6 +202,7 @@ export default class DisplayHotels extends Component {
                         </form>
                     </div>
                     {this.state.mdata.map((data, index) => {
+                        console.log(this.state.mdata[index]);
                         if (this.state.filter.length <= 0) {
                             {/* If no filter has been applied, list all items unconditionally */ }
                             return (
