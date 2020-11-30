@@ -128,7 +128,8 @@ router.route("/wishlist")
             if (err) res.json(err);
 
             else {
-                valid_user.wishlist.push(req.body.itemID);
+                const hotelID = req.body;
+                valid_user.wishlist.push(hotelID);
                 valid_user.save()
                     
                 .then(() => res.json(req.body.itemID + " has been added to your wishlist"))
