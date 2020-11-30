@@ -52,31 +52,22 @@ export default class UserBookings extends Component {
             name: '',
             confirm_password: '',
             redirect: false,
+            loading: true, 
             metaData: [{
-                "hotelName": "Four Seasons",
-                "hotelImage": "https://gommts3.mmtcdn.com/htl-imgs/htl-imgs/4190725563799612-20090w000000k89it0142_R_550_412_R5.jpg?&output-quality=75&downsize=910:612&crop=910:612;141,0&output-format=jpg",
-                "hotelCost": "50000",
-                "hotelLocation": "Marina Bay Sands, Singapore",
-                "id": "ID",
-                "date": new Date()
+                
             }]
         }
     }
 
-    /*componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:5000/users/profile')
             .then(res => {
-                this.setState(res.data);
-                this.setState({ 
-                    username: res.data.email,
-                    name: res.data.name
-                }) ;
-                console.log(this.state); 
-
-
+                this.setState({metaData: res.data.bookings});
+                this.setState({loading: false})
+                console.log(this.state.metaData); 
             })
             .catch(err => console.log(err)); 
-    }*/
+    }
 
     enableAndEdit(e) {
         e.preventDefault();
@@ -144,6 +135,9 @@ export default class UserBookings extends Component {
         if (this.state.redirect)
             return <Redirect to='/users/profile' />
 
+        if (this.state.loading)
+            return (<div>Loading...</div>) 
+
         return (
             <div>
                 <div className="register">
@@ -187,19 +181,20 @@ export default class UserBookings extends Component {
                         </h1>
                         <table style={{ marginLeft: '150px', color: 'white', width: '80%' }}>
                             {this.state.metaData.map((value, index) => {
+                                console.log(value);
                                 return (
                                     <tr style={{ backgroundColor: 'rgba(50, 50, 100, 0.5)' }}>
                                         <td className="image_cell">
-                                            <img className="booking_image" src={value.hotelImage} alt="hotelsnap" />
+                                            <img className="booking_image" alt="hotelsnap" />
                                         </td>
                                         <td className="nameloc_cell">
                                             <p className="hotel-name">{value.hotelName}</p>
                                             <p className="hotel_location">{value.hotelLocation}</p>
-                                            <p><strong>Booking Processed On: </strong>{((value.date).toString())}</p>
+                                            <p><strong>Booking Processed On: </strong>{(value.bookDate)}</p>
                                         </td>
 
                                         <td className="cost_cell">
-                                            ₹{value.hotelCost}
+                                            ₹{value.roomCost}
                                         </td>
 
                                         <td className="rebook_cell">

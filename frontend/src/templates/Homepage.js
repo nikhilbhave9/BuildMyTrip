@@ -13,6 +13,7 @@ import * as BiIcons from 'react-icons/bi';
 import ScrollAnimation from 'react-animate-on-scroll';
 import Button from '@material-ui/core/Button';
 import bgSg from '../static/sg1.mp4';
+import { Link } from 'react-router-dom'; 
 
 
 export default function Homepage() {
@@ -72,13 +73,6 @@ export default function Homepage() {
     };
 
     const classes = useStyles();
-    document.getElementsByClassName("sheet-sg").onmouseover = function () {
-        document.getElementsByClassName("infoDisp").style.display = "block";
-    }
-
-    document.getElementsByClassName("sheet-sg").onmouseover = function () {
-        document.getElementsByClassName("infoDisp").style.display = "none";
-    }
 
 
     return (
@@ -129,11 +123,11 @@ export default function Homepage() {
                         }}
                     >
                     </img>
-                    <BiIcons.BiCurrentLocation className='marker' id='queenstown'/>
-                    <BiIcons.BiCurrentLocation className='marker' id='marinabay' onClick={alert("HOVER")}/>
+                    <Link to='/viewHotels/loc=queenstown'><BiIcons.BiCurrentLocation className='marker' id='queenstown'/></Link>
+                    <Link to='/viewHotels/loc=marinabay'><BiIcons.BiCurrentLocation className='marker' id='marinabay' /></Link>
                     <div className='infobox'>
                             <table>
-                            <thead>
+                            <thead id="loc">
                                 Queenstown
                             </thead>
                             <tbody>
