@@ -220,6 +220,22 @@ router.route('/confirmbooking')
 
     });
 
+router.route('/deletebooking')
+    .post((req, res) => {
+        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+            if (err) throw err;
+            if (valid_user){
+
+                let index = valid_user.bookings.indexOf(req.body.name);
+                console.log(index);
+                valid_user.bookings.splice(index, 1);
+                valid_user.save();
+                res.json("Item has successfully been removed!");
+                
+            }
+        })
+    })
+
 
 
 

@@ -129,6 +129,17 @@ export default class UserBookings extends Component {
         this.consolelog(e)
     }
 
+    deleteBooking(e){
+
+        const hotelName = {
+            name: e,
+        };
+
+        axios.post('http://localhost:5000/users/deletebooking', hotelName)
+            .then()
+            .catch(err => console.log(err))
+    }
+
     render() {
         if (this.state.redirect)
             return <Redirect to='/users/profile' />
@@ -196,7 +207,7 @@ export default class UserBookings extends Component {
                                         </td>
 
                                         <td className="rebook_cell">
-                                            <Button size="large" style={{ marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
+                                            <Button onClick = {() => {this.deleteBooking(value.hotelName)}} size="large" style={{ marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
                                                 Delete booking
                                             </Button>
                                             <Button size="large" style={{ marginTop: "10px", marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
