@@ -91,8 +91,8 @@ table {
 }
 
 .slide-image {
-    max-width: 500px;
-    max-height: 250px;
+    max-width: 750px;
+    max-height: 375px;
     height: 400px;
     width: auto;
     margin-left: auto;
@@ -176,7 +176,6 @@ table {
 }
 
 .inp-text {
-    width: 250%; 
     border-radius: 30px; 
     border: 5px solid #fff; 
     outline: none; 
@@ -187,14 +186,13 @@ table {
 }
 
 .inp-num {
-    width: 150%; 
     border-radius: 30px; 
     border: 5px solid #fff; 
     outline: none; 
+    width: 50%; 
     padding: 8px 8px 8px 20px; 
     font-family: ubuntu; 
     height: 300%;
-    margin-left: 400%; 
     float: left;  
 }
 

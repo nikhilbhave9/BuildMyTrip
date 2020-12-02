@@ -144,7 +144,7 @@ router.route('/profile')
     /* If the route is reached through a GET request */
     .get((req, res) => {
 
-        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+        user.findOne({ username: req.session.user.username }, (err, valid_user) => {
             if (err) throw err;
             if (valid_user) {
                 res.json(valid_user);
@@ -222,23 +222,43 @@ router.route('/confirmbooking')
 
 router.route('/deletebooking')
     .post((req, res) => {
-        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+        user.findOne({ username: req.session.user.username }, (err, valid_user) => {
             if (err) throw err;
-            if (valid_user){
+            if (valid_user) {
 
-                for (i = 0; i < valid_user.bookings.length; i++){
-                    if (valid_user.bookings[i].hotelName === req.body.name){
+                for (i = 0; i < valid_user.bookings.length; i++) {
+                    if (valid_user.bookings[i].hotelName === req.body.name) {
                         valid_user.bookings.splice(i, 1);
                         valid_user.save();
                         break;
                     }
                 }
 
-        
+
             }
         })
     })
 
+
+router.route('/verified')
+    .post((req, res) => {
+        /* A POST route that tells the system whether a user is a verified buyer of the item he's rating */
+        let username = req.session.user.username;
+
+        if (username) {
+            user.findOne({ username })
+                .then(_data => {
+                    if (_data.bookings.find(_booking => {return _booking.hotelName === req.body.hotelName}))
+                        return res.json("Y");
+                    else
+                        return res.json("N");
+                })
+                .catch(err => res.json(err));
+        }
+        else {
+            res.json("User not signed in");
+        }
+    })
 
 
 

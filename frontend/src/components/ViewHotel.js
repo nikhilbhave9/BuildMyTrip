@@ -13,6 +13,7 @@ import { Link } from 'react-router-dom';
 import '../static/ViewHotel.css';
 import { CarouselProvider, Slider, Slide, ButtonBack, ButtonNext } from 'pure-react-carousel';
 import 'pure-react-carousel/dist/react-carousel.es.css';
+import * as TiIcons from 'react-icons/ti';
 
 
 // components: Name, Price, Rating, Image, Catergory, Number of Reviews, UniqueProductID?
@@ -34,8 +35,29 @@ export default class ViewHotel extends Component {
         // Sort and Filter (N)
         this.sortAsc = this.sortAsc.bind(this);
         this.sortDsc = this.sortDsc.bind(this);
-        this.sort = this.sort.bind(this); 
+        this.sort = this.sort.bind(this);
         this.filter = this.filter.bind(this);
+        this.postReview = this.postReview.bind(this);
+    }
+
+    postReview() {
+        let precTag = "";
+        axios.post('http://localhost:5000/users/verified', { hotelName: this.state.hotelData.itemName })
+            .then(res => {
+                precTag = (res.data === 'Y') ? '1899' : '';
+                let body = {
+                    description: document.getElementById('inp-text').value,
+                    yourRating: precTag + (document.getElementById('inp-num').value).toString()
+                };
+
+                axios.post('http://localhost:5000/hotels/' + this.props.match.params.id + '/ratings', body)
+                    .then(res => {
+                        alert(res.data)
+                        window.location.reload();
+                    })
+                    .catch(err => alert(err));
+            })
+
     }
 
     componentDidMount() {
@@ -87,59 +109,59 @@ export default class ViewHotel extends Component {
     // SORT and FILTER
 
     sort(e) {
-        e.preventDefault(); 
+        e.preventDefault();
 
-        /* Helper function to sort JSON data by a key */ 
-        let sortType = document.querySelector('input[type="radio"]:checked'); 
+        /* Helper function to sort JSON data by a key */
+        let sortType = document.querySelector('input[type="radio"]:checked');
         if (sortType.value === 'A')
             this.sortAsc(e, sortType.id);
         else if (sortType.value === 'D')
-            this.sortDsc(e, sortType.id); 
+            this.sortDsc(e, sortType.id);
     }
 
-    sortAsc(e, key) {        
+    sortAsc(e, key) {
         /* Function that sorts a JSON object array in ascending on the basis of the key */
 
         e.preventDefault();
-        /* Referred to: https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects */ 
+        /* Referred to: https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects */
 
-        let tempData = this.state.mdata; 
+        let tempData = this.state.mdata;
 
-        tempData = tempData.sort(function(e1, e2) {
+        tempData = tempData.sort(function (e1, e2) {
             var element1 = e1[key];
             var element2 = e2[key];
 
-            return ((element1 < element2) ? -1: ((element1 > element2) ? 1 : 0)); 
+            return ((element1 < element2) ? -1 : ((element1 > element2) ? 1 : 0));
         });
 
-        this.setState({mdata: tempData}); 
+        this.setState({ mdata: tempData });
     }
 
     sortDsc(e, key) {
-        /* Function that sorts a JSON object array in descending on the basis of the key */ 
-        
+        /* Function that sorts a JSON object array in descending on the basis of the key */
+
         e.preventDefault();
-        /* Referred to: https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects */ 
+        /* Referred to: https://stackoverflow.com/questions/8175093/simple-function-to-sort-an-array-of-objects */
 
-        let tempData = this.state.mdata; 
+        let tempData = this.state.mdata;
 
-        tempData = tempData.sort(function(e1, e2) {
+        tempData = tempData.sort(function (e1, e2) {
             var element1 = e1[key];
             var element2 = e2[key];
 
-            return ((element1 > element2) ? -1: ((element1 < element2) ? 1 : 0)); 
+            return ((element1 > element2) ? -1 : ((element1 < element2) ? 1 : 0));
         });
 
-        this.setState({mdata: tempData}); 
+        this.setState({ mdata: tempData });
     }
 
     filter(e) {
-        /* Helper function to filter products by the category */ 
-        e.preventDefault(); 
-        let value = document.getElementById("Filter").value; 
-        this.setState({filter: value}); 
+        /* Helper function to filter products by the category */
+        e.preventDefault();
+        let value = document.getElementById("Filter").value;
+        this.setState({ filter: value });
     }
-    
+
 
 
     // ===================================================
@@ -195,12 +217,12 @@ export default class ViewHotel extends Component {
                                     Book a room
                                 </Button>
                             </Link>
-                            <Link to = {"/"}>
+                            <Link to={"/"}>
                                 <Button
                                     size="large"
                                     id="submit"
                                     type="submit"
-                                    onClick = {this.AddToWishlist}
+                                    onClick={this.AddToWishlist}
                                     style={{
                                         marginLeft: "5%",
                                         marginTop: "1%",
@@ -231,8 +253,8 @@ export default class ViewHotel extends Component {
                                     <td className='left-image_slideshow'>
                                         <CarouselProvider
                                             naturalSlideWidth={60}
-                                            naturalSlideHeight={35}
-                                            totalSlides={4}
+                                            naturalSlideHeight={30}
+                                            totalSlides={this.state.hotelData.imagesLink.length}
                                             style={{ marginTop: '25px', backgroundColor: 'rgba(0, 0, 0, 0.8)' }}
                                         >
                                             <Slider>
@@ -290,10 +312,12 @@ export default class ViewHotel extends Component {
                         <table style={{ width: '65%' }}>
                             <tbody>
                                 {this.state.hotelData.ratings.map((value, key) => {
-                                    console.log(value);
+                                    let icon = (value.rating.length > 3) ? <Chip avatar={<Avatar><TiIcons.TiTick style={{ color: '#00ff00', fontSize: '20px' }} /></Avatar>}
+                                    label="Verified" style={{ background: 'linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)', marginRight: '5px', marginLeft: '5px', 
+                                    marginTop: '5px', fontFamily: 'ubuntu', color: 'white' }} /> : '';
                                     return (<tr style={{ width: '50%' }}>
-                                        <td className='table-cell' id='email'>{value['email']}</td>
-                                        <td className='table-cell' id='rating'><strong>{value.rating}/5</strong></td>
+                                        <td className='table-cell' id='email'>{value['email']}{icon}</td>
+                                        <td className='table-cell' id='rating'><strong>{(value.rating.toString()).slice(-1)}/5</strong></td>
                                         <td className='table-cell' id='description'><em>"{value.description}"</em></td>
                                     </tr>)
                                 })}
@@ -304,10 +328,23 @@ export default class ViewHotel extends Component {
                     <div id='viewhotel-titlebar' style={{ color: 'white', marginTop: '5%', letterSpacing: '1px' }}>
                         <span style={{ marginTop: "1%" }}>Your Rating</span><br />
                     </div>
-                    <table style={{ color: 'white' }}>
+                    <table style={{ color: 'white', width: '100%' }}>
                         <tr>
-                            <td><textarea className="inp-text" type="text" placeholder="Review" /></td>
-                            <td><input className="inp-num" type="number" min="1" max="5" placeholder="Rating out of 5" /></td>
+                            <td><textarea className="inp-text" id="inp-text" type="text" placeholder="Review" style={{ width: '80%' }} /></td>
+                            <td><input className="inp-num" id="inp-num" type="number" min="1" max="5" placeholder="Rating out of 5" /></td>
+                            <td><Button
+                                size="large"
+                                id="submit"
+                                type="submit"
+                                onClick={this.postReview}
+                                style={{
+                                    marginTop: "1%",
+                                    color: 'white',
+                                    background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
+                                }
+                                }>
+                                Post Review
+                                </Button></td>
                         </tr>
                     </table>
 
