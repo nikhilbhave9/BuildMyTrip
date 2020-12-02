@@ -239,6 +239,22 @@ router.route('/deletebooking')
         })
     })
 
+router.route('/deleteTracker')
+    .post((req, res) => {
+        user.findOne({username: req.session.user.username}, (err, valid_user) => {
+            if (err) throw err;
+            if (valid_user){
+                for (i = 0; i < valid_user.wishlist.length; i++){
+                    if (valid_user.wishlist[i].id === req.body.ID){
+                        valid_user.wishlist.splice(i, 1);
+                        valid_user.save();
+                        break;
+                    }
+                }
+            }
+        })
+    })
+
 
 router.route('/verified')
     .post((req, res) => {

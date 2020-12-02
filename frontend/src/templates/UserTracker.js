@@ -66,6 +66,20 @@ export default class UserTracker extends Component {
                     .catch(err => console.log(err)); 
             })
             .catch(err => console.log(err)); 
+
+    }
+
+    deleteBooking(e){
+
+        const trackerID = {
+            ID: e,
+        };
+
+        axios.post('http://localhost:5000/users/deleteTracker', trackerID)
+            .then()
+            .catch(err => console.log(err))
+
+        window.location.reload();
     }
 
     render() {
@@ -80,7 +94,7 @@ export default class UserTracker extends Component {
                 <div className="register">
                     <img
                         style={{
-                            position: "absolute",
+                            position: "fixed",
                             width: "100%",
                             left: "50%",
                             top: "50%",
@@ -128,7 +142,7 @@ export default class UserTracker extends Component {
                                                 </Button>
                                             </Link>
                                             <Link to="#">
-                                                <Button size="large" style={{ padding: '10px', marginLeft: "20px", fontSize: '20px', color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
+                                                <Button onClick = {() => {this.deleteBooking(value._id)}} size="large" style={{ padding: '10px', marginLeft: "20px", fontSize: '20px', color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
                                                     <AiIcons.AiFillDelete/>
                                                 </Button>
                                             </Link> 
