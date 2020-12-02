@@ -71,6 +71,13 @@ export default class registerPage extends Component {
             return; 
         }
 
+        alert(user.password.length);
+        return; 
+        if (user.password.length <= 6 || !(/\d/.test(user.password))) {
+            alert("Your Password is susceptible to breach. Increase strength!");
+            return; 
+        }
+
 
         axios({
             method: "post",

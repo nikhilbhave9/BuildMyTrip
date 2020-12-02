@@ -53,9 +53,19 @@ function RegisterPage() {
 
     const register = () => {
 
-        if (registerPassword != registerConfirmPassword){
+        if (registerPassword !== registerConfirmPassword){
             alert("Passwords do not match!");
             return;
+        }
+
+        if (registerPassword.length <= 6) {
+            alert("Your Password length is too short"); 
+            return; 
+        }
+
+        if (!/\d/.test(registerPassword)) {
+            alert("Your password has no numeric characters!"); 
+            return; 
         }
 
         // generates a four digit number
@@ -78,22 +88,7 @@ function RegisterPage() {
         });
 
         setmodalState(true);
-
-        /*
-        Axios({
-            method: "POST",
-            data: {
-                username: registerUsername,
-                password: registerPassword,
-            },
-            withCredentials: false,
-            url: "http://localhost:5000/users/register",
-
-        }).then((res) => console.log(res));
-
-        history.push("/"); 
-        */
-
+        
     };
 
     const verifyOTP = () => {
