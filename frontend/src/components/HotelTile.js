@@ -58,6 +58,25 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
         }
     }
 
+    const AddToWishlist = (e) => {
+
+        let hotelID = {
+            id: e,
+        };
+
+        axios.post('http://localhost:5000/hotels/addTracker', hotelID)
+            .then()
+            .catch(err => console.log(err))
+
+
+        axios.post('http://localhost:5000/users/wishlist', hotelID)
+            .then()
+            .catch(err => console.log(err))
+
+        alert("Hotel has been successfully added to your Tracker!")
+    }
+
+
     return (
         <div className="hotel-tile">
             {/* Hotel Title */}
@@ -155,7 +174,7 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                                             color: 'white',
                                             background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
                                         }}
-                                        onClick={handleAddWishlist}
+                                        onClick = {() => {AddToWishlist(id)}}
                                         >
                                         Add to tracker
                                     </Button>

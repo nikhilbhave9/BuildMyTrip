@@ -6,18 +6,27 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
+import emailjs from "emailjs-com";
+import {Modal} from 'react-bootstrap';
 
 function RegisterPage() {
 
     const [registerUsername, setRegisterUsername] = useState("");
     const [registerPassword, setRegisterPassword] = useState("");
     const [registerConfirmPassword, setregisterConfirmPassword] = useState("");
+    const [modalState, setmodalState] = useState(false);
+    const [OTP_input, checkOTP] = useState("");
+    const [generatedOTP, setgeneratedOTP] = useState("");
 
     let history = useHistory();
 
     const onRegisterUsername = (e) => {
 
         setRegisterUsername(e.target.value);
+    }
+
+    const checkingOTP = (e) => {
+        checkOTP(e.target.value);
     }
 
     const onRegisterPassword = (e) => {
@@ -48,6 +57,29 @@ function RegisterPage() {
             alert("Passwords do not match!");
             return;
         }
+
+        // generates a four digit number
+        var OTP = Math.floor(1000 + Math.random() * 9000);
+
+        setgeneratedOTP(OTP);
+
+        var templateParams = {
+
+            email: registerUsername,
+            OTP: OTP
+        
+        };
+
+        emailjs.send('BuildMyTrip', 'template_8wafihk', templateParams, 'user_OXQPAUgJAaocvkKl7iVMf')
+        .then(function(response) {
+           alert("The OTP has been sent to [" + registerUsername + "]");
+        }, function(error) {
+           alert('Ran into an error: ', error);
+        });
+
+        setmodalState(true);
+
+        /*
         Axios({
             method: "POST",
             data: {
@@ -59,11 +91,42 @@ function RegisterPage() {
 
         }).then((res) => console.log(res));
 
-        history.push("/");
+        history.push("/"); 
+        */
 
     };
 
+    const verifyOTP = () => {
+
+        if (OTP_input == generatedOTP){
+
+            Axios({
+                method: "POST",
+                data: {
+                    username: registerUsername,
+                    password: registerPassword,
+                },
+                withCredentials: false,
+                url: "http://localhost:5000/users/register",
+    
+            }).then((res) => console.log(res));
+    
+            history.push("/");
+
+        }
+        else {
+            alert("You have entered the wrong OTP");
+        }
+
+    }
+
+    const closeModal = () => {
+        setmodalState(false);
+    }
+
     return (
+        
+
         <div className="register">
             {/* Logo */}
             <img
@@ -132,9 +195,24 @@ function RegisterPage() {
                     <h4 id="password-status">
                         Your password must contain at least 6 alphanumeric characters
                     </h4>
+                    
                     <Button onClick = {register} size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
                         Register
                     </Button>
+
+                    <Modal show = {modalState} onHide = {closeModal}>
+                        <Modal.Header closeButton> Enter your OTP </Modal.Header> 
+                        <Modal.Body> <TextField
+                        required
+                        id="outlined-required"
+                        label="OTP"
+                        variant="outlined"
+                        onChange = {checkingOTP}
+                    /> </Modal.Body>
+                        <Modal.Footer> <Button onClick = {verifyOTP} size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
+                        Enter OTP
+                    </Button> </Modal.Footer>
+                    </Modal>
                 </FormControl>
             </div>
         </div >
