@@ -44,10 +44,21 @@ function RegisterPage() {
 
     const register = () => {
 
-        if (registerPassword != registerConfirmPassword){
+        if (registerPassword !== registerConfirmPassword){
             alert("Passwords do not match!");
             return;
         }
+
+        if (registerPassword.length <= 6) {
+            alert("Your Password length is too short"); 
+            return; 
+        }
+
+        if (!/\d/.test(registerPassword)) {
+            alert("Your password has no numeric characters!"); 
+            return; 
+        }
+        
         Axios({
             method: "POST",
             data: {
