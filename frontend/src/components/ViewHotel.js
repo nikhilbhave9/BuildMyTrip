@@ -103,6 +103,8 @@ export default class ViewHotel extends Component {
         axios.post('http://localhost:5000/users/wishlist', hotelID)
             .then()
             .catch(err => console.log(err))
+
+        alert("Hotel has been successfully added to your Tracker");
     }
 
     // ===================================================
@@ -217,7 +219,7 @@ export default class ViewHotel extends Component {
                                     Book a room
                                 </Button>
                             </Link>
-                            <Link to={"/"}>
+                            <Link>
                                 <Button
                                     size="large"
                                     id="submit"
