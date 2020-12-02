@@ -22,10 +22,7 @@ function App() {
 		<Router>
 			<div className="App">
 				<Switch>
-					<Route path='/viewhotels/:id'>
-						<Navbar/>
-						<DisplayHotels/>
-					</Route>
+					<Route path='/viewhotels/loc=:location' component={DisplayHotels}/>
 					<Route path='/hotel/:id' component={ViewHotel}/>
 						
 					<Route path='/signout'>

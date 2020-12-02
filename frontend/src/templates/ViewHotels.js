@@ -10,6 +10,8 @@ import {
     KeyboardDatePicker,
 } from '@material-ui/pickers';
 import Grid from '@material-ui/core/Grid';
+import '../static/filtersort.css';
+import Navbar from '../components/Navbar';
 
 export default class DisplayHotels extends Component {
 
@@ -94,6 +96,7 @@ export default class DisplayHotels extends Component {
         axios.get('http://localhost:5000/hotels/')
             .then(res => {
                 /* Get the list of all the products and set the state */
+                this.setState({filter: this.props.match.params.location})
                 this.setState({ mdata: res.data });
                 this.setState({loading: false}); 
             })
@@ -107,27 +110,28 @@ export default class DisplayHotels extends Component {
 
         return (
             <div>
+                <Navbar/>
                 <div className="background"></div>
                 <div className="CustomFiltering" style={{ "padding": "15px", "vertical-align": "middle" }}>
-                    Sort By
+                    <span>Sort By</span>
                     <form>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="D" id="itemCost" /> Prices: High to Low
+                            <input type="radio" className="optradio" value="D" id="itemCost" /> Prices: High to Low
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="A" id="itemCost" /> Prices: Low to High
+                            <input type="radio" className="optradio" value="A" id="itemCost" /> Prices: Low to High
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="A" id="itemName" /> Name: A to Z
+                            <input type="radio" className="optradio" value="A" id="itemName" /> Name: A to Z
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="D" id="itemName" /> Name: Z to A
+                            <input type="radio" className="optradio" value="D" id="itemclassName" /> className: Z to A
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="D" id="standardRating" /> Rating: High to Low
+                            <input type="radio" className="optradio" value="D" id="standardRating" /> Rating: High to Low
                         </label>
                         <label class="radio-inline">
-                            <input type="radio" name="optradio" value="A" id="standardRating" /> Rating: Low to High
+                            <input type="radio" className="optradio" value="A" id="standardRating" /> Rating: Low to High
                         </label>
                         <button onClick={this.sort}>Sort</button>
 
@@ -162,8 +166,10 @@ export default class DisplayHotels extends Component {
                                     style={{ backgroundColor: 'rgba(255,255,255,0.75)', width: '80%' }}
                                 />
                                 <KeyboardDatePicker
-                                    margin="normal"
-                                    id="date-picker-dialog"
+                                    disableToolbar
+                                    variant="inline"
+                                    margin="margin"
+                                    id="date-picker-inline"
                                     label="To"
                                     format="MM/dd/yyyy"
                                     value={this.state.selectedDate}
@@ -205,6 +211,8 @@ export default class DisplayHotels extends Component {
                                 <input type="checkbox" />
                                 <span class="checkmark"></span>
                             </label>
+
+                            <button>Filter by Amenities/Date</button>
 
                         </form>
                     </div>

@@ -188,10 +188,12 @@ router.route('/getHotels')
            details of each product */ 
 
         let list = new Array(); 
+        console.log(req.body.data); 
         for (const param in req.body.data) {
-            list.push(mongoose.Types.ObjectId(req.body.data[param])); 
+            list.push(mongoose.Types.ObjectId(req.body.data[param]['id'])); 
         }
-
+        
+        console.log(list); 
         hotel.find({'_id': { $in: list}})
             .then(_item => res.json(_item))
             .catch(err => res.json(err));  
@@ -210,7 +212,7 @@ router.route('/addTracker')
 
                     _item.save()
                         .then(() => res.json("Hotel added to your tracking list"))
-                        .catch(err => res.status(500).json("Error: " + error))
+                        .catch(err => res.status(500).json("Error: " + err))
                 }
             })
     })

@@ -123,10 +123,10 @@ export default function Homepage() {
                         }}
                     >
                     </img>
-                    <Link to='/viewHotels/loc=queenstown' className='marker' id='queenstown'><BiIcons.BiCurrentLocation /><span>Queenstown</span></Link>
-                    <Link to='/viewHotels/loc=marinabay' className='marker' id='marinabay'><BiIcons.BiCurrentLocation /><span>Marina Bay</span></Link>
-                    <Link to='/viewHotels/loc=orchardroad' className='marker' id='orchardroad'><BiIcons.BiCurrentLocation /><span>Orchard Road</span></Link>
-                    <Link to='/viewHotels/loc=boonlay' className='marker' id='boonlay'><BiIcons.BiCurrentLocation /><span>Boon Lay</span></Link>
+                    <Link to='/viewHotels/loc=Queenstown, Singapore' className='marker' id='queenstown'><BiIcons.BiCurrentLocation /><span>Queenstown</span></Link>
+                    <Link to='/viewHotels/loc=Marina Bay, Singapore' className='marker' id='marinabay'><BiIcons.BiCurrentLocation /><span>Marina Bay</span></Link>
+                    <Link to='/viewHotels/loc=Orchard Road, Singapore' className='marker' id='orchardroad'><BiIcons.BiCurrentLocation /><span>Orchard Road</span></Link>
+                    <Link to='/viewHotels/loc=Boon Lay, Singapore' className='marker' id='boonlay'><BiIcons.BiCurrentLocation /><span>Boon Lay</span></Link>
 
                 </div>
                 <ScrollAnimation animateIn="fadeIn">

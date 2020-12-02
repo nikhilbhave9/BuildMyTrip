@@ -63,7 +63,9 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
             {/* Hotel Title */}
             <div className="hotel-titlebar" style={{ textAlign: 'center' }}> {/* Divided into different lines for ease of CSS styling */}
                 <div className='left'>
-                    <span>{name}</span>
+                    <Link to={'/hotel/' + id} style={{fontFamily: 'ubuntu', fontSize: '30px'}}>
+                        <span>{name}</span>
+                    </Link>
                     <br/>
                     <span className="hotel_rating">
                         {hotel_rating}<BsIcons.BsStarFill style={{ color: 'blue' }} />/5
@@ -72,13 +74,6 @@ function HotelTile({ name, costPerNight, hotel_rating, user_rating, image, ameni
                     <span className="hotel_location">
                         {location}
                     </span>
-                </div>
-                <div className="center">
-                    <Link to={'/hotel/' + id}>
-                        <Button size="large" style={{ color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
-                            Hotel Page
-                        </Button>
-                    </Link>
                 </div>
                 <div className="right">
                     <p className="hotel_price">

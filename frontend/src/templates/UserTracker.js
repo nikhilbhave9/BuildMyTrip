@@ -44,41 +44,40 @@ export default class UserTracker extends Component {
             name: '',
             confirm_password: '',
             redirect: false,
-            metaData: [{
-                "hotelName": "Four Seasons",
-                "hotelImage": "https://gommts3.mmtcdn.com/htl-imgs/htl-imgs/4190725563799612-20090w000000k89it0142_R_550_412_R5.jpg?&output-quality=75&downsize=910:612&crop=910:612;141,0&output-format=jpg",
-                "hotelCost": "50000",
-                "hotelLocation": "Marina Bay Sands, Singapore",
-                "id": "ID",
-                "date": new Date(), 
-                "vacancy": 255
-            }]
+            loading: true,
+            metaData: null
         }
     }
 
-    /*componentWillMount() {
+    componentDidMount() {
         axios.get('http://localhost:5000/users/profile')
             .then(res => {
-                this.setState(res.data);
-                this.setState({ 
-                    username: res.data.email,
-                    name: res.data.name
-                }) ;
-                console.log(this.state); 
+                console.log(res.data.wishlist); 
 
-
+                let params = {"data": JSON.parse(JSON.stringify(res.data.wishlist))}
+                axios.post('http://localhost:5000/hotels/getHotels', params)
+                    .then(res_i => {
+                        console.log(res_i); 
+                        this.setState({metaData: res_i.data}, () => {
+                            console.log(this.state.metaData);
+                            this.setState({loading: false}); 
+                        });
+                    })
+                    .catch(err => console.log(err)); 
             })
             .catch(err => console.log(err)); 
-    }*/
+    }
 
     render() {
         if (this.state.redirect)
             return <Redirect to='/users/profile' />
 
-        return (
+        if (this.state.loading)
+            return <div>Loading...</div> 
+
+            return (
             <div>
                 <div className="register">
-                    {/* Logo */}
                     <img
                         style={{
                             position: "absolute",
@@ -110,21 +109,20 @@ export default class UserTracker extends Component {
                                 return (
                                     <tr style={{ backgroundColor: 'rgba(50, 50, 100, 0.5)' }}>
                                         <td className="image_cell">
-                                            <img className="booking_image" src={value.hotelImage} alt="hotelsnap" />
+                                            <img className="booking_image" src={value.imagesLink[0]} alt="hotelsnap" />
                                         </td>
                                         <td className="nameloc_cell">
-                                            <p className="hotel-name">{value.hotelName}</p>
-                                            <p className="hotel_location">{value.hotelLocation}</p>
+                                            <p className="hotel-name">{value.itemName}</p>
+                                            <p className="hotel_location">{value.location}</p>
                                             <p></p>
                                         </td>
-                                        
-                                        <td className="vacancycheck-cell">
-                                            <strong>Currently tracking for: </strong>{(value.date).toString()}<br/><br/>
-                                            <strong>Vacancies: </strong>{value.vacancy}
-                                        </td>   
-
+                                        <td>
+                                            <p className="hotel-name">Deluxe Rooms: ₹{value.itemCost}/night</p>
+                                            <p className="hotel_location">King Deluxe Rooms: ₹{value.itemCost * 2}/night</p>
+                                            <p className="hotel_location">Season's Emperor Rooms: ₹{value.itemCost * 3}/night</p> 
+                                        </td>
                                         <td className="rebook_cell">
-                                            <Link to={"/quickbook/" + value.id}>
+                                            <Link to={"/quickbook/" + value._id}>
                                                 <Button size="large" style={{ marginLeft: "5px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
                                                     Quick Book
                                                 </Button>
