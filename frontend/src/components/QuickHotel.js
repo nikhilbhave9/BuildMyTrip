@@ -326,21 +326,6 @@ function QuickHotel({ name, costPerNight, id, location }) {
                             Finalize Booking
                         </Button>
                     </Link>
-                    <Link>
-                        <Button
-                            size="large"
-                            id="submit"
-                            type="submit"
-                            style={{
-                                marginLeft: "5%",
-                                marginTop: "10%",
-                                color: 'white',
-                                background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)"
-                            }
-                            }>
-                            Add to tracker
-                        </Button>
-                    </Link>
                 </div>
 
             </div>
