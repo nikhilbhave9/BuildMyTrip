@@ -7,7 +7,7 @@ import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 import emailjs from "emailjs-com";
-import {Modal} from 'react-bootstrap';
+import Modal from 'react-modal';
 
 function RegisterPage() {
 
@@ -84,7 +84,7 @@ function RegisterPage() {
         .then(function(response) {
            alert("The OTP has been sent to [" + registerUsername + "]");
         }, function(error) {
-           alert('Ran into an error: ', error);
+           alert('The email address does not exist!');
         });
 
         setmodalState(true);
@@ -194,18 +194,43 @@ function RegisterPage() {
                         Register
                     </Button>
 
-                    <Modal show = {modalState} onHide = {closeModal}>
-                        <Modal.Header closeButton> Enter your OTP </Modal.Header> 
-                        <Modal.Body> <TextField
+                    <Modal isOpen = {modalState}
+                    style = {
+                        {
+                            overlay: {
+                                top: 100,
+                                bottom: 200,
+                                left: 100,
+                                right: 1000,
+                            },
+
+                        }
+                    }>
+                        <h2> Enter OTP </h2>
+                        
+                        <p> 
+                        <TextField
                         required
                         id="outlined-required"
                         label="OTP"
                         variant="outlined"
                         onChange = {checkingOTP}
-                    /> </Modal.Body>
-                        <Modal.Footer> <Button onClick = {verifyOTP} size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
-                        Enter OTP
-                    </Button> </Modal.Footer>
+                        />
+
+                        </p>
+
+                    <p> 
+                    <Button onClick = {verifyOTP} size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
+                        Submit OTP
+                    </Button>
+
+                    &nbsp; &nbsp; &nbsp;
+                    
+                    <Button onClick = {closeModal} size="large" id="submit" type="submit" style={{ marginTop: "2%", color: 'white', background: "linear-gradient(45deg, #3734eb 30%, #eb34b1 90%)" }}>
+                        Exit
+                    </Button>
+                    </p>
+
                     </Modal>
                 </FormControl>
             </div>
