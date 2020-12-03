@@ -46,9 +46,9 @@ Main frameworks and languages used:
 - SHA-256
 
 ## Installation
-- Make sure that node and react are installed on your machine, along with 'create-react-app', 'mongoose', 'bootstrap', 'axios', 'email-js', '@material-ui/core'
-- Navigate to the backend folder on the terminal. Start the nodejs server by entering 'node app' 
-- Navigate to the frontend folder on a different terminal. Start the react app by entering 'npm start'
+- Make sure that the node package manager (npm) is installed on your device,
+- Navigate to the backend folder on the terminal. Install the dependencies by entering 'npm i'. Start the nodejs server by entering 'node server' 
+- Navigate to the frontend folder on a different terminal. Install the dependencies by entering 'npm i'. Start the react app by entering 'npm start'
 - 'localhost:3000' should open up in your default browser. 
 
 ## People 
