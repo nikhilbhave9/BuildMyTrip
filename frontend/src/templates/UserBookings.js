@@ -212,9 +212,6 @@ export default class UserBookings extends Component {
                                             <Button onClick = {() => {this.deleteBooking(value.hotelName)}} size="large" style={{ marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
                                                 Delete booking
                                             </Button>
-                                            <Button size="large" style={{ marginTop: "10px", marginLeft: "20px", color: 'white', background: "linear-gradient(45deg, #eb34b1 30%, #3734eb 90%)" }}>
-                                                Add to Tracker
-                                            </Button>
                                             
                                         </td>
                                     </tr>
