@@ -37,7 +37,7 @@ function RegisterPage() {
         else if ((e.target.value).length <= 6)
             document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: red'>Very Weak</span> - Not enough characters";
         else if ((/\d/.test(e.target.value)) === false)
-            document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: orange'>Weak</span> - Not numeric characters";
+            document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: orange'>Weak</span> - No numeric characters";
         else
             document.getElementById('password-status').innerHTML="<b>Strength<b>: <span style='color: yellow'>Strong</span> - That seems good enough";
     }
@@ -148,14 +148,13 @@ function RegisterPage() {
 
                 <FormControl
                     style={{
-                        fontFamily: 'Lato', 
                         backgroundColor: 'rgba(50, 50, 100, 0.5)', 
                         width: '30%', 
                         height: '530px', 
                         alignItems: 'center',
                         color: '#f0f0f0'
                     }}>
-                    <h2>
+                    <h2 style={{ fontSize: '25px', marginTop: '25px' }}>
                         Email
                     </h2>
                     <TextField
@@ -165,7 +164,7 @@ function RegisterPage() {
                         variant="outlined"
                         onChange = {onRegisterUsername}
                     />
-                    <h2>
+                    <h2 style={{ fontSize: '25px', marginTop: '25px' }}>
                         Password
                     </h2>
                     <TextField
@@ -176,7 +175,7 @@ function RegisterPage() {
                         variant="outlined"
                         onChange = {onRegisterPassword}
                     />
-                    <h2>
+                    <h2 style={{ fontSize: '25px', marginTop: '25px' }}>
                             Confirm Password
                     </h2>
                     <TextField
@@ -187,7 +186,7 @@ function RegisterPage() {
                         variant="outlined"
                         onChange = {onRegisterConfirmPassword}
                     />
-                    <h4 id="password-status">
+                    <h4 id="password-status" style={{fontSize: '15px', marginTop: '5px'}}>
                         Your password must contain at least 6 alphanumeric characters
                     </h4>
                     

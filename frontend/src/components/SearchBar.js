@@ -52,21 +52,14 @@ export default class SearchBar extends Component {
 
     renderSuggestions = () => {
         let { suggestions } = this.state;
-        if (suggestions.length === 0) {
-            return (
-                <ul>
-                    <li className="list-item"><a style={{color: 'yellow'}} href={'http://localhost:3000/search/q=' + this.state.searchField}>
-                        <FcIcons.FcSearch style={{marginRight: '10px', fontSize: '30px'}}/>Do a Fuzzy Search on '{this.state.searchField}'</a></li>
-
-                </ul>
-            )
-        }
         return (
             /* Get an unordered list of suggestions from the item Name array for suggestions */
             <ul>
                 {
                     suggestions.map((item, index) => (<li className="list-item" key={index}><a href={'http://localhost:3000/hotel/' + this.state.JSONSuggestions[item]}>{item}</a></li>))
                 }
+                <li className="list-item"><a style={{color: 'yellow'}} href={'http://localhost:3000/search/q=' + this.state.searchField}>
+                        <FcIcons.FcSearch style={{marginRight: '10px', fontSize: '30px'}}/>Do a Fuzzy Search on '{this.state.searchField}'</a></li>
             </ul>
 
         );
