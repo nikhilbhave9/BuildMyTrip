@@ -15,13 +15,16 @@ import QuickBook from './templates/QuickBook'
 import BookingConfirmation from './templates/BookConf'; 
 import UserTracker from './templates/UserTracker'; 
 import Signout from './templates/Signout'; 
-import ViewHotel from './components/ViewHotel'
+import ViewHotel from './components/ViewHotel'; 
+import SearchResults from './components/search'; 
 
 function App() {
 	return (
 		<Router>
 			<div className="App">
 				<Switch>
+					<Route path='/search/q=:search_query' component={SearchResults}/>
+
 					<Route path='/viewhotels/loc=:location' component={DisplayHotels}/>
 					<Route path='/hotel/:id' component={ViewHotel}/>
 						

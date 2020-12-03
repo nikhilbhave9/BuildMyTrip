@@ -1,6 +1,7 @@
 import { React, Component } from 'react';
 import '../static/SearchBar.css';
 import axios from 'axios';
+import * as FcIcons from 'react-icons/fc'
 
 export default class SearchBar extends Component {
     constructor(props) {
@@ -18,10 +19,10 @@ export default class SearchBar extends Component {
     UNSAFE_componentWillMount() {
         axios.get('http://localhost:5000/hotels/hoteldatapair')
             .then(res => {
-                this.setState({ JSONSuggestions: res.data })  
+                this.setState({ JSONSuggestions: res.data })
                 this.setState({ data: Object.keys(res.data) })
             })
-        }
+    }
 
 
 
@@ -36,7 +37,7 @@ export default class SearchBar extends Component {
 
             document.getElementById('search_box').style = 'display: flex';
             this.setState({ suggestions });
-            console.log(this.state.data); 
+            console.log(this.state.data);
         }
 
         if (e.target.value === '')
@@ -52,7 +53,13 @@ export default class SearchBar extends Component {
     renderSuggestions = () => {
         let { suggestions } = this.state;
         if (suggestions.length === 0) {
-            return null;
+            return (
+                <ul>
+                    <li className="list-item"><a style={{color: 'yellow'}} href={'http://localhost:3000/search/q=' + this.state.searchField}>
+                        <FcIcons.FcSearch style={{marginRight: '10px', fontSize: '30px'}}/>Do a Fuzzy Search on '{this.state.searchField}'</a></li>
+
+                </ul>
+            )
         }
         return (
             /* Get an unordered list of suggestions from the item Name array for suggestions */
@@ -61,6 +68,7 @@ export default class SearchBar extends Component {
                     suggestions.map((item, index) => (<li className="list-item" key={index}><a href={'http://localhost:3000/hotel/' + this.state.JSONSuggestions[item]}>{item}</a></li>))
                 }
             </ul>
+
         );
     }
 

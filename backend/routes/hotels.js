@@ -217,6 +217,24 @@ router.route('/addTracker')
             })
     })
 
+
+router.route('/getHotelNames/:search_query')
+    .get((req, res) => {
+        hotel.find()
+            .then(_item =>{
+                
+                let field = new RegExp(req.params.search_query.toString(), "gi");
+
+                let resArray = {}
+                for (item in _item) {
+                    if((_item[item].itemName).toString().match(field) && ((_item[item].itemName).toString()).match(field).length > 0)
+                        resArray[_item[item].itemName] = _item[item]._id;
+                }
+
+                res.json(resArray); 
+            })
+    })
+
 // ========================================================================
 
 // VERIFIED USER (2)
