@@ -22,7 +22,7 @@ export default function PrimarySearchAppBar() {
                 <Link to="#" className="menu-trigger" >
                     <FaIcons.FaBars onClick={showSidebar} style={{ fontSize: "50%", marginLeft: "150%", float: "left" }} />
                 </Link>
-                <Link to="/" className="header__logo" style={{ color: "#3734eb", float: "left", marginRight: "85%", textDecoration: "none"}}>
+                <Link to="/" className="header__logo" style={{ color: "#3734eb", float: "left", marginLeft: "5%", textDecoration: "none"}}>
                     Build<span className="mid">My</span>Trip
                 </Link>
                 <div className="quick-links" style={{ position: "absolute", left: "auto", right: "5%", fontSize: "70%" }}>
@@ -45,7 +45,7 @@ export default function PrimarySearchAppBar() {
                             <AiIcons.AiOutlineClose />
                         </Link>
                     </li>
-                    {SidebarLinksLoggedOut.map((item, index) => {
+                    {SidebarLinksLoggedOut.map((item, index) => { 
                         return (
                             <li key={index} className={item.className}>
                                 <Link to={item.path}>
@@ -68,7 +68,7 @@ export default function PrimarySearchAppBar() {
                 <Link to="#" className="menu-trigger" >
                     <FaIcons.FaBars onClick={showSidebar} style={{ fontSize: "50%", marginLeft: "150%", float: "left" }} />
                 </Link>
-                <Link to="/" className="header__logo" style={{ color: "#3734eb", float: "left", marginRight: "85%", textDecoration: "none" }}>
+                <Link to="/" className="header__logo" style={{ color: "#3734eb", float: "left", marginLeft: "5%", textDecoration: "none" }}>
                     Build<span style={{ color: "#eb34b1" }}>My</span>Trip
                 </Link>
                 <div className="quick-links" style={{ position: "absolute", left: "auto", right: "5%", fontSize: "70%" }}>

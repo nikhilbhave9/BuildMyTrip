@@ -72,7 +72,6 @@ export default class registerPage extends Component {
         }
 
         alert(user.password.length);
-        return; 
         if (user.password.length <= 6 || !(/\d/.test(user.password))) {
             alert("Your Password is susceptible to breach. Increase strength!");
             return; 

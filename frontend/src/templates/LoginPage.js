@@ -9,6 +9,7 @@ import { useHistory } from "react-router-dom";
 import bgLogin from '../static/login-sunset.gif';
 import {GoogleLogin} from "react-google-login";
 import emailjs from "emailjs-com";
+import '../static/register.css'
 
 
 function LoginPage(){
@@ -125,19 +126,19 @@ function LoginPage(){
                     <h2>
                         Email
                     </h2>
-                    <TextField
+                    <input
                         required
-                        id="outlined-required"
-                        label="Username: Required"
+                        id="outlined-password-input"
+                        placeholder="Email Address"
                         variant="outlined"
                         onChange = {onLoginUsername}
                     />
                     <h2>
                         Password
                     </h2>
-                    <TextField
+                    <input
                         id="outlined-password-input"
-                        label="Password"
+                        placeholder="Password"
                         type="password"
                         autoComplete="current-password"
                         variant="outlined"

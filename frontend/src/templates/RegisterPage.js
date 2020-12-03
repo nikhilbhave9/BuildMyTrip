@@ -8,6 +8,7 @@ import Button from '@material-ui/core/Button';
 import { useHistory } from "react-router-dom";
 import emailjs from "emailjs-com";
 import Modal from 'react-modal';
+import '../static/register.css';
 
 function RegisterPage() {
 
@@ -93,7 +94,7 @@ function RegisterPage() {
 
     const verifyOTP = () => {
 
-        if (OTP_input == generatedOTP){
+        if (OTP_input === generatedOTP){
 
             Axios({
                 method: "POST",
@@ -104,7 +105,7 @@ function RegisterPage() {
                 withCredentials: false,
                 url: "http://localhost:5000/users/register",
     
-            }).then((res) => console.log(res));
+            }).then((res) => alert(res.data));
     
             history.push("/");
 
@@ -154,34 +155,37 @@ function RegisterPage() {
                         alignItems: 'center',
                         color: '#f0f0f0'
                     }}>
-                    <h2 style={{ fontSize: '25px', marginTop: '25px' }}>
+                    <h2>
                         Email
                     </h2>
-                    <TextField
+                    <input
                         required
-                        id="outlined-required"
+                        id="outlined-password-input"
                         label="Username: Required"
                         variant="outlined"
+                        placeholder="Email Address"
                         onChange = {onRegisterUsername}
                     />
-                    <h2 style={{ fontSize: '25px', marginTop: '25px' }}>
+                    <h2>
                         Password
                     </h2>
-                    <TextField
+                    <input  
                         id="outlined-password-input"
                         label="Password"
                         type="password"
+                        placeholder="Password"
                         autoComplete="current-password"
                         variant="outlined"
                         onChange = {onRegisterPassword}
                     />
-                    <h2 style={{ fontSize: '25px', marginTop: '25px' }}>
+                    <h2>
                             Confirm Password
                     </h2>
-                    <TextField
+                    <input
                         id="outlined-password-input"
                         label="Confirm Password"
                         type="password"
+                        placeholder="Password"
                         autoComplete="current-password"
                         variant="outlined"
                         onChange = {onRegisterConfirmPassword}
