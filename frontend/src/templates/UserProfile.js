@@ -84,14 +84,14 @@ export default class UserProfile extends Component {
             alert("Password: " + this.state.password + "\n" + "Confirm password: " + this.state.confirm_password);
         else {
             let updateInfo = {
-                "username": this.state.username,
+                "username": this.state.name,
                 "password": this.state.password
             }
 
             axios.post('http://localhost:5000/users/profile', updateInfo)
                 .then(res => {
                     alert(res.data);
-                    localStorage.setItem("Username", this.state.username);
+                    localStorage.setItem("Username", this.state.name);
                     this.setState({redirect: true});
                 })
                 .catch(err => console.log(err))
@@ -183,58 +183,48 @@ export default class UserProfile extends Component {
 
                         <FormControl onSubmit={this.updateProfile}
                             style={{
-                                fontFamily: 'Lato',
                                 backgroundColor: 'rgba(50, 50, 100, 0.5)',
                                 width: '50%',
                                 height: '530px',
                                 alignItems: 'center',
                                 color: '#f0f0f0'
                             }}>
-                            <table style={{tableLayout: 'fixed', width: "500px"}}> 
+                            <table style={{tableLayout: 'fixed', width: "700px"}}> 
                                 <tr>
-                                    <td>
+                                    <td colspan = "2">
                                     <h2>
                                         Name
                                     </h2>
-                                    <TextField
+                                    <input
                                         required
-                                        id="outlined-required"
+                                        id="outlined-password-input"
                                         label="Name"
                                         variant="outlined"
-                                        defaultValue={this.state.name} 
-                                        disabled={(this.state['formFieldsDisabled'])} 
-                                        onChange={this.onChangeName}
+                                        defaultValue = {this.state.name}
+                                        disabled = {(this.state['formFieldsDisabled'])}
+                                        placeholder="Email"
+                                        onChange = {this.onChangeName}
                                     />
+                                  
                                     </td>
-                                    <td>
-                                    <h2>
-                                        Username
-                                    </h2>
-                                    <TextField
-                                        required
-                                        id="outlined-required"
-                                        label="Username"
-                                        variant="outlined"
-                                        defaultValue={this.state.name} 
-                                        disabled={(this.state['formFieldsDisabled'])} 
-                                        onChange={this.onChangeUsername}
-                                    />
-                                    </td>
+
                                 </tr>
                                 <tr>
                                     <td>
                                     <h2>
                                         Password
                                     </h2>
-                                    <TextField
+
+                                    <input  
                                         id="outlined-password-input"
                                         label="Edit to change password"
                                         type="password"
+                                        placeholder="Password"
                                         autoComplete="current-password"
                                         variant="outlined"
-                                        defaultValue="" 
-                                        disabled={(this.state['formFieldsDisabled'])}
-                                        onChange={this.onChangePassword}
+                                        defaultValue = ""
+                                        onChange = {this.onChangePassword}
+                                        disabled = {(this.state['formFielddisabled'])}
                                     />
                                     <h4 id="password-status">
                                         Your password must contain at least 6 alphanumeric characters
@@ -244,15 +234,17 @@ export default class UserProfile extends Component {
                                     <h2>
                                         Confirm Password
                                     </h2>
-                                    <TextField
+
+                                    <input
                                         id="outlined-password-input"
                                         label="Confirm Password"
                                         type="password"
+                                        placeholder="Password"
                                         autoComplete="current-password"
                                         variant="outlined"
-                                        defaultValue="" 
-                                        disabled={(this.state['formFieldsDisabled'])} 
-                                        onChange={this.onChangeConfirmPassword}
+                                        onChange = {this.onChangeConfirmPassword}
+                                        defaultValue = ""
+                                        disabled = {(this.state['formFieldsDisabled'])}
                                     />
                                     <h4 id="confirmpassword-status">
                                         Your password must contain at least 6 alphanumeric characters

@@ -94,7 +94,7 @@ function RegisterPage() {
 
     const verifyOTP = () => {
 
-        if (OTP_input === generatedOTP){
+        if (OTP_input == generatedOTP){
 
             Axios({
                 method: "POST",
