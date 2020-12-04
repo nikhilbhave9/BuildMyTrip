@@ -49,9 +49,16 @@ function LoginPage(){
             credentials: 'include',
             withCredentials: true,
             url: "http://localhost:5000/users/googlelogin",
-        }).then((res) => console.log(res));
+        }).then((res) => {
+            if (res.status === 200) {
+                localStorage.setItem("Username", GoogleEmail); 
+                history.push("/");
 
-        history.push("/");
+            }
+            else
+                alert(res.data);
+        });
+
     };
 
 
