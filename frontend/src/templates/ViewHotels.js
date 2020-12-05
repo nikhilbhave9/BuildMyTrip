@@ -181,40 +181,9 @@ export default class DisplayHotels extends Component {
                                 />
                             </Grid>
                         </MuiPickersUtilsProvider>
-                        <br />
-                        Amenities
-                        <form>
-                            <label class="container">Wifi
-                                <input type="checkbox" />
-                                <span class="checkmark"></span>
-                            </label>
+                            <br/>
+                            <button>Filter by Date</button>
 
-                            <label class="container">Restaraunt
-                                <input type="checkbox" />
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Swimming
-                                <input type="checkbox" />
-                                <span class="checkmark"></span>
-                            </label>
-
-                            <label class="container">Gymnasium
-                                <input type="checkbox" />
-                                <span class="checkmark"></span>
-                            </label>
-                            <label class="container">Free Breakfast
-                                <input type="checkbox" />
-                                <span class="checkmark"></span>
-                            </label>
-
-                            <label class="container">Free Parking
-                                <input type="checkbox" />
-                                <span class="checkmark"></span>
-                            </label>
-
-                            <button>Filter by Amenities/Date</button>
-
-                        </form>
                     </div>
                     {this.state.mdata.map((data, index) => {
                         console.log(this.state.mdata[index]);
