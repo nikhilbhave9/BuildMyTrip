@@ -100,7 +100,6 @@ function QuickHotel({ name, costPerNight, id, location }) {
 
 
     const handleSubmit = () => {
-        alert(billName + ' ' + billEmail);
         localStorage.setItem('RoomTier', roomPreferences);
         localStorage.setItem('RoomCost', finalCost);
         localStorage.setItem('FinalCost', 1.09 * finalCost);
@@ -303,7 +302,6 @@ function QuickHotel({ name, costPerNight, id, location }) {
                         <TextField
                             label="Billing Phone Number"
                             id="outlined-margin-normal"
-                            defaultValue="Default Value"
                             helperText="SMS alerts will be prompted to this number"
                             margin="normal"
                             variant="outlined"
