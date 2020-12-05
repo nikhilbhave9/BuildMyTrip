@@ -1,6 +1,7 @@
 const router = require('express').Router();
 const { json } = require('express');
 const mongoose = require('mongoose');
+const emailjs = require('emailjs-com');
 
 /* Calling the mongoose model we just created */
 let hotel = require('../models/hotels.model.js');
@@ -217,6 +218,31 @@ router.route('/addTracker')
             })
     })
 
+router.route('/deleteTracking')
+    .post((req, res) => {
+
+        hotel.findById(req.body.ID)
+            .then(_item => {
+                if (req.session.user){
+                    let email = req.session.user.username;
+
+                    for (i = 0; i <= _item.tracking.length; i++){
+                        if (email === _item.tracking[i]){
+                            _item.tracking.splice(i, 1);
+                            _item.save();
+
+                        }
+                    }
+
+                }
+                else{
+                    console.log("No match found");
+                }
+                
+            })
+
+    })
+
 
 router.route('/getHotelNames/:search_query')
     .get((req, res) => {
@@ -233,6 +259,24 @@ router.route('/getHotelNames/:search_query')
 
                 res.json(resArray); 
             })
+    })
+
+router.route('/trackerEmail')
+    .post((req, res) => {
+
+        hotelName = req.body.name;
+        hotel.findOne({itemName: hotelName}, (err, valid_hotel) => {
+            if (err) throw err;
+            if (valid_hotel){
+
+                res.json(valid_hotel.tracking);
+
+            }
+
+            
+        })
+
+        
     })
 
 // ========================================================================

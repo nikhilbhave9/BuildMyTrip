@@ -6,6 +6,7 @@ import TextField from '@material-ui/core/TextField';
 import FormControl from '@material-ui/core/FormControl';
 import Button from '@material-ui/core/Button';
 import '../static/UserBookings.css';
+import emailjs from 'emailjs-com';
 
 /*import {GoogleLogin} from "react-google-login";*/
 /*import emailjs from "emailjs-com";*/
@@ -129,7 +130,7 @@ export default class UserBookings extends Component {
         this.consolelog(e)
     }
 
-    deleteBooking(e){
+    async deleteBooking(e){
 
         const hotelName = {
             name: e,
@@ -139,7 +140,36 @@ export default class UserBookings extends Component {
             .then()
             .catch(err => console.log(err))
 
-        window.location.reload();
+
+        axios.post('http://localhost:5000/hotels/trackerEmail', hotelName)
+            .then(res => {
+
+                let i = 0;
+                
+                console.log(res.data)
+
+                for (i = 0; i < res.data.length; i++){
+                    var templateParams = {
+                        email: res.data[i],
+                        hotel_name: e,
+                        
+                    };
+
+                    emailjs.send('BuildMyTrip', 'template_8z6kz0g', templateParams, 'user_OXQPAUgJAaocvkKl7iVMf')
+                        .then(function(response) {                
+                        }, function(error) {
+                            alert('The email address does not exist!');
+                        });
+                };
+
+
+            })
+            .catch(err => console.log(err))
+
+
+            
+
+
     }
 
     render() {

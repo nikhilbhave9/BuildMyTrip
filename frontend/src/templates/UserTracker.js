@@ -79,6 +79,10 @@ export default class UserTracker extends Component {
             .then()
             .catch(err => console.log(err))
 
+        axios.post('http://localhost:5000/hotels/deleteTracking', trackerID)
+            .then()
+            .catch(err => console.log(err))
+
         window.location.reload();
     }
 

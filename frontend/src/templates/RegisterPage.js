@@ -74,6 +74,7 @@ function RegisterPage() {
 
         setgeneratedOTP(OTP);
 
+        /*
         var templateParams = {
 
             email: registerUsername,
@@ -87,6 +88,7 @@ function RegisterPage() {
         }, function(error) {
            alert('The email address does not exist!');
         });
+        */
 
         setmodalState(true);
         
