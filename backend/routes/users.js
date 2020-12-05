@@ -100,6 +100,7 @@ router.route("/googlelogin")
                         newUser.save()
                             .then(() => res.json("User added successfully!"))
                             .catch(err => res.status(400).json("Error: " + err));
+
                     }
                     else {
                         req.session.user = valid_user;
