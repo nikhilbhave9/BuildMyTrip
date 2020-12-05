@@ -32,7 +32,6 @@ function App() {
 						<Signout/>	
 					</Route> 
 					<Route path='/bookingconfirmation'>
-						<Navbar/>
 						<BookingConfirmation/>
 					</Route>
 					<Route path='/usertracker'>
