@@ -196,7 +196,8 @@ export default class UserBookings extends Component {
                                 return (
                                     <tr style={{ backgroundColor: 'rgba(50, 50, 100, 0.5)' }}>
                                         <td className="image_cell">
-                                            <img className="booking_image" alt="hotelsnap" />
+                                        <p className="hotel-name">Booked for: {value.billingName}</p>
+                                            <p className="hotel_location">Invoice Sent to: {value.email}</p>
                                         </td>
                                         <td className="nameloc_cell">
                                             <p className="hotel-name">{value.hotelName}</p>

@@ -67,7 +67,7 @@ export default class SearchResults extends Component {
                     <tbody>
                         {Object.keys(this.state.data).map((value, index) => {
                             return (
-                                <tr><p><Link style={{fontSize: '20px'}} to={'/viewHotel/' + this.state.data[value]}>{value}</Link></p></tr>
+                                <tr><p><Link style={{fontSize: '20px'}} to={'/hotel/' + this.state.data[value]}>{value}</Link></p></tr>
                             )
                         })}
                     </tbody>

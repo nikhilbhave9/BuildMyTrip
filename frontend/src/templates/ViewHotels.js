@@ -137,6 +137,7 @@ export default class DisplayHotels extends Component {
 
                         <select name="Filter" id="Filter" style={{ "margin-left": "90px", "margin-right": "20px" }}>
                             <option value="" disbaled>Category</option>
+                            <option value="None">No Filters</option>
                             <option value="Marina Bay, Singapore">Marina Bay</option>
                             <option value="Queenstown, Singapore">Queenstown</option>
                             <option value="Orchard Road, Singapore">Orchard Road</option>
@@ -187,7 +188,7 @@ export default class DisplayHotels extends Component {
                     </div>
                     {this.state.mdata.map((data, index) => {
                         console.log(this.state.mdata[index]);
-                        if (this.state.filter.length <= 0) {
+                        if (this.state.filter === "None") {
                             {/* If no filter has been applied, list all items unconditionally */ }
                             return (
 
