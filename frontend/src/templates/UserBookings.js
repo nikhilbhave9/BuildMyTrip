@@ -56,7 +56,8 @@ export default class UserBookings extends Component {
             loading: true, 
             metaData: [{
                 
-            }]
+            }], 
+            emailsSent: 0
         }
     }
 
@@ -149,6 +150,7 @@ export default class UserBookings extends Component {
                 
                 console.log(res.data)
 
+                this.setState({emailsSent: res.data.length})
                 for (i = 0; i < res.data.length; i++){
                     var templateParams = {
                         email: res.data[i],
@@ -157,7 +159,8 @@ export default class UserBookings extends Component {
                     };
 
                     emailjs.send('BuildMyTrip', 'template_8z6kz0g', templateParams, 'user_OXQPAUgJAaocvkKl7iVMf')
-                        .then(function(response) {                
+                        .then(function(response) {    
+                           this.setState({emailsSent: this.state.emailsSent - 1}) 
                         }, function(error) {
                             alert('The email address does not exist!');
                         });
@@ -167,7 +170,8 @@ export default class UserBookings extends Component {
             })
             .catch(err => console.log(err))
 
-
+            if (this.state.emailsSent === 0)
+                window.location.reload(); 
     }
 
     render() {
