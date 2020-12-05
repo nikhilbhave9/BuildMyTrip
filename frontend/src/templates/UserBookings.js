@@ -128,9 +128,10 @@ export default class UserBookings extends Component {
 
     onSignIn(e) {
         this.consolelog(e)
+
     }
 
-    async deleteBooking(e){
+    deleteBooking(e){
 
         const hotelName = {
             name: e,
@@ -165,9 +166,6 @@ export default class UserBookings extends Component {
 
             })
             .catch(err => console.log(err))
-
-
-            
 
 
     }

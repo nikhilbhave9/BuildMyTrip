@@ -27,7 +27,7 @@ function LoginPage(){
 
         console.log(GoogleEmail);
 
-        var templateParams = {
+        /*var templateParams = {
 
             email: GoogleEmail,
             name: firstname
@@ -40,6 +40,7 @@ function LoginPage(){
         }, function(error) {
            alert('Ran into an error: ', error);
         });
+        */
 
         Axios({
             method: "POST",
