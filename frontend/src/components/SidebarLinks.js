@@ -16,7 +16,7 @@ export const SidebarLinksLoggedIn = [
     },
     {
         title: 'Quick Trip',
-        path: '/quicktrip',
+        path: '/viewHotels/loc=None',
         icon: <MdIcons.MdLocalHotel/>,
         className: 'side-txt'
     },
