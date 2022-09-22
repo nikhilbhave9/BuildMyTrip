@@ -32,11 +32,8 @@ Main frameworks and languages used:
 #### Frontend
 - React JS (Primary frontend framework)
 - Material UI
-- React-router (Routing to different sub-pages)
-- Axios (HTTP Requests and API Calls)
 - HTML 
-- CSS Bootstrap
-- CSS Grid 
+- CSS, CSS Bootstrap
 
 #### Backend 
 - MongoDB (NoSQL database program)
