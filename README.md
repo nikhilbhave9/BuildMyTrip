@@ -36,7 +36,6 @@ Main frameworks and languages used:
 - CSS, CSS Bootstrap
 
 #### Backend 
-- MongoDB (NoSQL database program)
 - MongoDB Atlas
 - Express 
 - Mongoose  
